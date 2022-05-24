@@ -16,34 +16,31 @@ namespace ParkingLotAPP.Controllers
     public class AuthorizeController : Controller
     {
         Manager_SQL manager_SQL = new Manager_SQL("192.168.1.46", "3306", "parkinglist", "rotamoon", "rotamoon90692052");
+        //  路徑 "/api/Authorize"   post參數1 Account  post參數2 Password 
         [HttpPost]
         public ActionResult Login(string Account,string Password)
         {
             Response response;
-            var session = HttpContext.Session.GetObjectFromJson<SessionState>("mySession");
+            var session1 = HttpContext.Session.GetObjectFromJson<Manager>("sessionManger");
 
             //已登入的回傳
-            if (session!= null)
+            if (session1!= null)
             {
-                response = new Response { Code = "201", ErrMsg = "已登入", Data = session };
+                response = new Response { Code = "201", ErrMsg = "已登入", Data = session1 };
             }
             else
             {
                 //建立儲存session的物件
-                SessionState sessionState = new SessionState();
-                HttpContext.Session.SetObjectAsJson("mySession", sessionState);
-                session = HttpContext.Session.GetObjectFromJson<SessionState>("mySession");
+                Manager sessionManger = new Manager();
+                HttpContext.Session.SetObjectAsJson("sessionManger", sessionManger);
 
                 var manager = manager_SQL.Login(Account, Password);
 
                 //登入成功
                 if (manager != null)
                 {
-                    session.Account = manager.Account;
-                    session.UserName = manager.UserName;
-                    HttpContext.Session.SetObjectAsJson("mySession", session);
-
-                    //var x = manager_SQL.GetParkingLotInfo("a4f6350f-629a-436f-b746-b8eacb78872c");
+                    session1 = manager;
+                    HttpContext.Session.SetObjectAsJson("sessionManger", session1);
                     response = new Response { Code = "200", ErrMsg = "", Data = manager };
                 }
                 //登入失敗
@@ -54,6 +51,36 @@ namespace ParkingLotAPP.Controllers
             }
 
             return Json(response);
+        }
+        //  路徑 "/api/Authorize?sysGuid=值"
+        [HttpGet]
+        public ActionResult GetAuthorizeData(string sysGuid)
+        {
+            Response response;
+            var session1 = HttpContext.Session.GetObjectFromJson<Manager>("sessionManger");
+
+            if (session1 != null && sysGuid!=null)
+            {
+                if (session1.SysGuid == sysGuid)
+                {
+                    var authorizeData = manager_SQL.GetParkingLotInfo(session1.SysGuid);
+                    HttpContext.Session.SetObjectAsJson("sessionAuthorize", authorizeData);
+                    response = new Response { Code = "200", ErrMsg = "", Data = authorizeData };
+                    return Json(response);
+                }
+                else
+                {
+                    response = new Response { Code = "401", ErrMsg = "不同使用者", Data = null };
+                    return Json(response);
+                }
+            }
+            else
+            {
+                response = new Response { Code = "402", ErrMsg = "操作逾時，請重新登入", Data = null };
+                return Json(response);
+            }
+            
+            
         }
     }
 }

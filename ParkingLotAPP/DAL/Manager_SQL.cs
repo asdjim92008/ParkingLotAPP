@@ -30,24 +30,24 @@ namespace ParkingLotAPP.DAL
                 throw ex;
             }
         }
-        /*public List<DataModel.ParkingLotInfo> GetParkingLotInfo(string SysGuid) 
+        public List<DataModel.ParkingLotInfo> GetParkingLotInfo(string SysGuid) 
         {
             try
             {
                 using (var cn = new MySqlConnection(base._cnStr))
                 {
-                    string sql = $"select * from (select * from userparking where SysGuid='{SysGuid}')b" +
-                        $"  right join parking  on b.ParkingGuid=parking.ParkingGuid";
+                    string sql = $"SELECT * FROM (SELECT * FROM userparking " +
+                        $"WHERE SysGuid = '{SysGuid}')b " +
+                        $"LEFT join parking ON parking.ParkingGuid = b.ParkingGuid";
                     var list = cn.Query<DataModel.ParkingLotInfo>(sql).ToList();
                     return list;
-
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-        }*/
+        }
         
     }
 }
