@@ -19,7 +19,7 @@ namespace ParkingLotAPP.DAL
             {
                 using(var cn = new MySqlConnection(base._cnStr))
                 {
-                    string sql = $"select Account,Password,UserName,CompanyName,Permision from sysappuser where Account='{Account}' and Password='{Password}'";
+                    string sql = $"select * from sysappuser where Account='{Account}' and Password='{Password}'";
                     var list = cn.Query<DataModel.Manager>(sql).ToList();
                     return list.FirstOrDefault();
                     
@@ -30,5 +30,24 @@ namespace ParkingLotAPP.DAL
                 throw ex;
             }
         }
+        /*public List<DataModel.ParkingLotInfo> GetParkingLotInfo(string SysGuid) 
+        {
+            try
+            {
+                using (var cn = new MySqlConnection(base._cnStr))
+                {
+                    string sql = $"select * from (select * from userparking where SysGuid='{SysGuid}')b" +
+                        $"  right join parking  on b.ParkingGuid=parking.ParkingGuid";
+                    var list = cn.Query<DataModel.ParkingLotInfo>(sql).ToList();
+                    return list;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }*/
+        
     }
 }

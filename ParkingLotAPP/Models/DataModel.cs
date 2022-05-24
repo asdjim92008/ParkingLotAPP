@@ -21,11 +21,41 @@ namespace ParkingLotAPP.Models
         }
         public class Manager
         {
+            public string SysGuid { get; set; }
             public string Account { get; set; }
             public string Password { get; set; }
+            public string CompanyGuid { get; set; }
             public string UserName { get; set; }
             public string CompanyName { get; set; }
             public string Permision { get; set; }
+        }
+        public class ParkingLotInfo 
+        { 
+            public string ParkingGuid { get; set; }
+            public string CompanyGuid { get; set; }
+            public string ParkingName { get; set; }
+            public string ParkingNo { get; set; }
+            public string ParkingType { get; set; }
+            public string SQLIP { get; set; }
+            public string SQLPort { get; set; }
+            public string SQLAPort { get; set; }
+            public string SQLAPSPort { get; set; }
+            public string SQLAPSPort2 { get; set; }
+            public string SQLAPSPort3 { get; set; }
+            public string SQLAPSPort4 { get; set; }
+            public string SQLAccount { get; set; }
+            public string SQLPassword { get; set; }
+            public string SQLDBName { get; set; }
+            public string FTPIP { get; set; }
+            public string FTPAccount { get; set; }
+            public string FTPPassword { get; set; }
+            public string LedPort { get; set; }
+            public string LedPort1 { get; set; }
+            public string LedPort2 { get; set; }
+            public string LedPort3 { get; set; }
+            public string EntracePort { get; set; }
+            public string ExitPort { get; set; }
+            public string Status { get; set; }
         }
     }
     
