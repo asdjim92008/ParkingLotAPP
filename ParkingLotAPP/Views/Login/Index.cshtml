@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="~/css/Login.css">
+</head>
+
+<body>
+    <div class="firework"></div>
+    <div class="firework"></div>
+    <div class="firework"></div>
+    <div class="container">
+        <div class="login-box">
+            <h2>Login</h2>
+            <form action="~/Login/Index" method="post" name="form1" id="form1" onsubmit="return checkdata()">
+                <div class="user-box">
+                    <input type="text" required="" id="account" name="account">
+                    <label>Account</label>
+                </div>
+                <div class="user-box">
+                    <input type="password" required="" id="password" name="password">
+                    <label>Password</label>
+                </div>
+                <center>
+                    <a href='javascript: void(0);' onclick="checkdata()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Login
+                    </a>
+                </center>
+            </form>
+        </div>
+    </div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    function checkdata() {
+        var errmsg = "";
+        if (document.form1.account.value == "") {
+            errmsg = "請輸入帳號\n";
+        }
+        if (document.form1.password.value == "") {
+            errmsg = errmsg + "請輸入密碼";
+        }
+        if (errmsg != "") {
+            alert(errmsg)
+            return false
+        }
+        else {
+            var account = document.getElementById("account").value;
+            var password = document.getElementById("password").value;
+            $.ajax({
+                type: 'POST',
+                url: "/api/Authorize",
+                data: { 'Account': account, 'Password': password },
+                dataType: 'json',
+                async: true,
+                success: function (response) {
+                    if (response.ErrMsg != null) {
+                        alert(JSON.stringify(response.errMsg));
+                    }
+                    else {
+                        alert('登入成功!!');
+                        window.location = "/Home/Index"
+                    }
+                },
+                error: function () {
+                    alert('登入失敗!!');
+                }
+            });
+        }
+    }
+</script>
+
+</body>
