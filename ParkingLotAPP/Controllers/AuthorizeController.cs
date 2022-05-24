@@ -39,10 +39,12 @@ namespace ParkingLotAPP.Controllers
                 //登入成功
                 if (manager != null)
                 {
-                    response = new Response { Code = "200", ErrMsg = "", Data = manager };
                     session.Account = manager.Account;
                     session.UserName = manager.UserName;
                     HttpContext.Session.SetObjectAsJson("mySession", session);
+
+                    //var x = manager_SQL.GetParkingLotInfo("a4f6350f-629a-436f-b746-b8eacb78872c");
+                    response = new Response { Code = "200", ErrMsg = "", Data = manager };
                 }
                 //登入失敗
                 else
@@ -50,7 +52,6 @@ namespace ParkingLotAPP.Controllers
                     response = new Response { Code = "400", ErrMsg = "帳號密碼錯誤", Data = manager };
                 }
             }
-
 
             return Json(response);
         }
