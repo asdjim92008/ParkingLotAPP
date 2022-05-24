@@ -13,9 +13,11 @@ namespace ParkingLotAPP.Models
             public string ErrMsg { get; set; }
             public Object Data { get; set; }
         }
-        public class SessionState
-        {
-            public string User { get; set; }
+        public class SessionState 
+        { 
+            public string Account { get; set; }
+            public string UserName { get; set; }
+            
         }
         public class Manager
         {
