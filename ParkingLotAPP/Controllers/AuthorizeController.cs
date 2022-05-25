@@ -49,6 +49,7 @@ namespace ParkingLotAPP.Controllers
                 else
                 {
                     response = new Response { Code = "400", ErrMsg = "帳號密碼錯誤", Data = manager };
+                    Logout();
                 }
             }
 
