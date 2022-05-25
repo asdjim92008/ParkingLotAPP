@@ -30,16 +30,33 @@ namespace ParkingLotAPP.DAL
                 throw ex;
             }
         }
-        public List<DataModel.ParkingLotInfo> GetParkingLotInfo(string SysGuid) 
+        public DataModel.ParkingLotInfo GetParkingLotInfo(string ParkingGuid) 
         {
             try
             {
                 using (var cn = new MySqlConnection(base._cnStr))
                 {
-                    string sql = $"SELECT * FROM (SELECT * FROM userparking " +
+                    string sql = $"SELECT * FROM parking where ParkingGuid='{ParkingGuid}'";
+                        
+                    var list = cn.Query<DataModel.ParkingLotInfo>(sql).ToList();
+                    return list.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public List<DataModel.ParkingLotList> GetParkingLotLists(string SysGuid)
+        {
+            try
+            {
+                using (var cn = new MySqlConnection(base._cnStr))
+                {
+                    string sql = $"SELECT parking.ParkingGuid,parking.ParkingName FROM (SELECT * FROM userparking " +
                         $"WHERE SysGuid = '{SysGuid}')b " +
                         $"LEFT join parking ON parking.ParkingGuid = b.ParkingGuid";
-                    var list = cn.Query<DataModel.ParkingLotInfo>(sql).ToList();
+                    var list = cn.Query<DataModel.ParkingLotList>(sql).ToList();
                     return list;
                 }
             }
@@ -48,6 +65,7 @@ namespace ParkingLotAPP.DAL
                 throw ex;
             }
         }
+        
         
     }
 }

@@ -57,6 +57,13 @@ namespace ParkingLotAPP.Models
             public string ExitPort { get; set; }
             public string Status { get; set; }
         }
+        public class ParkingLotList
+        {
+            public string ParkingGuid { get; set; }
+            public string ParkingName { get; set; }
+            
+        }
+
     }
     
 
