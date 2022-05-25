@@ -20,13 +20,13 @@ namespace ParkingLotAPP.Controllers
         [HttpPost]
         public ActionResult Login(string Account,string Password)
         {
-            Response response;
+            LoginResponse response;
             var session1 = HttpContext.Session.GetObjectFromJson<Manager>("sessionManger");
 
             //已登入的回傳
             if (session1!=null && session1.Account==Account && session1.Password==Password)
             {
-                response = new Response { Code = "201", ErrMsg = "已登入", Data = session1 };
+                response = new LoginResponse { Code = "201", ErrMsg = "已登入" };
             }
             else
             {
@@ -43,12 +43,12 @@ namespace ParkingLotAPP.Controllers
                     HttpContext.Session.SetObjectAsJson("sessionManger", session1);
                     var parkinglotlist = manager_SQL.GetParkingLotLists(session1.SysGuid);
 
-                    response = new Response { Code = "200", ErrMsg = "", Data = parkinglotlist };
+                    response = new LoginResponse { Code = "200", ErrMsg = "", Data = parkinglotlist ,CompanyName=session1.CompanyName};
                 }
                 //登入失敗
                 else
                 {
-                    response = new Response { Code = "400", ErrMsg = "帳號密碼錯誤", Data = manager };
+                    response = new LoginResponse { Code = "400", ErrMsg = "帳號密碼錯誤" };
                     Logout();
                 }
             }

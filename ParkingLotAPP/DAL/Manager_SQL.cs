@@ -53,8 +53,8 @@ namespace ParkingLotAPP.DAL
             {
                 using (var cn = new MySqlConnection(base._cnStr))
                 {
-                    string sql = $"SELECT parking.ParkingGuid,parking.ParkingName FROM (SELECT * FROM userparking " +
-                        $"WHERE SysGuid = '{SysGuid}')b " +
+                    string sql = $"SELECT parking.ParkingGuid,parking.ParkingName,parking.ParkingNo " +
+                        $"FROM (SELECT * FROM userparking WHERE SysGuid = '{SysGuid}')b " +
                         $"LEFT join parking ON parking.ParkingGuid = b.ParkingGuid";
                     var list = cn.Query<DataModel.ParkingLotList>(sql).ToList();
                     return list;

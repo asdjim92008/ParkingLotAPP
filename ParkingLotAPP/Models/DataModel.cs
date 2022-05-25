@@ -13,6 +13,13 @@ namespace ParkingLotAPP.Models
             public string ErrMsg { get; set; }
             public Object Data { get; set; }
         }
+        public class LoginResponse
+        {
+            public string Code { get; set; }
+            public string ErrMsg { get; set; }
+            public Object Data { get; set; }
+            public string CompanyName { get; set; }
+        }
         public class SessionState 
         { 
             public string Account { get; set; }
@@ -60,9 +67,11 @@ namespace ParkingLotAPP.Models
         public class ParkingLotList
         {
             public string ParkingGuid { get; set; }
+            public string ParkingNo { get; set; }
             public string ParkingName { get; set; }
             
         }
+        
 
     }
     
