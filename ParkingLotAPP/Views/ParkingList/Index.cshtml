@@ -8,8 +8,10 @@
 <script>
     window.onload = function () {
         let retrievedObject = new Array()
+        //console.log(localStorage.getItem('PLdataObject'));
+        console.log(JSON.parse(localStorage.getItem('PLdataObject')))
         retrievedObject = JSON.stringify(localStorage.getItem('PLdataObject'));
-        alert(retrievedObject);
+        //alert(retrievedObject);
     };
 </script>
 <table>

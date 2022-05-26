@@ -16,6 +16,8 @@ namespace ParkingLotAPP.Controllers
     public class AuthorizeController : Controller
     {
         Manager_SQL manager_SQL = new Manager_SQL("192.168.1.46", "3306", "parkinglist", "rotamoon", "rotamoon90692052");
+
+        //  用途:登入後回傳可管理的停車場和公司名
         //  路徑 "/api/Authorize"   post參數1 Account  post參數2 Password 
         [HttpPost]
         public ActionResult Login(string Account,string Password)
@@ -55,6 +57,7 @@ namespace ParkingLotAPP.Controllers
 
             return Json(response);
         }
+        //  用途:取得所選停車場的授權資料
         //  路徑 "/api/Authorize?parkingGuid=值"
         [HttpGet]
         public ActionResult GetAuthorizeData(string parkingGuid)
@@ -75,6 +78,7 @@ namespace ParkingLotAPP.Controllers
                 return Json(response);
             }
         }
+        //  用途:登出並將SESSION清空
         //  路徑 "/api/Authorize/logout"
         [HttpGet("logout")]
         public ActionResult Logout()
@@ -92,6 +96,7 @@ namespace ParkingLotAPP.Controllers
                 return Json(response);
             }
         }
+        
 
     }
 }
