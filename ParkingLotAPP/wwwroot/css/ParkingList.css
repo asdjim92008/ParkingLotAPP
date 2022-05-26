@@ -1,0 +1,181 @@
+﻿.container {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+}
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #243b55);
+}
+
+.cards-list {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 360px;
+    padding: 30px;
+    transform: translate(-50%, -50%);
+}
+
+.card {
+    margin: 30px auto;
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+    .card .card_image {
+        width: inherit;
+        height: inherit;
+        border-radius: 25px;
+    }
+
+.bgimg {
+    width: inherit;
+    height: inherit;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.bticon {
+    width: inherit;
+    height: inherit;
+    border-radius: 40px;
+    object-fit: cover;
+    max-width: 50%;
+    max-height: 50%;
+    margin-top: -150px;
+    margin-left: 26px;
+}
+
+.card .card_title {
+    text-align: center;
+    border-radius: 0px 0px 40px 40px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: -35px;
+    height: 40px;
+}
+
+.card:hover {
+    transform: scale(0.9, 0.9);
+    box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25), -5px -5px 30px 15px rgba(0,0,0,0.22);
+}
+
+.title-white {
+    color: white;
+}
+
+/*BackButton*/
+@media screen and (max-width:767px) {
+    .portfolio-experiment {
+        background-color: rgba(0, 0, 0, .6);
+        width: 200px;
+        border-radius: 30px;
+        margin-left: 80px;
+    }
+}
+
+@media screen and (min-width:767px) {
+    .portfolio-experiment {
+        background-color: rgba(0, 0, 0, .6);
+        width: 230px;
+        border-radius: 40px;
+        margin-left: 65px;
+    }
+}
+
+.portfolio-experiment .text {
+    color: white;
+    padding: 0.7em calc(0.7em * 1.2);
+    cursor: pointer;
+    font-size: 1.2em;
+    display: inline-block;
+    letter-spacing: 0.07em;
+    position: relative;
+}
+
+/*IndexBar*/
+a {
+    color: #fff;
+}
+
+/*PLtitle*/
+
+.PLtitle {
+    color: #ffffff;
+}
+
+.clock {
+    font-size: 15px;
+    top: 50%;
+    left: 50%;
+    width: 360px;
+    color: #ffffff;
+}
+
+.companyname {
+    font-size: 25px;
+    top: 50%;
+    left: 50%;
+    color: #ffffff;
+}
+/*
+@media screen and (min-width:414px) {
+    .clock {
+        margin-top: -15px;
+    }
+
+    .cards-list {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 360px;
+        padding: 30px;
+        transform: translate(-50%, -50%);
+    }
+}*/
+@media screen and (max-width:413px) {
+    .clock {
+        margin-top: -15px;
+    }
+
+    .cards-list {
+        position: absolute;
+        top: 54%;
+        left: 50%;
+        width: 360px;
+        padding: 30px;
+        transform: translate(-50%, -50%);
+    }
+    .textop {
+        margin-top: -15px;
+    }
+}
+/*web*/
+@media screen and (min-width:483px) {
+    .clock {
+        margin-top: -15px;
+    }
+    .textop {
+        margin-top: -15px;
+    }
+}
+.textop {
+    background-color: rgba(0, 0, 0, 0.5);
+    background-size: cover;
+    background-position: center center;
+    border-radius: 5px;
+}

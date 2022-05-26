@@ -2,13 +2,49 @@
     Layout = "_WebLayout";
 }
 @section Styles {
-    <link rel="stylesheet" href="~/css/Home.css">
+    <link rel="stylesheet" href="~/css/ParkingList.css">
 }
+
+<script>
+    window.onload = function () {
+        let retrievedObject = new Array()
+        retrievedObject = JSON.stringify(localStorage.getItem('PLdataObject'));
+        alert(retrievedObject);
+    };
+</script>
 <table>
+    <!-- container -->
     <tr>
-        <td> 
-            <!-- container inner wrapper -->
+        <td>
             <table class="cards-list">
+                <!-- PLtitle -->
+                <tr>
+                    <td colspan="2">
+                        <section>
+                            <a>
+                                <center>
+                                    <div class="companyname">
+                                        企業
+                                    </div>
+                                    <br>
+                                    <div id="clock" class="clock">
+                                        <script type="text/javascript">
+                                            setInterval("setClock()", 1000);//1秒更新一次
+                                            function setClock() {
+                                                var date = new Date();
+                                                var today = date.getFullYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日";
+                                                var timeNow = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                                                document.getElementById("clock").innerText = today + "   " + "星期"
+                                                    + date.getDay() + "   " + timeNow;
+                                            }
+                                        </script>
+                                    </div>
+                                </center>
+                            </a>
+                        </section>
+                    </td>
+                </tr>
+                @*@foreach(var item in retrievedObject)*@
                 <tr>
                     <td>
                         <div class="card 1">
@@ -52,7 +88,7 @@
                                 <img class="bticon" src="~/images/carnoicon.png" />
                             </div>
                             <div class="card_title title-white">
-                                <p>車牌校正</p>
+                                <p>車牌教正</p>
                             </div>
                         </div>
                     </td>
@@ -82,9 +118,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <section class="portfolio-experiment" style="">
-                            <center><span class="text">返回停車場列表</span></center>
+                    <td colspan="2" class="textop">
+                        <section>
+                            <a href="#0">
+                                <center><div>停車場列表</div></center>
+                            </a>
                         </section>
                     </td>
                 </tr>
@@ -92,9 +130,3 @@
         </td>
     </tr>
 </table>
-
-
-
-
-
-

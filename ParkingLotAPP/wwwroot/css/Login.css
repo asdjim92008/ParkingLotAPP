@@ -296,10 +296,6 @@ radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 0% 100%,
 }
 
 /*IndexBar*/
-.bar-bg {
-    background-color: #002440 !important;
-}
 a {
     color: #fff;
 }
-/*}*/

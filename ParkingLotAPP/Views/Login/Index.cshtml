@@ -1,34 +1,36 @@
 ﻿@{
     Layout = "_WebLayout";
 }
-
-    <div class="firework"></div>
-    <div class="firework"></div>
-    <div class="firework"></div>
-    <div class="container">
-        <div class="login-box">
-            <h2>Login</h2>
-            <form action="~/Login/Index" method="post" name="form1" id="form1" onsubmit="return checkdata()">
-                <div class="user-box">
-                    <input type="text" required="" id="account" name="account">
-                    <label>Account</label>
-                </div>
-                <div class="user-box">
-                    <input type="password" required="" id="password" name="password">
-                    <label>Password</label>
-                </div>
-                <center>
-                    <a href='javascript: void(0);' onclick="checkdata()">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        Login
-                    </a>
-                </center>
-            </form>
-        </div>
+@section styles {
+    <link rel="stylesheet" href="~/css/Login.css">
+}
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="container">
+    <div class="login-box">
+        <h2>Login</h2>
+        <form action="~/Login/Index" method="post" name="form1" id="form1" onsubmit="return checkdata()">
+            <div class="user-box">
+                <input type="text" required="" id="account" name="account">
+                <label>Account</label>
+            </div>
+            <div class="user-box">
+                <input type="password" required="" id="password" name="password">
+                <label>Password</label>
+            </div>
+            <center>
+                <a href='javascript: void(0);' onclick="checkdata()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Login
+                </a>
+            </center>
+        </form>
     </div>
+</div>
 
 
 <script>
@@ -58,8 +60,9 @@
                         alert(JSON.stringify(response.errMsg));
                     }
                     else {
+                        localStorage.setItem('PLdataObject', JSON.stringify(response));
                         alert('登入成功!!');
-                        window.location = "/Home/Index"
+                        window.location = "/ParkingList/Index";
                     }
                 },
                 error: function () {
