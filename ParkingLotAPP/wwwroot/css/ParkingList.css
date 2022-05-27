@@ -1,45 +1,47 @@
-﻿.container {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font: inherit;
-    vertical-align: baseline;
-}
-html, body {
+﻿html, body {
     height: 100%;
 }
-
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: linear-gradient(#141e30, #243b55);
+    background: linear-gradient(#141e30, #243b55, #243b55,#141e30);
 }
 
 .cards-list {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 360px;
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+    width: 380px;
     padding: 30px;
-    transform: translate(-50%, -50%);
+ /*   transform: translate(-50%, -50%);*/
+    height: 400px;
+    overflow: scroll
 }
 
 .card {
     margin: 30px auto;
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 100px; /*45*/
     border-radius: 20px;
     box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
+    /*background-color: #325e8c;*/
+    background: linear-gradient(#1c2d4d, #2b65a6);
     cursor: pointer;
     transition: 0.4s;
+    opacity: 0.9;
 }
 
-    .card .card_image {
-        width: inherit;
-        height: inherit;
-        border-radius: 25px;
-    }
+.card .card_image {
+    width: inherit;
+    height: inherit;
+    border-radius: 25px;
+}
 
 .bgimg {
     width: inherit;
@@ -48,15 +50,15 @@ body {
     object-fit: cover;
 }
 
-.bticon {
-    width: inherit;
-    height: inherit;
-    border-radius: 40px;
+.icicon {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
     object-fit: cover;
     max-width: 50%;
     max-height: 50%;
-    margin-top: -150px;
-    margin-left: 26px;
+    margin-top: 8px;
+    margin-left: 30px;
 }
 
 .card .card_title {
@@ -64,8 +66,8 @@ body {
     border-radius: 0px 0px 40px 40px;
     font-family: sans-serif;
     font-weight: bold;
-    font-size: 18px;
-    margin-top: -35px;
+    font-size: 14px;
+    margin-top: -40px;
     height: 40px;
 }
 
@@ -128,40 +130,21 @@ a {
 
 .companyname {
     font-size: 25px;
+    width: 360px;
     top: 50%;
     left: 50%;
     color: #ffffff;
 }
-/*
-@media screen and (min-width:414px) {
-    .clock {
-        margin-top: -15px;
-    }
 
-    .cards-list {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 360px;
-        padding: 30px;
-        transform: translate(-50%, -50%);
-    }
-}*/
 @media screen and (max-width:413px) {
     .clock {
         margin-top: -15px;
     }
-
     .cards-list {
-        position: absolute;
-        top: 54%;
-        left: 50%;
         width: 360px;
-        padding: 30px;
-        transform: translate(-50%, -50%);
     }
     .textop {
-        margin-top: -15px;
+        margin-top: 15px;
     }
 }
 /*web*/
@@ -170,12 +153,19 @@ a {
         margin-top: -15px;
     }
     .textop {
-        margin-top: -15px;
+        margin-top: 15px;
     }
 }
 .textop {
+    width: 360px;
     background-color: rgba(0, 0, 0, 0.5);
     background-size: cover;
     background-position: center center;
     border-radius: 5px;
+    color:white;
+}
+
+/*parkinglist*/
+.card_p{
+    margin-top:-3px;
 }
