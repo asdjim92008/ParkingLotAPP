@@ -21,4 +21,5 @@ namespace ParkingLotAPP.HELP
             return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
     }
+    
 }
