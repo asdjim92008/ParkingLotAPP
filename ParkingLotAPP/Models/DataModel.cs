@@ -71,7 +71,14 @@ namespace ParkingLotAPP.Models
             public string ParkingName { get; set; }
             
         }
-        
+        public class CarInfo
+        {
+            public string YMDHM { get; set; }
+            public string PLATENUM { get; set; }
+            public string TICKNO { get; set; }
+            public string JPG { get; set; }
+
+        }
 
     }
     

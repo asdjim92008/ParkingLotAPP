@@ -17,8 +17,14 @@ namespace ParkingLotAPP.Controllers
     {
         Manager_SQL manager_SQL = new Manager_SQL("192.168.1.46", "3306", "parkinglist", "rotamoon", "rotamoon90692052");
 
-        //  用途:登入後回傳可管理的停車場和公司名
-        //  路徑 "/api/Authorize"   post參數1 Account  post參數2 Password 
+        
+        /*  <目的>    登入後回傳可管理的停車場和公司名   </目的>
+         *  <參數>    
+         *            參數1 使用者帳號:  Account
+         *            參數2 使用者密碼:  Password
+         *  </參數>
+         *  <路徑>    "/api/Authorize"
+         *  <回傳>    parkingGuid(停車場guid)    parkingNo(停車場編號)    parkingName(停車場名稱)  companyName(公司名稱  </回傳>*/
         [HttpPost]
         public ActionResult Login(string Account,string Password)
         {
@@ -57,8 +63,13 @@ namespace ParkingLotAPP.Controllers
 
             return Json(response);
         }
-        //  用途:取得所選停車場的授權資料
-        //  路徑 "/api/Authorize?parkingGuid=值"
+        
+        /*  <目的>    取得所選停車場的授權資料   </目的>
+         *  <參數>    
+         *            參數1 停車場guid:  parkingGuid
+         *  </參數>
+         *  <路徑>    "/api/Authorize"
+         *  <回傳>    parkingGuid(停車場guid)    parkingNo(停車場編號)    parkingName(停車場名稱)  companyName(公司名稱)  </回傳>*/
         [HttpGet]
         public ActionResult GetAuthorizeData(string parkingGuid)
         {
@@ -78,8 +89,10 @@ namespace ParkingLotAPP.Controllers
                 return Json(response);
             }
         }
-        //  用途:登出並將SESSION清空
-        //  路徑 "/api/Authorize/logout"
+        
+        /*  <目的>    登出並將SESSION清空   </目的>
+         *  <路徑>    "/api/Authorize/logout"
+         *  <回傳>    訊息  </回傳>*/
         [HttpGet("logout")]
         public ActionResult Logout()
         {

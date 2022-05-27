@@ -14,8 +14,13 @@ namespace ParkingLotAPP.Controllers
     
     public class CountCarController : Controller
     {
-        //  用途:取得計數板的車輛數量
-        //  路徑 "/api/CountCar/Get?parkingGuid=停車場guid"
+        
+        /*  <目的>    取得計數板的車輛數量   </目的>
+         *  <參數>    
+         *            參數1 停車場guid:  parkingGuid 
+         *  </參數>
+         *  <路徑>    "/api/CountCar/Get"
+         *  <回傳>    訊息:車輛數   </回傳>*/
         [HttpGet("Get")]
         public ActionResult GetCarCount(string parkingGuid)
         {
@@ -40,8 +45,14 @@ namespace ParkingLotAPP.Controllers
             }
             
         }
-        //  用途:設定計數板的車輛數量
-        //  路徑 "/api/CountCar/Set?parkingGuid=停車場guid&carCount=20"
+        
+        /*  <目的>    設定計數板的車輛數量   </目的>
+         *  <參數>    
+         *            參數1 停車場guid:  parkingGuid 
+         *            參數2 設定車輛數:  carCount
+         *  </參數>
+         *  <路徑>    "/api/CountCar/Set"
+         *  <回傳>    訊息:車輛數   </回傳>*/
         [HttpGet("Set")]
         public ActionResult SetCarCount(string parkingGuid,string carCount)
         {
@@ -65,6 +76,9 @@ namespace ParkingLotAPP.Controllers
             }
 
         }
+        /* 
+         * <目的>    驗證SESSION 並取得停車場的授權資料   </目的>
+         */
         public ParkingLotInfo Verify(string key) 
         {
             var x= HttpContext.Session.GetObjectFromJson<ParkingLotInfo>("sessionParkInfo");
@@ -76,7 +90,6 @@ namespace ParkingLotAPP.Controllers
             {
                 return null;
             }
-            
         }
     }
 }
