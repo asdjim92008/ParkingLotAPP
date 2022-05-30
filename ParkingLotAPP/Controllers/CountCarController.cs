@@ -76,6 +76,37 @@ namespace ParkingLotAPP.Controllers
             }
 
         }
+        /*  <目的>    開啟柵欄   </目的>
+         *  <參數>    
+         *            參數1 停車場guid:  parkingGuid 
+         *            參數2 柵欄位置:  place (entrace 或 exit)
+         *  </參數>
+         *  <路徑>    "/api/CountCar/open"
+         *  <回傳>    訊息:是否成功   </回傳>*/
+        [HttpGet("open")]
+        public ActionResult OpenFence(string parkingGuid,string place)
+        {
+            var getParkingLotInfo = Verify(parkingGuid);
+            if (getParkingLotInfo != null)
+            {
+                var fence = (place == "entrace") ? getParkingLotInfo.EntracePort : getParkingLotInfo.ExitPort;
+                CountCar_ENT countCar_ENT = new CountCar_ENT(fence, 2400, "0", 8, "1");
+                var cnt_msg = countCar_ENT.OpenEnter();
+                if (cnt_msg == "open fail")
+                {
+                    return Json(new Response { Code = "404", ErrMsg = cnt_msg });
+                }
+                else
+                {
+                    return Json(new Response { Code = "200", ErrMsg = "", Data = cnt_msg });
+                }
+            }
+            else
+            {
+                return Json(new Response { Code = "402", ErrMsg = "操作逾時，請重新登入", Data = null });
+            }
+
+        }
         /* 
          * <目的>    驗證SESSION 並取得停車場的授權資料   </目的>
          */

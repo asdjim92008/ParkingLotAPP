@@ -89,7 +89,31 @@ namespace ParkingLotAPP.DAL
             {
                 throw ex;
             }
-            
+        }
+        public string OpenEnter()
+        {
+            try
+            {
+                //開啟柵欄命令 [1A1]  共5位Byte
+                if (serialPort.IsOpen)
+                {
+                    string send_data = "[1A1]";
+                    byte[] utfBytes = Encoding.UTF8.GetBytes(send_data);
+                    var recievedata = serialPort.ReadByte();
+                    serialPort.Write(utfBytes, 0, 5);
+                    serialPort.Close();
+                    return  "success";
+                }
+                else
+                {
+                    return "open fail";
+                }
+
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw ex;
+            }
         }
     }
 }

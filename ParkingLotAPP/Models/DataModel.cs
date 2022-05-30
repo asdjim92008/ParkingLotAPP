@@ -20,12 +20,6 @@ namespace ParkingLotAPP.Models
             public Object Data { get; set; }
             public string CompanyName { get; set; }
         }
-        public class SessionState 
-        { 
-            public string Account { get; set; }
-            public string UserName { get; set; }
-            
-        }
         public class Manager
         {
             public string SysGuid { get; set; }
@@ -79,6 +73,7 @@ namespace ParkingLotAPP.Models
             public string JPG { get; set; }
 
         }
+        
 
     }
     

@@ -19,8 +19,11 @@ namespace ParkingLotAPP.DAL
             {
                 using(var cn = new MySqlConnection(base._cnStr))
                 {
-                    string sql = $"select * from sysappuser where Account='{Account}' and Password='{Password}'";
-                    var list = cn.Query<DataModel.Manager>(sql).ToList();
+                    var dynamicParams = new DynamicParameters();//←動態參數
+                    dynamicParams.Add("Account", Account);
+                    dynamicParams.Add("Password", Password);
+                    string sql = $"select * from sysappuser where Account=@Account and Password=@Password";
+                    var list = cn.Query<DataModel.Manager>(sql, dynamicParams).ToList();
                     return list.FirstOrDefault();
                     
                 }
@@ -36,9 +39,11 @@ namespace ParkingLotAPP.DAL
             {
                 using (var cn = new MySqlConnection(base._cnStr))
                 {
-                    string sql = $"SELECT * FROM parking where ParkingGuid='{ParkingGuid}'";
+                    var dynamicParams = new DynamicParameters();//←動態參數
+                    dynamicParams.Add("ParkingGuid", ParkingGuid);
+                    string sql = $"SELECT * FROM parking where ParkingGuid=@ParkingGuid";
                         
-                    var list = cn.Query<DataModel.ParkingLotInfo>(sql).ToList();
+                    var list = cn.Query<DataModel.ParkingLotInfo>(sql, dynamicParams).ToList();
                     return list.FirstOrDefault();
                 }
             }
@@ -53,10 +58,12 @@ namespace ParkingLotAPP.DAL
             {
                 using (var cn = new MySqlConnection(base._cnStr))
                 {
+                    var dynamicParams = new DynamicParameters();//←動態參數
+                    dynamicParams.Add("SysGuid", SysGuid);
                     string sql = $"SELECT parking.ParkingGuid,parking.ParkingName,parking.ParkingNo " +
-                        $"FROM (SELECT * FROM userparking WHERE SysGuid = '{SysGuid}')b " +
+                        $"FROM (SELECT * FROM userparking WHERE SysGuid = @SysGuid)b " +
                         $"LEFT join parking ON parking.ParkingGuid = b.ParkingGuid";
-                    var list = cn.Query<DataModel.ParkingLotList>(sql).ToList();
+                    var list = cn.Query<DataModel.ParkingLotList>(sql, dynamicParams).ToList();
                     return list;
                 }
             }
