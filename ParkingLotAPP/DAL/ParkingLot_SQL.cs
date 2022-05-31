@@ -20,7 +20,7 @@ namespace ParkingLotAPP.DAL
             {
                 using (var cn = new MySqlConnection(base._cnStr))
                 {
-                    string sql = $"select YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay";
+                    string sql = $"select YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay order by YMDHM desc";
                     var list = cn.Query<DataModel.CarInfo>(sql).ToList();
                     return list;
                 }

@@ -12,7 +12,7 @@ namespace ParkingLotAPP.Controllers
 {
     [Route("api/[controller]")]
     
-    public class CountCarController : Controller
+    public class UDPController : Controller
     {
         
         /*  <目的>    取得計數板的車輛數量   </目的>
@@ -28,9 +28,9 @@ namespace ParkingLotAPP.Controllers
 
             if (getParkingLotInfo!=null)
             {
-                CountCar_ENT countCar_ENT = new CountCar_ENT(getParkingLotInfo.LedPort, 115200, "0", 8, "1");
-                var cnt_msg = countCar_ENT.GetCarCount();
-                if (cnt_msg == "open fail")
+                Thread_UDP thread_UDP = new Thread_UDP(getParkingLotInfo.LedPort);
+                var cnt_msg = thread_UDP.GetCarCount();
+                if (cnt_msg == "connect fail")
                 {
                     return Json(new Response { Code = "404", ErrMsg = cnt_msg });
                 }
@@ -43,7 +43,6 @@ namespace ParkingLotAPP.Controllers
             {
                 return Json(new Response { Code = "402", ErrMsg = "操作逾時，請重新登入", Data = null });
             }
-            
         }
         
         /*  <目的>    設定計數板的車輛數量   </目的>
@@ -59,9 +58,9 @@ namespace ParkingLotAPP.Controllers
             var getParkingLotInfo = Verify(parkingGuid);
             if (getParkingLotInfo != null)
             {
-                CountCar_ENT countCar_ENT = new CountCar_ENT(getParkingLotInfo.LedPort, 115200, "0", 8, "1");
-                var cnt_msg = countCar_ENT.SetCarCount(carCount);
-                if (cnt_msg == "open fail")
+                Thread_UDP thread_UDP = new Thread_UDP(getParkingLotInfo.LedPort);
+                var cnt_msg = thread_UDP.SetCarCount(carCount);
+                if (cnt_msg == "connect fail")
                 {
                     return Json(new Response { Code = "404", ErrMsg = cnt_msg });
                 }
@@ -90,9 +89,10 @@ namespace ParkingLotAPP.Controllers
             if (getParkingLotInfo != null)
             {
                 var fence = (place == "entrace") ? getParkingLotInfo.EntracePort : getParkingLotInfo.ExitPort;
-                CountCar_ENT countCar_ENT = new CountCar_ENT(fence, 2400, "0", 8, "1");
-                var cnt_msg = countCar_ENT.OpenEnter();
-                if (cnt_msg == "open fail")
+                Thread_UDP thread_UDP = new Thread_UDP(fence);
+                var cnt_msg = thread_UDP.OpenFence();
+
+                if (cnt_msg == "connect fail")
                 {
                     return Json(new Response { Code = "404", ErrMsg = cnt_msg });
                 }
@@ -105,7 +105,6 @@ namespace ParkingLotAPP.Controllers
             {
                 return Json(new Response { Code = "402", ErrMsg = "操作逾時，請重新登入", Data = null });
             }
-
         }
         /* 
          * <目的>    驗證SESSION 並取得停車場的授權資料   </目的>
