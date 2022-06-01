@@ -5,8 +5,286 @@
     <link rel="stylesheet" href="~/css/ParkingList.css">
 }
 
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+#search {
+  align-items: center;
+  background: #416996;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em 0.5em 0.5em 1em;
+  transition: all 0.5s;
+  width: 360px;
+  opacity:0.6;
+}
+#search:hover, #search:focus {
+background: #15569e;
+}
+#search button,#search input {
+appearance: none;
+background: transparent;
+border: 0;
+color: inherit;
+font: inherit;
+outline: 0;
+}
+#search button {
+cursor: pointer;
+padding: 0 0.25em;
+}
+#search input {
+    color:#FFF;
+    flex: 1;
+}
+#search input::placeholder {
+    color: #fff;
+}
+#search .spinner {
+animation: spinner 1s infinite linear;
+display: none;
+padding: 0 0.25em;
+}
+
+#search.loading button {
+  display: none;
+}
+
+#search.loading .spinner {
+  display: block;
+}
+
+@@keyframes spinner {
+  0%
+  {
+    transform: rotate(0deg);
+  }
+  100%
+  {
+    transform: rotate(360deg);
+  }
+}
+
+.search_icon {
+    width: 30px;
+    height: 30px;
+}
+
+    .content_box {
+        width: 380px;
+        padding: 5px;
+        /*   transform: translate(-50%, -50%);*/
+        height: auto;
+
+        display: flex;
+        flex-direction: column-reverse;
+        font-size: 18px;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .PL_time {
+        position: absolute;
+        left: 53%;
+        color: #FFF;
+        margin-top: -30px;
+    }
+
+    .PL_news {
+        margin: 5px;
+    }
+
+
+    .info_bar {
+        margin: 0px auto;
+        width: 360px;
+    }
+
+    .add_img_box {
+        padding:4px;
+        color: #FFF;
+    }
+
+    .add_img {
+        height: 35px;
+        width: 35px;
+    }
+
+    .Lpage, .Npage {
+        height: 20px;
+        width: 20px;
+    }
+
+    .Lbt {
+        display: inline-block;
+        margin-left: 180px;
+    }
+
+    .Nbt {
+        display: inline-block;
+    }
+
+    .top_bar {
+        width: 100%;
+    }
+
+    .SearchCar {
+        margin: 0px auto;
+    }
+
+    .carnum {
+        position: relative;
+        display: inline-block;
+        top: -10px;
+    }
+
+    span {
+        color: #FFF;
+        top: 68%;
+    }
+
+    @@media screen and (max-width: 350px) {
+        .PL_image {
+            width: 125px;
+            height: 90px;
+        }
+
+        .Lbt {
+            margin-left: 150px;
+        }
+    }
+
+    @@media screen and (min-width: 767px){
+        .PL_image {
+            width: 250px;
+            height: 167px;
+            margin-left:50px;
+        }
+
+        .PL_time {
+            left: 71%;
+            margin-top: -30px;
+        }
+
+        .PL_image img {
+            margin-top: 40px;
+        }
+
+        .Lbt {
+            margin-left: 170px;
+        }
+
+        .carnum {
+            top: -80px;
+            left: 150px;
+            font-size:25px;
+        }
+    }
+</style>
+
+
+<div class="top_bar">
+    <div class="SearchCar row" id="search">
+        <input id="SearchCar" name="SearchCar" placeholder="Search..." />
+        <button onclick="SearchCar()">
+            <img class='search_icon' src='/images/search_icon.png' />
+        </button>
+        <div class="spinner"></div>
+    </div>
+    <div class="info_bar row" id="info_bar">
+        <div class="add_img_box col">
+            <a><img class="add_img" src='/images/add_icon.png' /></a>
+            <div class="Lbt">
+                <img class="Lpage" src='/images/Lpage_icon.png' />上一頁
+            </div>
+            <div class="Nbt">
+                下一頁<img class="Npage" src='/images/Npage_icon.png' />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content_box">
+    <div class="PL_news">
+        <div class="PL_image">
+            <img src="https://fakeimg.pl/125x90/">
+            <div class="carnum">
+                <span>
+                    車牌號：BJ4-297
+                </span>
+            </div>
+            <div class="PL_info">
+                <time class="PL_time">2022-06-01 12:05</time>
+            </div>
+        </div>
+    </div>
+    <div class="PL_news">
+        <div class="PL_image">
+            <img src="https://fakeimg.pl/125x90/">
+            <div class="carnum">
+                <span>
+                    車牌號：AAA-666
+                </span>
+            </div>
+            <div class="PL_info">
+                <time class="PL_time">2022-06-02 12:05</time>
+            </div>
+        </div>
+    </div>
+    <div class="PL_news">
+        <div class="PL_image">
+            <img src="https://fakeimg.pl/125x90/">
+            <div class="carnum">
+                <span>
+                    車牌號：AX-9487
+                </span>
+            </div>
+            <div class="PL_info">
+                <time class="PL_time">2022-06-03 12:05</time>
+            </div>
+        </div>
+    </div>
+    <div class="PL_news">
+        <div class="PL_image">
+            <img src="https://fakeimg.pl/125x90/">
+            <div class="carnum">
+                <span>
+                    車牌號：JY-8787
+                </span>
+            </div>
+            <div class="PL_info">
+                <time class="PL_time">2022-06-04 12:05</time>
+            </div>
+        </div>
+    </div>
+    <div class="PL_news">
+        <div class="PL_image">
+            <img src="https://fakeimg.pl/125x90/">
+            <div class="carnum">
+                <span>
+                    車牌號：AA-0000
+                </span>
+            </div>
+            <div class="PL_info">
+                <time class="PL_time">2022-06-05 12:05</time>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
+    function SearchCar() {
+        var SearchCar = document.getElementById("SearchCar").value;
+        
+        alert(SearchCar);
+    }
     //window.onload = function () {
     //    const url = location.search; //獲取url中"?"符號後的字串
     //    let theRequest = new Object();
