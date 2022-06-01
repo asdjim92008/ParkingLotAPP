@@ -110,12 +110,14 @@ body {
 }
 
 /*IndexBar*/
-a {
+.navbar-text {
     color: #fff;
 }
 
+.navbar-brand {
+    color: #fff;
+}
 /*PLtitle*/
-
 .PLtitle {
     color: #ffffff;
 }
@@ -136,7 +138,7 @@ a {
     color: #ffffff;
 }
 
-@media screen and (max-width:413px) {
+@media screen and (max-width:482px) {
     .clock {
         margin-top: -15px;
     }
@@ -144,7 +146,7 @@ a {
         width: 360px;
     }
     .textop {
-        margin-top: 15px;
+        margin-top: 10px;
     }
 }
 /*web*/
@@ -153,7 +155,7 @@ a {
         margin-top: -15px;
     }
     .textop {
-        margin-top: 15px;
+        margin-top: 10px;
     }
 }
 .textop {
