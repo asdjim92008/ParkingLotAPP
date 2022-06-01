@@ -228,7 +228,7 @@ namespace ParkingLotAPP.Controllers
             return Json(response);
         }
 
-
+        //test
         /*  <目的>    依照所選的頁面回傳10個操作紀錄   </目的>
          *  <參數>    
          *            參數1 停車場guid:  parkingGuid 
