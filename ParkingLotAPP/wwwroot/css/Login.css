@@ -6,7 +6,16 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: linear-gradient(#141e30, #243b55);
+    background: linear-gradient(#141e30, #243b55, #243b55,#141e30);
+}
+
+/*IndexBar*/
+.navbar-text {
+    color: #fff;
+}
+
+.navbar-brand {
+    color: #fff;
 }
 
 .login-box {
@@ -298,4 +307,19 @@ radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 0% 100%,
 /*IndexBar*/
 a {
     color: #fff;
+}
+
+.logo {
+    position: absolute;
+    top: 22%;
+    left: 55%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width:375px) {
+    .logo {
+        top: 15%;
+    }
 }

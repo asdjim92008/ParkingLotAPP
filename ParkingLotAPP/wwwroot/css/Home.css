@@ -6,12 +6,21 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: linear-gradient(#141e30, #243b55);
+    background: linear-gradient(#141e30, #243b55, #243b55,#141e30);
+}
+
+/*IndexBar*/
+.navbar-text {
+    color: #fff;
+}
+
+.navbar-brand {
+    color: #fff;
 }
 
 .cards-list {
     position: absolute;
-    top: 50%;
+    top: 52%;
     left: 50%;
     width: 360px;
     padding: 30px;
@@ -28,11 +37,11 @@ body {
     transition: 0.4s;
 }
 
-    .card .card_image {
-        width: inherit;
-        height: inherit;
-        border-radius: 25px;
-    }
+.card .card_image {
+    width: inherit;
+    height: inherit;
+    border-radius: 25px;
+}
 
 .bgimg {
     width: inherit;
@@ -71,10 +80,14 @@ body {
     color: white;
 }
 
+.portfolio-experiment {
+    background-color: rgba(0, 0, 0, .6);
+    margin-top: 10px;
+}
+   
 /*BackButton*/
 @media screen and (max-width:767px) {
     .portfolio-experiment {
-        background-color: rgba(0, 0, 0, .6);
         width: 200px;
         border-radius: 30px;
         margin-left: 80px;
@@ -83,7 +96,6 @@ body {
 
 @media screen and (min-width:767px) {
     .portfolio-experiment {
-        background-color: rgba(0, 0, 0, .6);
         width: 230px;
         border-radius: 40px;
         margin-left: 65px;

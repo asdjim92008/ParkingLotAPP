@@ -21,8 +21,8 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link">登出</a>
+                        <li class="navbar-text">
+                            <a class="nav-link" style="cursor: pointer;" onclick="javascript:if(confirm('確定要登出嗎?_?')==1) {return Logout()}">登出</a>
                         </li>
                         @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -45,5 +45,29 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
+    <script>
+        function Logout() {;
+            $.ajax({
+                type: 'GET',
+                url: "/api/Authorize/logout",
+                dataType: 'json',
+                async: true,
+                success: function (response) {
+                    if (response.ErrMsg != null) {
+                        alert('尚未登入!!');
+                        window.location = "/Login/Index";
+                    }
+                    else {
+                        alert('登出成功!!');
+                        window.location = "/Login/Index";
+                    }
+                },
+                error: function () {
+                    alert('登出失敗!!');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
