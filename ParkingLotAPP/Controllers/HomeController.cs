@@ -21,6 +21,8 @@ namespace ParkingLotAPP.Controllers
         }
         public IActionResult Index()
         {
+            
+            
             return View();
         }
 
