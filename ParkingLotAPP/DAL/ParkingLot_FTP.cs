@@ -23,7 +23,7 @@ namespace ParkingLotAPP.DAL
             this.ftpUser = ftpUser;
             this.ftpPassword = ftpPassword;
         }
-        public async Task<string> fileDownloadAsync(string f_name)
+        public async Task<string> FileDownloadAsync(string f_name)
         {
             using (var ftpClient = new FtpClient(new FtpClientConfiguration
             {

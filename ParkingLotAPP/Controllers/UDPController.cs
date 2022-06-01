@@ -45,6 +45,8 @@ namespace ParkingLotAPP.Controllers
             }
         }
         
+
+
         /*  <目的>    設定計數板的車輛數量   </目的>
          *  <參數>    
          *            參數1 停車場guid:  parkingGuid 
@@ -75,6 +77,9 @@ namespace ParkingLotAPP.Controllers
             }
 
         }
+
+
+
         /*  <目的>    開啟柵欄   </目的>
          *  <參數>    
          *            參數1 停車場guid:  parkingGuid 
@@ -106,8 +111,10 @@ namespace ParkingLotAPP.Controllers
                 return Json(new Response { Code = "402", ErrMsg = "操作逾時，請重新登入", Data = null });
             }
         }
-        /* 
-         * <目的>    驗證SESSION 並取得停車場的授權資料   </目的>
+
+
+
+        /*  <目的>    驗證SESSION 並取得停車場的授權資料   </目的>
          */
         public ParkingLotInfo Verify(string key) 
         {

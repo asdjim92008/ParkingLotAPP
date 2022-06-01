@@ -14,14 +14,29 @@ namespace ParkingLotAPP.DAL
         {
             
         }
-        public List<DataModel.CarInfo> GetAlljpg()
+        public List<DataModel.CarInfo> GetFivejpg(int start,string searchTime)
         {
             try
             {
                 using (var cn = new MySqlConnection(base._cnStr))
                 {
-                    string sql = $"select YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay order by YMDHM desc";
-                    var list = cn.Query<DataModel.CarInfo>(sql).ToList();
+                    var dynamicParams = new DynamicParameters();//←動態參數
+                    dynamicParams.Add("START", start);
+                    dynamicParams.Add("YMDHM", searchTime+"%");
+                    string sql;
+                    if (searchTime == null)
+                    {
+                        //sql = $"select YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay order by YMDHM desc limit @START,5";
+                        sql = $"select YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
+                            $"(select YMDHM from parkingpay order by YMDHM desc limit @START,5)b using (YMDHM) ORDER BY YMDHM desc";
+                    }
+                    else
+                    {
+                        //sql = $"select YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay where YMDHM like @YMDHM order by YMDHM desc limit @START,5";
+                        sql = $"select YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
+                            $"(select YMDHM from parkingpay where YMDHM like @YMDHM order by YMDHM desc limit @START,5)b using (YMDHM) ORDER BY YMDHM desc";
+                    }
+                    var list = cn.Query<DataModel.CarInfo>(sql,dynamicParams).ToList();
                     return list;
                 }
             }
@@ -30,25 +45,8 @@ namespace ParkingLotAPP.DAL
                 throw ex;
             }
         }
-        /*public DataModel.CarInfo GetCarInfo(string JPGFILE)
-        {
-            try
-            {
-                using (var cn = new MySqlConnection(base._cnStr))
-                {
-                    var dynamicParams = new DynamicParameters();//←動態參數
-                    dynamicParams.Add("JPGFILE", JPGFILE);
-                    string sql = $"select YMDHM, PLATENUM, TICKNO from parkingpay where JPGFILE=@JPGFILE order by YMDHM";
-                    
-                    var list = cn.Query<DataModel.CarInfo>(sql, dynamicParams).ToList();
-                    return list.FirstOrDefault() ;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }*/
+        
+        
         public string ChangePlateNum(string N_PlateNum,string C_PlateNum)
         {
             try
@@ -86,15 +84,19 @@ namespace ParkingLotAPP.DAL
             {
                 using(var cn=new MySqlConnection(base._cnStr))
                 {
+                    string sql = $"select TICKNO from parkingpay order by TICKNO desc limit 1";
+                    var temp = cn.Query<string>(sql).FirstOrDefault();
+                    temp = (temp == null) ? "000001" : (int.Parse(temp)+1).ToString().PadLeft(6, '0');
                     var dynamicParams = new DynamicParameters();//←動態參數
                     dynamicParams.Add("Pankno", Pankno);
                     dynamicParams.Add("PlateNum", PlateNum);
                     dynamicParams.Add("YMHDM", YMHDM);
-                    string sql = $"insert ignore  into parkingpay( PANKNO, RID, PLATENUM, YMDHM) values (@Pankno,'001',@PlateNum,@YMHDM)";
+                    dynamicParams.Add("TICKNO", temp);
+                    sql = $"insert ignore  into parkingpay( PANKNO, RID, PLATENUM, YMDHM, TICKNO) values (@Pankno,'001',@PlateNum,@YMHDM,@TICKNO)";
                     var list = cn.Execute(sql,dynamicParams);
                     if (list == 0)
                     {
-                        return "Repeat, Insert fail";
+                        return "Exist, Insert fail";
                     }
                     return "PlateNum " + PlateNum + " Insert success " ;
                 }
@@ -125,5 +127,38 @@ namespace ParkingLotAPP.DAL
                 throw ex;
             }
         }
+        public List<DataModel.DBlog> GetLogs(int start,string searchTime)
+        {
+            try
+            {
+                using (var cn = new MySqlConnection(base._cnStr))
+                {
+                    var dynamicParams = new DynamicParameters();//←動態參數
+                    dynamicParams.Add("START", start);
+                    dynamicParams.Add("TIME", searchTime+"%");
+                    string sql;
+                    if (searchTime == null)
+                    {
+                        //string sql = $"select * from parkinglog order by TIME desc limit @START,10";
+                        sql = $"select * from parkinglog inner join" +
+                            $"(select TIME from parkinglog order by TIME desc limit @START,10)b using(TIME) order by TIME desc";
+                    }
+                    else
+                    {
+                        sql = $"select * from parkinglog inner join" +
+                            $"(select TIME from parkinglog where TIME like @TIME order by TIME desc limit @START,10)b using(TIME) order by TIME desc";
+                    }
+                    
+                    var list = cn.Query<DataModel.DBlog>(sql, dynamicParams).ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+        
     }
 }

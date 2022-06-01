@@ -39,28 +39,34 @@ namespace ParkingLotAPP.Controllers
                 //建立儲存session的物件
                 Manager sessionManger = new Manager();
                 HttpContext.Session.SetObjectAsJson("sessionManger", sessionManger);
-
-                var manager = manager_SQL.Login(Account, Password);
-
-                //登入成功
-                if (manager != null)
+                try
                 {
-                    session1 = manager;
-                    HttpContext.Session.SetObjectAsJson("sessionManger", session1);
-                    var parkinglotlist = manager_SQL.GetParkingLotLists(session1.SysGuid);
+                    var manager = manager_SQL.Login(Account, Password);
+                    //登入成功
+                    if (manager != null)
+                    {
+                        HttpContext.Session.SetObjectAsJson("sessionManger", manager);
+                        var parkinglotlist = manager_SQL.GetParkingLotLists(manager.SysGuid);
 
-                    response = new LoginResponse { Code = "200", ErrMsg = "", Data = parkinglotlist, CompanyName = session1.CompanyName };
+                        response = new LoginResponse { Code = "200", ErrMsg = "", Data = parkinglotlist, CompanyName = manager.CompanyName };
+                    }
+                    //登入失敗
+                    else
+                    {
+                        response = new LoginResponse { Code = "400", ErrMsg = "帳號密碼錯誤" };
+                        Logout();
+                    }
                 }
-                //登入失敗
-                else
+                catch (Exception)
                 {
-                    response = new LoginResponse { Code = "400", ErrMsg = "帳號密碼錯誤" };
-                    Logout();
+                    response = new LoginResponse { Code = "403", ErrMsg = "連接資料庫逾時，請再試一次" };
                 }
             }
-
             return Json(response);
         }
+
+
+
         /*  <目的>    取得所選停車場的授權資料   </目的>
          *  <參數>    
          *            參數1 停車場guid:  parkingGuid
@@ -87,6 +93,9 @@ namespace ParkingLotAPP.Controllers
                 return Json(response);
             }
         }
+
+
+
         /*  <目的>    登出並將SESSION清空   </目的>
          *  <路徑>    "/api/Data_SQL/Logout"
          *  <回傳>    訊息  </回傳>*/
@@ -107,43 +116,36 @@ namespace ParkingLotAPP.Controllers
                 return Json(response);
             }
         }
+
+
+
         /*  <目的>    依照所選的頁面回傳5個停車場車輛的資訊   </目的>
          *  <參數>    
          *            參數1 停車場guid:  parkingGuid 
          *            參數2 頁數:  page
+         *            參數3 搜尋時間: searchTime (選用) ,(格式 ex:2022年5月10號 10時11分12秒 => 20220510101112 可不完整)
          *  </參數>
          *  <路徑>    "/api/Data_SQL/Logout"
          *  <回傳>    ymhdm(進場時間) platenum(車牌) tickno(票卡序號) jpg(圖片)   </回傳>
          *  <使用方式>  <img src="data:image/jpg;base64,jpg">    </使用方式> */
         [HttpGet("FtpFile")]
-        public ActionResult FTP_GetFile(string parkingGuid, string page)
+        public ActionResult FTP_GetFile(string parkingGuid, string page, string searchTime)
         {
             Response response;
             var getParkingLotInfo = Verify(parkingGuid);
             if (getParkingLotInfo != null)
             {
                 int start = (int.Parse(page) - 1) * 5;
-                int end = (int.Parse(page) * 5) - 1;
-                int current = start;
+                
                 ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
-                var tempinfo = parkingLot_SQL.GetAlljpg();
-                var carinfos = new List<CarInfo>();
+                var carsinfo = parkingLot_SQL.GetFivejpg(start,searchTime);
+                
+                
 
                 ParkingLot_FTP parkingLot_FTP = new ParkingLot_FTP(getParkingLotInfo.FTPIP, getParkingLotInfo.FTPAccount, getParkingLotInfo.FTPPassword);
-                while (current < tempinfo.Count && current <= end)
-                {
-                    if (tempinfo.ElementAt(current) != null)
-                    {
-                        tempinfo.ElementAt(current).JPG = parkingLot_FTP.fileDownloadAsync(tempinfo.ElementAt(current).JPG).Result;
-                    }
-                    else
-                    {
-                        tempinfo.ElementAt(current).JPG = "null";
-                    }
-                    carinfos.Add(tempinfo.ElementAt(current));
-                    current++;
-                }
-                response = new Response { Code = "200", ErrMsg = "", Data = carinfos };
+                carsinfo.ForEach(n=>n.JPG=parkingLot_FTP.FileDownloadAsync(n.JPG).Result);
+                
+                response = new Response { Code = "200", ErrMsg = "", Data = carsinfo };
             }
             else
             {
@@ -151,6 +153,9 @@ namespace ParkingLotAPP.Controllers
             }
             return Json(response);
         }
+
+
+
         /*  <目的>    修改錯誤車牌   </目的>
          *  <參數>    
          *            參數1 停車場guid:  parkingGuid 
@@ -185,6 +190,9 @@ namespace ParkingLotAPP.Controllers
             }
             return Json(response);
         }
+
+
+
         /*  <目的>    新增車牌   </目的>
          *  <參數>    
          *            參數1 停車場guid:  parkingGuid 
@@ -219,8 +227,39 @@ namespace ParkingLotAPP.Controllers
             }
             return Json(response);
         }
-        /* 
-         * <目的>    驗證SESSION 並取得停車場的授權資料   </目的>
+
+
+        /*  <目的>    依照所選的頁面回傳10個操作紀錄   </目的>
+         *  <參數>    
+         *            參數1 停車場guid:  parkingGuid 
+         *            參數2 頁數:  page
+         *            參數3 搜尋時間: searchTime (選用) ,(格式 ex:2022年5月10號 10時11分12秒 => 20220510101112 可不完整)
+         *  </參數>
+         *  <路徑>    "/api/Data_SQL/DBlog"
+         *  <回傳>    manager(管理員名稱) log(修改資訊) time(修改時間)   </回傳>
+         */
+        [HttpGet("DBlog")]
+        public ActionResult GetLogs(string parkingGuid , string page, string searchTime)
+        {
+            Response response;
+            var getParkingLotInfo = Verify(parkingGuid);
+            if (getParkingLotInfo != null)
+            {
+                int start = (int.Parse(page) - 1) * 5;
+                ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
+                var x = parkingLot_SQL.GetLogs(start, searchTime);
+                response = new Response { Code = "200", ErrMsg = "", Data = x };
+            }
+            else
+            {
+                response = new Response { Code = "402", ErrMsg = "操作逾時，請重新登入" };
+            }
+            return Json(response);
+        }
+
+
+
+        /*  <目的>    驗證SESSION 並取得停車場的授權資料   </目的>
          */
         public ParkingLotInfo Verify(string key)
         {

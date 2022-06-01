@@ -73,6 +73,13 @@ namespace ParkingLotAPP.Models
             public string JPG { get; set; }
 
         }
+        public class DBlog
+        {
+            public string MANAGER { get; set; }
+            public string LOG { get; set; }
+            public string TIME { get; set; }
+
+        }
         
 
     }
