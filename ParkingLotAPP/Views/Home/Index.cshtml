@@ -47,12 +47,12 @@
                     </td>
                     <td>
                         <div class="card 4">
-                            <div class="card_image">
-                                <a style='color: #fff;width: inherit;height: inherit;height: 100px;' href='javascript: void(0);' onclick='gocorrection()'>
+                            <a style='color: #fff;width: inherit;height: inherit;height: 100px;' href='javascript: void(0);' onclick='gocorrection()'>
+                                <div class="card_image">
                                     <img class="bgimg" src="~/images/geometricicon.jpg" />
                                     <img class="bticon" src="~/images/carnoicon.png" />
-                                </a>
-                            </div>
+                                </div>
+                            </a>
                             <div class="card_title title-white">
                                 <p>車牌校正</p>
                             </div>
@@ -86,7 +86,11 @@
                 <tr>
                     <td colspan="2">
                         <section class="portfolio-experiment" style="">
-                            <center><span class="text">返回停車場列表</span></center>
+                            <a href='javascript: void(0);' onclick="backpage()">
+                                <center>
+                                    <span class="text">返回停車場列表</span>
+                                </center>
+                            </a>
                         </section>
                     </td>
                 </tr>
@@ -107,6 +111,10 @@
             }
         }
         window.location = "/Correction/Index?parkingGuid=" + theRequest.parkingGuid;
+    }
+
+    function backpage() {
+        window.location = "/ParkingList/Index";
     }
 </script>
 

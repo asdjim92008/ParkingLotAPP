@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: linear-gradient(#141e30, #243b55, #243b55,#141e30);
+    background: linear-gradient(#141e30, #315f94, #315f94,#141e30);
 }
 
 /*IndexBar*/
@@ -318,8 +318,22 @@ a {
     transform: translate(-50%, -50%);
 }
 
-@media screen and (max-width:375px) {
+@media screen and (min-width:767px) and (max-width: 2000px) {
+    .logo {
+        position: absolute;
+        top: 22%;
+        left: 52%;
+        width: 400px;
+        padding: 40px;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@media screen and (max-width:565px) {
     .logo {
         top: 15%;
+    }
+    .login-box {
+        top: 53%;
     }
 }
