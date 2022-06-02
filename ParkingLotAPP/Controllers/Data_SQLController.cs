@@ -124,12 +124,13 @@ namespace ParkingLotAPP.Controllers
          *            參數1 停車場guid:  parkingGuid 
          *            參數2 頁數:  page
          *            參數3 搜尋時間: searchTime (選用) ,(格式 ex:2022年5月10號 10時11分12秒 => 20220510101112 可不完整)
+         *            參數4 搜尋車牌: plateNum (選用) ,(格式無'-')
          *  </參數>
          *  <路徑>    "/api/Data_SQL/Logout"
          *  <回傳>    ymhdm(進場時間) platenum(車牌) tickno(票卡序號) jpg(圖片)   </回傳>
          *  <使用方式>  <img src="data:image/jpg;base64,jpg">    </使用方式> */
         [HttpGet("FtpFile")]
-        public ActionResult FTP_GetFile(string parkingGuid, string page, string searchTime)
+        public ActionResult FTP_GetFile(string parkingGuid, string page, string searchTime, string plateNum)
         {
             Response response;
             var getParkingLotInfo = Verify(parkingGuid);
@@ -138,7 +139,7 @@ namespace ParkingLotAPP.Controllers
                 int start = (int.Parse(page) - 1) * 5;
                 
                 ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
-                var carsinfo = parkingLot_SQL.GetFivejpg(start,searchTime);
+                var carsinfo = parkingLot_SQL.GetFivejpg(start,searchTime,plateNum);
                 
                 
 
@@ -228,7 +229,7 @@ namespace ParkingLotAPP.Controllers
             return Json(response);
         }
 
-        //test
+        
         /*  <目的>    依照所選的頁面回傳10個操作紀錄   </目的>
          *  <參數>    
          *            參數1 停車場guid:  parkingGuid 
@@ -239,7 +240,7 @@ namespace ParkingLotAPP.Controllers
          *  <回傳>    manager(管理員名稱) log(修改資訊) time(修改時間)   </回傳>
          */
         [HttpGet("DBlog")]
-        public ActionResult GetLogs(string parkingGuid , string page, string searchTime)
+        public ActionResult GetLogs(string parkingGuid , string page, string searchTime,string manager)
         {
             Response response;
             var getParkingLotInfo = Verify(parkingGuid);
@@ -247,7 +248,7 @@ namespace ParkingLotAPP.Controllers
             {
                 int start = (int.Parse(page) - 1) * 5;
                 ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
-                var x = parkingLot_SQL.GetLogs(start, searchTime);
+                var x = parkingLot_SQL.GetLogs(start, searchTime,manager);
                 response = new Response { Code = "200", ErrMsg = "", Data = x };
             }
             else

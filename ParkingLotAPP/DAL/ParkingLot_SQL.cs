@@ -14,7 +14,7 @@ namespace ParkingLotAPP.DAL
         {
             
         }
-        public List<DataModel.CarInfo> GetFivejpg(int start,string searchTime)
+        public List<DataModel.CarInfo> GetFivejpg(int start,string searchTime,string plateNum)
         {
             try
             {
@@ -23,18 +23,26 @@ namespace ParkingLotAPP.DAL
                     var dynamicParams = new DynamicParameters();//←動態參數
                     dynamicParams.Add("START", start);
                     dynamicParams.Add("YMDHM", searchTime+"%");
+                    dynamicParams.Add("PLATENUM", "%"+plateNum);
                     string sql;
-                    if (searchTime == null)
+                    switch (Judge(searchTime, plateNum))
                     {
-                        //sql = $"select YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay order by YMDHM desc limit @START,5";
-                        sql = $"select YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
+                        case 0:     //無搜尋時間，無搜尋車牌
+                            sql= $"select DISTINCT YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
                             $"(select YMDHM from parkingpay order by YMDHM desc limit @START,5)b using (YMDHM) ORDER BY YMDHM desc";
-                    }
-                    else
-                    {
-                        //sql = $"select YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay where YMDHM like @YMDHM order by YMDHM desc limit @START,5";
-                        sql = $"select YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
+                            break;
+                        case 1:     //有搜尋時間，無搜尋車牌
+                            sql = $"select DISTINCT YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
                             $"(select YMDHM from parkingpay where YMDHM like @YMDHM order by YMDHM desc limit @START,5)b using (YMDHM) ORDER BY YMDHM desc";
+                            break;
+                        case 2:     //無搜尋時間，有搜尋車牌
+                            sql= $"select DISTINCT YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
+                            $"(select YMDHM from parkingpay where PLATENUM like @PLATENUM order by YMDHM desc limit @START,5)b using (YMDHM) ORDER BY YMDHM desc";
+                            break;
+                        default:    //有搜尋時間，有搜尋車牌
+                            sql = $"select DISTINCT YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
+                            $"(select YMDHM from parkingpay where PLATENUM like @PLATENUM and YMDHM like @YMDHM order by YMDHM desc limit @START,5)b using (YMDHM) ORDER BY YMDHM desc";
+                            break;
                     }
                     var list = cn.Query<DataModel.CarInfo>(sql,dynamicParams).ToList();
                     return list;
@@ -127,7 +135,7 @@ namespace ParkingLotAPP.DAL
                 throw ex;
             }
         }
-        public List<DataModel.DBlog> GetLogs(int start,string searchTime)
+        public List<DataModel.DBlog> GetLogs(int start,string searchTime,string manager)
         {
             try
             {
@@ -136,17 +144,26 @@ namespace ParkingLotAPP.DAL
                     var dynamicParams = new DynamicParameters();//←動態參數
                     dynamicParams.Add("START", start);
                     dynamicParams.Add("TIME", searchTime+"%");
+                    dynamicParams.Add("MANAGER", manager);
                     string sql;
-                    if (searchTime == null)
+                    switch (Judge(searchTime, manager))
                     {
-                        //string sql = $"select * from parkinglog order by TIME desc limit @START,10";
-                        sql = $"select * from parkinglog inner join" +
-                            $"(select TIME from parkinglog order by TIME desc limit @START,10)b using(TIME) order by TIME desc";
-                    }
-                    else
-                    {
-                        sql = $"select * from parkinglog inner join" +
-                            $"(select TIME from parkinglog where TIME like @TIME order by TIME desc limit @START,10)b using(TIME) order by TIME desc";
+                        case 0:     //無搜尋時間，無搜尋管理人
+                            sql = $"select DISTINCT * from parkinglog inner join " +
+                            $"(select TIME from parkinglog order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc";
+                            break;
+                        case 1:     //有搜尋時間，無搜尋管理人
+                            sql = $"select DISTINCT * from parkinglog inner join " +
+                            $"(select TIME from parkinglog where TIME like @TIME order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc";
+                            break;
+                        case 2:     //無搜尋時間，有搜尋管理人
+                            sql = $"select DISTINCT * from parkinglog inner join " +
+                            $"(select TIME from parkinglog where MANAGER = @MANAGER order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc";
+                            break;
+                        default:    //有搜尋時間，有搜尋管理人
+                            sql = $"select DISTINCT * from parkinglog inner join " +
+                            $"(select TIME from parkinglog where MANAGER = @MANAGER and TIME like @TIME order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc";
+                            break;
                     }
                     
                     var list = cn.Query<DataModel.DBlog>(sql, dynamicParams).ToList();
@@ -158,6 +175,13 @@ namespace ParkingLotAPP.DAL
                 throw ex;
             }
             
+        }
+        public int Judge(string s1,string s2)
+        {
+            if (s1 == null && s2 == null) return 0;
+            else if (s1 != null && s2 == null) return 1;
+            else if (s1 == null && s2 != null) return 2;
+            else return 3;
         }
         
     }
