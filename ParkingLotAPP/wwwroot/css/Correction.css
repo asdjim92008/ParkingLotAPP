@@ -1,0 +1,213 @@
+﻿* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #315f94, #315f94,#141e30);
+}
+
+#search {
+    align-items: center;
+    background: #416996;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em 0.5em 0.5em 1em;
+    transition: all 0.5s;
+    width: 340px;
+    opacity: 0.6;
+}
+
+    #search:hover, #search:focus {
+        background: #15569e;
+    }
+
+    #search button, #search input {
+        appearance: none;
+        background: transparent;
+        border: 0;
+        color: inherit;
+        font: inherit;
+        outline: 0;
+    }
+
+    #search button {
+        cursor: pointer;
+        padding: 0 0.25em;
+    }
+
+    #search input {
+        color: #FFF;
+        flex: 1;
+    }
+
+        #search input::placeholder {
+            color: #fff;
+        }
+
+    #search .spinner {
+        animation: spinner 1s infinite linear;
+        display: none;
+        padding: 0 0.25em;
+    }
+
+    #search.loading button {
+        display: none;
+    }
+
+    #search.loading .spinner {
+        display: block;
+    }
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.search_icon {
+    width: 30px;
+    height: 30px;
+}
+
+.content_box {
+    width: 380px;
+    padding: 5px;
+    /*   transform: translate(-50%, -50%);*/
+    height: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    font-size: 18px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.PL_time {
+    position: absolute;
+    left: 53%;
+    color: #FFF;
+    margin-top: -75px;
+    margin-left: 5px;
+}
+
+.PL_news {
+    margin: 5px;
+}
+
+
+.info_bar {
+    margin: 0px auto;
+    width: 360px;
+}
+
+.add_img_box {
+    padding: 4px;
+    color: #FFF;
+}
+
+.add_img {
+    height: 35px;
+    width: 35px;
+}
+
+.Lpage, .Npage {
+    height: 20px;
+    width: 20px;
+}
+
+.Lbt {
+    display: inline-block;
+    margin-left: 180px;
+}
+
+.Nbt {
+    display: inline-block;
+}
+
+.top_bar {
+    width: 100%;
+}
+
+.SearchCar {
+    margin: 0px auto;
+}
+
+.carnum {
+    position: relative;
+    display: inline-block;
+    top: -85px;
+    left: 130px;
+}
+
+span {
+    color: #FFF;
+    top: 68%;
+}
+
+@media screen and (max-width: 350px)  {
+    .PL_news_box {
+        width: 125px;
+        height: 95px;
+    }
+
+    .Lbt {
+        margin-left: 150px;
+    }
+}
+
+@media screen and (max-width: 766px) and (min-width: 351px) {
+    .PL_news_box {
+        width: 125px;
+        height: 120px;
+    }
+
+    .Lbt {
+        margin-left: 150px;
+    }
+}
+
+@media screen and (min-width: 767px) {
+    .PL_news_box {
+        width: 250px;
+        height: 167px;
+        margin-left: 50px;
+    }
+
+    .PL_time {
+        left: 71%;
+    }
+
+    .PL_news_box img {
+        margin-top: 40px;
+    }
+
+    .Lbt {
+        margin-left: 170px;
+    }
+
+    .carnum {
+        top: -80px;
+        left: 150px;
+        font-size: 25px;
+    }
+}

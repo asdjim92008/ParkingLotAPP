@@ -37,7 +37,7 @@ namespace ParkingLotAPP.DAL
                 {
                     using (var ftpReadStream = await ftpClient.OpenFileReadStreamAsync("/LinePayPicture/" + f_name + ".jpg"))
                     {
-                        Bitmap bmp = new Bitmap(ftpReadStream);
+                        Bitmap bmp = new Bitmap(new Bitmap(ftpReadStream),125,90);
                         MemoryStream ms = new MemoryStream();
                         try
                         {

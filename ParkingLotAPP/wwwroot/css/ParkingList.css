@@ -35,6 +35,10 @@ body {
     cursor: pointer;
     transition: 0.4s;
     opacity: 0.9;
+    /* 做出傾斜的視覺感 */
+    border-width: 2px 3px 2px 5px;
+    border-radius: 90% 6% 93% 5% / 5% 94% 7% 95%;
+    transform: rotate(2deg);
 }
 
 .card .card_image {
@@ -57,7 +61,7 @@ body {
     object-fit: cover;
     max-width: 50%;
     max-height: 50%;
-    margin-top: 8px;
+    margin-top: -160px;
     margin-left: 30px;
 }
 
@@ -169,5 +173,5 @@ body {
 
 /*parkinglist*/
 .card_p{
-    margin-top:-3px;
+    margin-top:-5px;
 }

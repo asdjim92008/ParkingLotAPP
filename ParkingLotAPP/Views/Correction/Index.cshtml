@@ -2,201 +2,21 @@
     Layout = "_WebLayout";
 }
 @section Styles {
-    <link rel="stylesheet" href="~/css/ParkingList.css">
+    <link rel="stylesheet" href="~/css/Correction.css">
 }
-
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-}
-
-#search {
-  align-items: center;
-  background: #416996;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5em 0.5em 0.5em 1em;
-  transition: all 0.5s;
-  width: 360px;
-  opacity:0.6;
-}
-#search:hover, #search:focus {
-background: #15569e;
-}
-#search button,#search input {
-appearance: none;
-background: transparent;
-border: 0;
-color: inherit;
-font: inherit;
-outline: 0;
-}
-#search button {
-cursor: pointer;
-padding: 0 0.25em;
-}
-#search input {
-    color:#FFF;
-    flex: 1;
-}
-#search input::placeholder {
-    color: #fff;
-}
-#search .spinner {
-animation: spinner 1s infinite linear;
-display: none;
-padding: 0 0.25em;
-}
-
-#search.loading button {
-  display: none;
-}
-
-#search.loading .spinner {
-  display: block;
-}
-
-@@keyframes spinner {
-  0%
-  {
-    transform: rotate(0deg);
-  }
-  100%
-  {
-    transform: rotate(360deg);
-  }
-}
-
-.search_icon {
-    width: 30px;
-    height: 30px;
-}
-
-    .content_box {
-        width: 380px;
-        padding: 5px;
-        /*   transform: translate(-50%, -50%);*/
-        height: auto;
-
-        display: flex;
-        flex-direction: column-reverse;
-        font-size: 18px;
-        overflow: hidden;
-        width: 100%;
-    }
-
-    .PL_time {
-        position: absolute;
-        left: 53%;
-        color: #FFF;
-        margin-top: -30px;
-    }
-
-    .PL_news {
-        margin: 5px;
-    }
-
-
-    .info_bar {
-        margin: 0px auto;
-        width: 360px;
-    }
-
-    .add_img_box {
-        padding:4px;
-        color: #FFF;
-    }
-
-    .add_img {
-        height: 35px;
-        width: 35px;
-    }
-
-    .Lpage, .Npage {
-        height: 20px;
-        width: 20px;
-    }
-
-    .Lbt {
-        display: inline-block;
-        margin-left: 180px;
-    }
-
-    .Nbt {
-        display: inline-block;
-    }
-
-    .top_bar {
-        width: 100%;
-    }
-
-    .SearchCar {
-        margin: 0px auto;
-    }
-
-    .carnum {
-        position: relative;
-        display: inline-block;
-        top: -10px;
-    }
-
-    span {
-        color: #FFF;
-        top: 68%;
-    }
-
-    @@media screen and (max-width: 350px) {
-        .PL_image {
-            width: 125px;
-            height: 90px;
-        }
-
-        .Lbt {
-            margin-left: 150px;
-        }
-    }
-
-    @@media screen and (min-width: 767px){
-        .PL_image {
-            width: 250px;
-            height: 167px;
-            margin-left:50px;
-        }
-
-        .PL_time {
-            left: 71%;
-            margin-top: -30px;
-        }
-
-        .PL_image img {
-            margin-top: 40px;
-        }
-
-        .Lbt {
-            margin-left: 170px;
-        }
-
-        .carnum {
-            top: -80px;
-            left: 150px;
-            font-size:25px;
-        }
-    }
-</style>
 
 
 <div class="top_bar">
-    <div class="SearchCar row" id="search">
-        <input id="SearchCar" name="SearchCar" placeholder="Search..." />
-        <button onclick="SearchCar()">
-            <img class='search_icon' src='/images/search_icon.png' />
-        </button>
-        <div class="spinner"></div>
-    </div>
+    <center>
+        <div class="SearchCar row" id="search">
+            <input id="SearchCar" name="SearchCar" placeholder="Search..." />
+            <input id="date" type="date">
+            <button onclick="SearchCar()">
+                <img class='search_icon' src='/images/search_icon.png' />
+            </button>
+            <div class="spinner"></div>
+        </div>
+    </center>
     <div class="info_bar row" id="info_bar">
         <div class="add_img_box col">
             <a><img class="add_img" src='/images/add_icon.png' /></a>
@@ -212,67 +32,57 @@ padding: 0 0.25em;
 
 <div class="content_box">
     <div class="PL_news">
-        <div class="PL_image">
-            <img src="https://fakeimg.pl/125x90/">
-            <div class="carnum">
-                <span>
-                    車牌號：BJ4-297
-                </span>
+        <div class="PL_news_box">
+            <div id="PL_image0">
+                <img width='125' height='90' src="https://fakeimg.pl/125x90/">
             </div>
-            <div class="PL_info">
-                <time class="PL_time">2022-06-01 12:05</time>
+            <div class="carnum" id="carnum0">
+            </div>
+            <div class="PL_info" id="PL_info0">
             </div>
         </div>
     </div>
     <div class="PL_news">
-        <div class="PL_image">
-            <img src="https://fakeimg.pl/125x90/">
-            <div class="carnum">
-                <span>
-                    車牌號：AAA-666
-                </span>
+        <div class="PL_news_box">
+            <span id="PL_image1">
+                <img width='125' height='90' src="https://fakeimg.pl/125x90/">
+            </span>
+            <div class="carnum" id="carnum1">
             </div>
-            <div class="PL_info">
-                <time class="PL_time">2022-06-02 12:05</time>
+            <div class="PL_info" id="PL_info1">
             </div>
         </div>
     </div>
     <div class="PL_news">
-        <div class="PL_image">
-            <img src="https://fakeimg.pl/125x90/">
-            <div class="carnum">
-                <span>
-                    車牌號：AX-9487
-                </span>
+        <div class="PL_news_box">
+            <span id="PL_image2">
+                <img width='125' height='90' src="https://fakeimg.pl/125x90/">
+            </span>
+            <div class="carnum" id="carnum2">
             </div>
-            <div class="PL_info">
-                <time class="PL_time">2022-06-03 12:05</time>
+            <div class="PL_info" id="PL_info2">
             </div>
         </div>
     </div>
     <div class="PL_news">
-        <div class="PL_image">
-            <img src="https://fakeimg.pl/125x90/">
-            <div class="carnum">
-                <span>
-                    車牌號：JY-8787
-                </span>
+        <div class="PL_news_box">
+            <span id="PL_image3">
+                <img width='125' height='90' src="https://fakeimg.pl/125x90/">
+            </span>
+            <div class="carnum" id="carnum3">
             </div>
-            <div class="PL_info">
-                <time class="PL_time">2022-06-04 12:05</time>
+            <div class="PL_info" id="PL_info3">
             </div>
         </div>
     </div>
     <div class="PL_news">
-        <div class="PL_image">
-            <img src="https://fakeimg.pl/125x90/">
-            <div class="carnum">
-                <span>
-                    車牌號：AA-0000
-                </span>
+        <div class="PL_news_box">
+            <span id="PL_image4">
+                <img width='125' height='90' src="https://fakeimg.pl/125x90/">
+            </span>
+            <div class="carnum" id="carnum4">
             </div>
-            <div class="PL_info">
-                <time class="PL_time">2022-06-05 12:05</time>
+            <div class="PL_info" id="PL_info4">
             </div>
         </div>
     </div>
@@ -280,22 +90,70 @@ padding: 0 0.25em;
 
 
 <script>
+    window.onload = function () {
+        const url = location.search; //獲取url中"?"符號後的字串
+        let theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            let str = url.substr(1);
+            strs = str.split("&");
+            for (let i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        let page = 1;
+        let text,carnum,PL_info = "";
+        $.ajax({
+            type: 'GET',
+            url: "/api/Data_SQL/FtpFile",
+            data: { 'parkingGuid': theRequest.parkingGuid, 'page': page },
+            dataType: 'json',
+            async: true,
+            success: function (response) {
+                let code = JSON.stringify(response.code);
+                let errmsg = JSON.stringify(response.errMsg)
+                if (code == '"402"') {
+                    alert(errmsg);
+                }
+                else {
+                    for (let i = 0; i < response.data.length; i++) {
+
+                        let pattern = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/;
+                        let dateString = response.data[i].ymdhm;
+                        let formatedDate = dateString.replace(pattern, '$1/$2/$3 $4:$5:$6');
+
+                        if (response.data[i].jpg == "no such file") {
+                            text = "<img src='https://fakeimg.pl/125x90/'>";
+                            PL_info = "<time class='PL_time'>" + formatedDate + "</time>";
+                        }
+                        else {
+                            text = "<img src='data:image/jpg;base64," + response.data[i].jpg + "'>";
+                            PL_info = "<time class='PL_time'>" + formatedDate + "</time>";
+                        }
+
+                        if (response.data[i].tickno == "") {
+                            carnum = "<span>無辨識車牌號</span>";
+                        }
+                        else {
+                            carnum = "<span>車牌號：" + response.data[i].platenum + "<br>票號：" + response.data[i].tickno + "</span>";
+                        }
+
+                        $("#PL_image" + i).html(text);
+                        $("#carnum" + i).html(carnum);
+                        $("#PL_info" + i).html(PL_info);
+                    }
+                }
+            },
+            error: function () {
+
+            }
+        });
+    };
+
+    /*搜尋功能*/
     function SearchCar() {
         var SearchCar = document.getElementById("SearchCar").value;
-        
+
         alert(SearchCar);
     }
-    //window.onload = function () {
-    //    const url = location.search; //獲取url中"?"符號後的字串
-    //    let theRequest = new Object();
-    //    if (url.indexOf("?") != -1) {
-    //        let str = url.substr(1);
-    //        strs = str.split("&");
-    //        for (let i = 0; i < strs.length; i++) {
-    //            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-    //        }
-    //    }
-    //    console.log(theRequest.parkingGuid)
-    //    window.location = "/Correction/Index?parkingGuid=" + theRequest.parkingGuid;
-    //};
+
 </script>
