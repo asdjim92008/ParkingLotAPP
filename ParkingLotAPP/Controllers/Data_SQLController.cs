@@ -127,7 +127,7 @@ namespace ParkingLotAPP.Controllers
          *            參數4 搜尋車牌: plateNum (選用) ,(格式無'-')
          *  </參數>
          *  <路徑>    "/api/Data_SQL/Logout"
-         *  <回傳>    ymhdm(進場時間) platenum(車牌) tickno(票卡序號) jpg(圖片)   </回傳>
+         *  <回傳>    rid(車道) ymhdm(進場時間) platenum(車牌) tickno(票卡序號) jpg(圖片)   </回傳>
          *  <使用方式>  <img src="data:image/jpg;base64,jpg">    </使用方式> */
         [HttpGet("FtpFile")]
         public ActionResult FTP_GetFile(string parkingGuid, string page, string searchTime, string plateNum)

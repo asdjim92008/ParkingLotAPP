@@ -28,19 +28,19 @@ namespace ParkingLotAPP.DAL
                     switch (Judge(searchTime, plateNum))
                     {
                         case 0:     //無搜尋時間，無搜尋車牌
-                            sql= $"select DISTINCT YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
+                            sql= $"select DISTINCT RID,YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
                             $"(select YMDHM from parkingpay order by YMDHM desc limit @START,5)b using (YMDHM) ORDER BY YMDHM desc";
                             break;
                         case 1:     //有搜尋時間，無搜尋車牌
-                            sql = $"select DISTINCT YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
+                            sql = $"select DISTINCT RID,YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
                             $"(select YMDHM from parkingpay where YMDHM like @YMDHM order by YMDHM desc limit @START,5)b using (YMDHM) ORDER BY YMDHM desc";
                             break;
                         case 2:     //無搜尋時間，有搜尋車牌
-                            sql= $"select DISTINCT YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
+                            sql= $"select DISTINCT RID,YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
                             $"(select YMDHM from parkingpay where PLATENUM like @PLATENUM order by YMDHM desc limit @START,5)b using (YMDHM) ORDER BY YMDHM desc";
                             break;
                         default:    //有搜尋時間，有搜尋車牌
-                            sql = $"select DISTINCT YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
+                            sql = $"select DISTINCT RID,YMDHM,PLATENUM,TICKNO,JPGFILE as JPG from parkingpay inner join " +
                             $"(select YMDHM from parkingpay where PLATENUM like @PLATENUM and YMDHM like @YMDHM order by YMDHM desc limit @START,5)b using (YMDHM) ORDER BY YMDHM desc";
                             break;
                     }
