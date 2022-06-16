@@ -10,7 +10,7 @@
     <center>
         <div class="SearchCar row" id="search">
             <input id="SearchCar" name="SearchCar" placeholder="Search..." />
-            <input id="date" type="date">
+            <input id="date" type="date" value="" placeholder="請輸入日期" style="width:112px;height:25px;background-color:black">
             <button onclick="SearchCar()">
                 <img class='search_icon' src='/images/search_icon.png' />
             </button>
@@ -20,105 +20,79 @@
 </div>
 
 <div class="content_box">
-    <div class="PL_news">
-        <button type="button" class="btn btn-lg editbt" style="position: absolute;" data-toggle="modal" data-target="#myModal">
+    <div class="PL_news" id="PL_news4">
+        <button type="button" id="editbt4" class="btn btn-lg editbt" style="position: absolute;" data-toggle="modal" data-target="#myModal" onclick="javascript: return Editval(this.value);">
+        </button>
+        <div class="PL_news_box">
+            <span id="PL_image4" class="PL_image4">
+            </span>
+            <div class="carnum" id="carnum4">
+            </div>
+            <div class="PL_info" id="PL_info4">
+            </div>
+        </div>
+    </div>
+    <div class="PL_news" id="PL_news3">
+        <button type="button" id="editbt3" class="btn btn-lg editbt" style="position: absolute;" data-toggle="modal" data-target="#myModal" onclick="javascript: return Editval(this.value);">
+        </button>
+        <div class="PL_news_box">
+            <span id="PL_image3" class="PL_image3">
+            </span>
+            <div class="carnum" id="carnum3">
+            </div>
+            <div class="PL_info" id="PL_info3">
+            </div>
+        </div>
+    </div>
+    <div class="PL_news" id="PL_news2">
+        <button type="button" id="editbt2" class="btn btn-lg editbt" style="position: absolute;" data-toggle="modal" data-target="#myModal" onclick="javascript: return Editval(this.value);">
+        </button>
+        <div class="PL_news_box">
+            <span id="PL_image2" class="PL_image2">
+            </span>
+            <div class="carnum" id="carnum2">
+            </div>
+            <div class="PL_info" id="PL_info2">
+            </div>
+        </div>
+    </div>
+    <div class="PL_news" id="PL_news1">
+        <button type="button" id="editbt1" class="btn btn-lg editbt" style="position: absolute;" data-toggle="modal" data-target="#myModal" onclick="javascript: return Editval(this.value);">
+        </button>
+        <div class="PL_news_box">
+            <span id="PL_image1" class="PL_image1">
+            </span>
+            <div class="carnum" id="carnum1">
+            </div>
+            <div class="PL_info" id="PL_info1">
+            </div>
+        </div>
+    </div>
+    <div class="PL_news" id="PL_news0">
+        <button type="button" id="editbt0" class="btn btn-lg editbt" style="position: absolute;" data-toggle="modal" data-target="#myModal" onclick="javascript: return Editval(this.value);">
         </button>
         <div class="PL_news_box">
             <span id="PL_image0" class="PL_image0">
-                <img width='125' height='120' src="https://img.ltn.com.tw/Upload/auto/page/2016/07/25/160725-5887-2-59yqO.png">
             </span>
             <div class="carnum" id="carnum0">
-                <span>
-                    車道編號：
-                    <br>車牌號：ACV-8888
-                    <br>票號：00005
-                </span>
             </div>
             <div class="PL_info" id="PL_info0">
-                <time class='PL_time'>2022/05/28 16:08:44</time>
-            </div>
-        </div>
-    </div>
-    <div class="PL_news">
-        <div class="PL_news_box">
-            <span id="PL_image1" class="PL_image1">
-                <img width='125' height='120' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkkJTVu5tCzAOwsXj7vEjX9i3FkAk3pVcWl_WH0VNr7Qm2aFUo-_JbBFh9zNGbnZzhlmo&usqp=CAU">
-            </span>
-            <div class="carnum" id="carnum1">
-                <span>
-                    車道編號：
-                    <br>車牌號：WM-8888
-                    <br>票號：00004
-                </span>
-            </div>
-            <div class="PL_info" id="PL_info1">
-                <time class='PL_time'>2022/05/28 16:08:44</time>
-            </div>
-        </div>
-    </div>
-    <div class="PL_news">
-        <div class="PL_news_box">
-            <span id="PL_image2" class="PL_image2">
-                <img width='125' height='120' src="https://p3.8891.com.tw/nc/newcar/article/2022/03/14/1647243469581559_900_600.jpg">
-            </span>
-            <div class="carnum" id="carnum2">
-                <span>
-                    車道編號：
-                    <br>車牌號：BUL-4157
-                    <br>票號：00003
-                </span>
-            </div>
-            <div class="PL_info" id="PL_info2">
-                <time class='PL_time'>2022/05/28 16:08:44</time>
-            </div>
-        </div>
-    </div>
-    <div class="PL_news">
-        <div class="PL_news_box">
-            <span id="PL_image3" class="PL_image3">
-                <img width='125' height='120' src="http://pic.pimg.tw/celsior/1387088795-214420646.jpg">
-            </span>
-            <div class="carnum" id="carnum3">
-                <span>
-                    車道編號：
-                    <br>車牌號：ASC-574
-                    <br>票號：00002
-                </span>
-            </div>
-            <div class="PL_info" id="PL_info3">
-                <time class='PL_time'>2022/05/28 16:08:44</time>
-            </div>
-        </div>
-    </div>
-    <div class="PL_news">
-        <div class="PL_news_box">
-            <span id="PL_image4" class="PL_image4">
-                <img width='125' height='120' src="https://i.imgur.com/uNh8l4B.jpg">
-            </span>
-            <div class="carnum" id="carnum4">
-                @*<br><br><br>
-                    <span class="nocarnum">無辨識車牌號</span>*@
-                <span>
-                    車道編號：
-                    <br>車牌號：AUC-2567
-                    <br>票號：00001
-                </span>
-            </div>
-            <div class="PL_info" id="PL_info4">
-                <time class='PL_time'>2022/05/22 09:10:12</time>
             </div>
         </div>
     </div>
 </div>
 
 <div class="info_bar row" id="info_bar">
-    <div class="add_img_box col">
+    <div class="add_img_box col" id="add_img_box">
         @*<a><img class="add_img" src='/images/add_icon.png' /></a>*@
         @*<button type="button" class="btn btn-link Fbt">最首頁</button>*@
-        <button type="button" class="btn btn-link Lbt">上一頁</button>
+        <div class="Lbt_div" id="Lbt">
+            <button type="button" class="btn btn-link Lbt" value="-1" onclick='GetFile(this.value)'>上一頁</button>
+        </div>
         <a href="#">1</a>
-        <button type="button" class="btn btn-link Nbt">下一頁</button>
-
+        <div class="Nbt_div" id="Nbt">
+        <button type="button" class="btn btn-link Nbt" value="1" onclick='GetFile(this.value)'>下一頁</button>
+        </div>
     </div>
 </div>
 
@@ -132,23 +106,22 @@
             </div>
             <div class="modal-body">
                 <form id="updateform">
-                    <input type="hidden" name="parkno" id="parkno" value="" />
                     <div class="form-group">
-                        <label class="control-label">車道編號：</label>
-                        <input type="text" class="form-control" id="Ecarparkname" name="Ecarparkname" disabled>
+                        <label class="control-label">原車牌號碼：</label>
+                        <input type="text" class="form-control" id="carnumber" name="carnumber" value="" disabled>
                     </div>
                     <div class="form-group">
-                        <label class="control-label">車號：</label>
-                        <input type="text" class="form-control" id="Ecarnumber" name="Ecarnumber" disabled>
+                        <label class="control-label">修改車牌號碼：</label>
+                        <input type="text" class="form-control" id="Ecarnumber" value="" name="Ecarnumber">
                     </div>
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <label for="eventno" class="control-label">票號：</label>
                         <input type="text" class="form-control" id="eventno" name="eventno" disabled>
                     </div>
                     <div class="form-group">
                         <label class="control-label">入場時間:</label>
                         <input type="text" class="form-control" id="approachtime" name="approachtime" disabled>
-                    </div>
+                    </div>*@
                     <div class="text-right">
                         <span id="returnMessage" class="glyphicon"> </span>
                         <button type="button" class="btn btn-default right" data-dismiss="modal">關閉</button>
@@ -174,14 +147,16 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
-        //如果沒有頁數
-        let page = 1;
+        //頁數存取
+        sessionStorage.setItem('page', 1);
+        let page = sessionStorage.getItem('page');
+        sessionStorage.setItem('parkingGuid', theRequest.parkingGuid);
 
         let text, carnum, PL_info = "";
         $.ajax({
             type: 'GET',
-            url: "/api/Data_SQL/FTP_GetFile",
-            data: { 'parkingGuid': theRequest.parkingGuid, 'page': page, 'searchTime': 0,'plateNum':0 },
+            url: "/api/Data_SQL/FtpFile",
+            data: { 'parkingGuid': theRequest.parkingGuid, 'page': page },
             dataType: 'json',
             async: true,
             success: function (response) {
@@ -198,7 +173,7 @@
                         let formatedDate = dateString.replace(pattern, '$1/$2/$3 $4:$5:$6');
 
                         if (response.data[i].jpg == "no such file") {
-                            text = "<img src='https://fakeimg.pl/125x90/'>";
+                            text = "<img src='https://fakeimg.pl/125x90/' width='125' height='90'>";
                             PL_info = "<time class='PL_time'>" + formatedDate + "</time>";
                         }
                         else {
@@ -210,7 +185,8 @@
                             carnum = "<br><br><br><span class='nocarnum'>無辨識車牌號</span>";
                         }
                         else {
-                            carnum = "<span>車牌號：" + response.data[i].platenum + "<br>票號：" + response.data[i].tickno + "</span>";
+                            carnum = "<span>車牌號：" + response.data[i].platenum + "<br>票號：" + response.data[i].tickno + "<br>車道編號：" + response.data[i].rid + "</span>";
+                            $("#editbt" + i).val(response.data[i].platenum);
                         }
 
                         $("#PL_image" + i).html(text);
@@ -218,13 +194,98 @@
                         $("#nocarnum" + i).html(carnum);
                         $("#PL_info" + i).html(PL_info);
                     }
+
+                    let pagerow = "<a href = '#' style='margin-left: 150px;'>" + page + "</a>";
+
+                    pagerow += "<div class='Nbt_div' id='Nbt' style='position: relative;display: inline-block;margin-left: 5px;'><button type='button' class='btn btn-link Nbt' value='1' onclick='GetFile(this.value)'>下一頁</button></div>";
+
+                    $("#add_img_box").html(pagerow);
+                }
+            },
+            error: function () {
+            }
+        });
+    };
+
+    function GetFile(num) {
+        //更新頁數
+        let page = parseInt(sessionStorage.getItem('page'));
+        sessionStorage.removeItem('page');
+        sessionStorage.setItem('page', (page + parseInt(num)));
+
+        page = parseInt(sessionStorage.getItem('page'));
+        let parkingGuid = sessionStorage.getItem('parkingGuid');
+
+        $.ajax({
+            type: 'GET',
+            url: "/api/Data_SQL/FtpFile",
+            data: { 'parkingGuid': parkingGuid, 'page': page },
+            dataType: 'json',
+            async: true,
+            success: function (response) {
+                let code = JSON.stringify(response.code);
+                let errmsg = JSON.stringify(response.errMsg)
+                if (code == '"402"') {
+                    alert(errmsg);
+                }
+                else {
+                    for (let i = 0; i < response.data.length; i++) {
+
+                        let pattern = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/;
+                        let dateString = response.data[i].ymdhm;
+                        let formatedDate = dateString.replace(pattern, '$1/$2/$3 $4:$5:$6');
+
+                        if (response.data[i].jpg == "no such file") {
+                            text = "<img src='https://fakeimg.pl/125x90/' width='125' height='90'>";
+                            PL_info = "<time class='PL_time'>" + formatedDate + "</time>";
+                        }
+                        else {
+                            text = "<img src='data:image/jpg;base64," + response.data[i].jpg + "'>";
+                            PL_info = "<time class='PL_time'>" + formatedDate + "</time>";
+                        }
+
+                        if (response.data[i].tickno == "") {
+                            carnum = "<br><br><br><span class='nocarnum'>無辨識車牌號</span>";
+                        }
+                        else {
+                            carnum = "<span>車牌號：" + response.data[i].platenum + "<br>票號：" + response.data[i].tickno + "<br>車道編號：" + response.data[i].rid + "</span>";
+                        }
+
+                        $("#PL_image" + i).html(text);
+                        $("#carnum" + i).html(carnum);
+                        $("#nocarnum" + i).html(carnum);
+                        $("#PL_info" + i).html(PL_info);
+
+                        let LNbt = "<div class='Lbt_div' id='Lbt'><button type = 'button' class='btn btn-link Lbt' value = '-1' onclick = 'GetFile(this.value)'> 上一頁</button></div><a href='#'>" + page + "</a>";
+                        LNbt += "<div class='Nbt_div' id = 'Nbt'><button type='button' class='btn btn-link Nbt' value='1' onclick='GetFile(this.value)'>下一頁</button></div>";
+                         
+                        $("#add_img_box").html(LNbt);
+                    }
+
+                    if (response.data.length < 5) {
+                        let pagerow = "<div class='Lbt_div' id='Lbt'><button type = 'button' class='btn btn-link Lbt' style='margin-left: 125px;' value = '-1' onclick = 'GetFile(this.value)' > 上一頁</button></div><a href='#'>" + page + "</a>";
+                        $("#add_img_box").html(pagerow);
+
+                        for (let i = 0; (response.data.length) + (i + 1) < 6; i++) {
+                            let row = (response.data.length - 1) + (i + 1);
+
+                            $("#PL_image" + row).html(null);
+                            $("#carnum" + row).html(null);
+                            $("#PL_info" + row).html(null);
+
+                            let PL_news = "<div><span id = 'PL_image" + row + "' class='PL_image" + row + "'></span ><div class='carnum' id='carnum" + row + "'></div><div class='PL_info' id='PL_info" + row +"'></div></div>";
+
+                            $("#PL_news" + row).html(PL_news);
+                        }
+
+                    }
                 }
             },
             error: function () {
 
             }
         });
-    };
+    }
 
     /*搜尋功能*/
     function SearchCar() {
@@ -233,4 +294,10 @@
         alert(SearchCar);
     }
 
+    function Editval(val) {
+        $("#carnumber").val(val);
+    }
+
+
+    
 </script>

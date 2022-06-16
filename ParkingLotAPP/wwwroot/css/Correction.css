@@ -90,6 +90,15 @@ body {
     height: 30px;
 }
 
+input {
+    background: none;
+    outline: none;
+    appearance: none;
+   -moz-appearance: none;
+    -webkit-appearance: none;
+    　　
+}
+
 .content_box {
     width: 380px;
     padding: 5px;
@@ -107,7 +116,7 @@ body {
     position: absolute;
     left: 53%;
     color: #FFF;
-    margin-top: -105px;
+    margin-top: -100px;
     margin-left: -10px;
 }
 
@@ -160,7 +169,7 @@ body {
 .carnum {
     position: relative;
     display: inline-block;
-    top: -110px;
+    top: -95px;
     left: 130px;
 }
 
@@ -193,6 +202,17 @@ span {
     margin-top: 50%;
 }
 
+.Lbt_div {
+    position: relative;
+    display: inline-block;
+}
+
+.Nbt_div {
+    position: relative;
+    display: inline-block;
+}
+
+
 @media screen and (max-width: 350px) {
     .PL_news_box {
         width: 125px;
@@ -211,7 +231,7 @@ span {
     .PL_news_box {
         width: 100%;
         height: 167px;
-        margin-left: 50px;
+/*        margin-left: 50px;*/
     }
 
     .editbt {
@@ -225,7 +245,7 @@ span {
 
     .PL_time {
         left: 71%;
-        margin-top:-140px;
+        margin-top:-130px;
     }
 
     .PL_news_box img {
@@ -233,7 +253,7 @@ span {
     }
 
     .carnum {
-        top: -120px;
+        top: -95px;
         left: 150px;
         font-size: 25px;
     }
