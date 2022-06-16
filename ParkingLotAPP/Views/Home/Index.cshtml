@@ -102,6 +102,20 @@
 </table>
 
 <script>
+
+    function gocorrection() {
+            const url = location.search; //獲取url中"?"符號後的字串
+            let theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                let str = url.substr(1);
+                strs = str.split("&");
+                for (let i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            window.location = "/Correction/Index?parkingGuid=" + theRequest.parkingGuid;
+        }
+
     function goManualadd() {
         const url = location.search; //獲取url中"?"符號後的字串
         let theRequest = new Object();

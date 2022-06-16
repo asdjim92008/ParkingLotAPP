@@ -174,12 +174,14 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
+        //如果沒有頁數
         let page = 1;
+
         let text, carnum, PL_info = "";
         $.ajax({
             type: 'GET',
-            url: "/api/Data_SQL/FtpFile",
-            data: { 'parkingGuid': theRequest.parkingGuid, 'page': page },
+            url: "/api/Data_SQL/FTP_GetFile",
+            data: { 'parkingGuid': theRequest.parkingGuid, 'page': page, 'searchTime': 0,'plateNum':0 },
             dataType: 'json',
             async: true,
             success: function (response) {
