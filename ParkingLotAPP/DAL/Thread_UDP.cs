@@ -17,7 +17,7 @@ namespace ParkingLotAPP.DAL
         {
             
             uc = new UdpClient(int.Parse(port));
-            ipep = new IPEndPoint(IPAddress.Parse("192.168.1.28"), int.Parse(port));
+            ipep = new IPEndPoint(IPAddress.Parse("192.168.1.30"), int.Parse(port));
             uc.Client.ReceiveTimeout = 3000;
             uc.Client.SendTimeout = 3000;
         }

@@ -176,6 +176,31 @@ namespace ParkingLotAPP.DAL
             }
             
         }
+        public string OpenFence(string rid)
+        {
+            try
+            {
+                using (var cn = new MySqlConnection(base._cnStr))
+                {
+                    var dynamicParams = new DynamicParameters();//←動態參數
+                    dynamicParams.Add("rid", rid);
+                    string sql = $"update doortab set remoteopen ='Y' where rid=@rid ";
+                    var check = cn.Execute(sql, dynamicParams);
+                    if (check == 1)
+                    {
+                        return "open sucess";
+                    }
+                    else
+                    {
+                        return "open fail";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public int Judge(string s1,string s2)
         {
             if (s1 == null && s2 == null) return 0;

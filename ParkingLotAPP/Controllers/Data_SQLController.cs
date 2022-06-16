@@ -25,7 +25,7 @@ namespace ParkingLotAPP.Controllers
         [HttpPost("Login")]
         public ActionResult Login(string Account, string Password)
         {
-            Manager_SQL manager_SQL = new Manager_SQL("192.168.1.46", "3306", "parkinglist", "rotamoon", "rotamoon90692052");
+            Manager_SQL manager_SQL = new Manager_SQL("192.168.1.47", "3306", "parkinglist", "root", "0912208000");
             LoginResponse response;
             var session1 = HttpContext.Session.GetObjectFromJson<Manager>("sessionManger");
 
@@ -76,7 +76,7 @@ namespace ParkingLotAPP.Controllers
         [HttpGet("AuthorizeData")]
         public ActionResult GetAuthorizeData(string parkingGuid)
         {
-            Manager_SQL manager_SQL = new Manager_SQL("192.168.1.46", "3306", "parkinglist", "rotamoon", "rotamoon90692052");
+            Manager_SQL manager_SQL = new Manager_SQL("192.168.1.47", "3306", "parkinglist", "root", "0912208000");
             Response response;
             var session1 = HttpContext.Session.GetObjectFromJson<Manager>("sessionManger");
 
