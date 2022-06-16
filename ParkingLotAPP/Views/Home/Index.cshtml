@@ -62,10 +62,12 @@
                 <tr>
                     <td>
                         <div class="card 5">
-                            <div class="card_image">
-                                <img class="bgimg" src="~/images/geometricicon.jpg" />
-                                <img class="bticon" src="~/images/Addmanuallyicon.png" />
-                            </div>
+                            <a style='color: #fff;width: inherit;height: inherit;height: 100px;' href='javascript: void(0);' onclick='goManualadd()'>
+                                <div class="card_image">
+                                    <img class="bgimg" src="~/images/geometricicon.jpg" />
+                                    <img class="bticon" src="~/images/Addmanuallyicon.png" />
+                                </div>
+                            </a>
                             <div class="card_title title-white">
                                 <p>手動更新</p>
                             </div>
@@ -100,7 +102,7 @@
 </table>
 
 <script>
-    function gocorrection() {
+    function goManualadd() {
         const url = location.search; //獲取url中"?"符號後的字串
         let theRequest = new Object();
         if (url.indexOf("?") != -1) {
@@ -110,7 +112,7 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
-        window.location = "/Correction/Index?parkingGuid=" + theRequest.parkingGuid;
+        window.location = "/Manualadd/Index?parkingGuid=" + theRequest.parkingGuid;
     }
 
     function backpage() {

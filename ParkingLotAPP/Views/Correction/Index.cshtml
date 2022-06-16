@@ -17,76 +17,150 @@
             <div class="spinner"></div>
         </div>
     </center>
-    <div class="info_bar row" id="info_bar">
-        <div class="add_img_box col">
-            <a><img class="add_img" src='/images/add_icon.png' /></a>
-            <div class="Lbt">
-                <img class="Lpage" src='/images/Lpage_icon.png' />上一頁
+</div>
+
+<div class="content_box">
+    <div class="PL_news">
+        <button type="button" class="btn btn-lg editbt" style="position: absolute;" data-toggle="modal" data-target="#myModal">
+        </button>
+        <div class="PL_news_box">
+            <span id="PL_image0" class="PL_image0">
+                <img width='125' height='120' src="https://img.ltn.com.tw/Upload/auto/page/2016/07/25/160725-5887-2-59yqO.png">
+            </span>
+            <div class="carnum" id="carnum0">
+                <span>
+                    車道編號：
+                    <br>車牌號：ACV-8888
+                    <br>票號：00005
+                </span>
             </div>
-            <div class="Nbt">
-                下一頁<img class="Npage" src='/images/Npage_icon.png' />
+            <div class="PL_info" id="PL_info0">
+                <time class='PL_time'>2022/05/28 16:08:44</time>
+            </div>
+        </div>
+    </div>
+    <div class="PL_news">
+        <div class="PL_news_box">
+            <span id="PL_image1" class="PL_image1">
+                <img width='125' height='120' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkkJTVu5tCzAOwsXj7vEjX9i3FkAk3pVcWl_WH0VNr7Qm2aFUo-_JbBFh9zNGbnZzhlmo&usqp=CAU">
+            </span>
+            <div class="carnum" id="carnum1">
+                <span>
+                    車道編號：
+                    <br>車牌號：WM-8888
+                    <br>票號：00004
+                </span>
+            </div>
+            <div class="PL_info" id="PL_info1">
+                <time class='PL_time'>2022/05/28 16:08:44</time>
+            </div>
+        </div>
+    </div>
+    <div class="PL_news">
+        <div class="PL_news_box">
+            <span id="PL_image2" class="PL_image2">
+                <img width='125' height='120' src="https://p3.8891.com.tw/nc/newcar/article/2022/03/14/1647243469581559_900_600.jpg">
+            </span>
+            <div class="carnum" id="carnum2">
+                <span>
+                    車道編號：
+                    <br>車牌號：BUL-4157
+                    <br>票號：00003
+                </span>
+            </div>
+            <div class="PL_info" id="PL_info2">
+                <time class='PL_time'>2022/05/28 16:08:44</time>
+            </div>
+        </div>
+    </div>
+    <div class="PL_news">
+        <div class="PL_news_box">
+            <span id="PL_image3" class="PL_image3">
+                <img width='125' height='120' src="http://pic.pimg.tw/celsior/1387088795-214420646.jpg">
+            </span>
+            <div class="carnum" id="carnum3">
+                <span>
+                    車道編號：
+                    <br>車牌號：ASC-574
+                    <br>票號：00002
+                </span>
+            </div>
+            <div class="PL_info" id="PL_info3">
+                <time class='PL_time'>2022/05/28 16:08:44</time>
+            </div>
+        </div>
+    </div>
+    <div class="PL_news">
+        <div class="PL_news_box">
+            <span id="PL_image4" class="PL_image4">
+                <img width='125' height='120' src="https://i.imgur.com/uNh8l4B.jpg">
+            </span>
+            <div class="carnum" id="carnum4">
+                @*<br><br><br>
+                    <span class="nocarnum">無辨識車牌號</span>*@
+                <span>
+                    車道編號：
+                    <br>車牌號：AUC-2567
+                    <br>票號：00001
+                </span>
+            </div>
+            <div class="PL_info" id="PL_info4">
+                <time class='PL_time'>2022/05/22 09:10:12</time>
             </div>
         </div>
     </div>
 </div>
 
-<div class="content_box">
-    <div class="PL_news">
-        <div class="PL_news_box">
-            <div id="PL_image0">
-                <img width='125' height='90' src="https://fakeimg.pl/125x90/">
-            </div>
-            <div class="carnum" id="carnum0">
-            </div>
-            <div class="PL_info" id="PL_info0">
-            </div>
-        </div>
+<div class="info_bar row" id="info_bar">
+    <div class="add_img_box col">
+        @*<a><img class="add_img" src='/images/add_icon.png' /></a>*@
+        @*<button type="button" class="btn btn-link Fbt">最首頁</button>*@
+        <button type="button" class="btn btn-link Lbt">上一頁</button>
+        <a href="#">1</a>
+        <button type="button" class="btn btn-link Nbt">下一頁</button>
+
     </div>
-    <div class="PL_news">
-        <div class="PL_news_box">
-            <span id="PL_image1">
-                <img width='125' height='90' src="https://fakeimg.pl/125x90/">
-            </span>
-            <div class="carnum" id="carnum1">
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">✕</span></button>
+                @*<h4 class="modal-title" id="myModalLabel">關閉</h4>*@
             </div>
-            <div class="PL_info" id="PL_info1">
-            </div>
-        </div>
-    </div>
-    <div class="PL_news">
-        <div class="PL_news_box">
-            <span id="PL_image2">
-                <img width='125' height='90' src="https://fakeimg.pl/125x90/">
-            </span>
-            <div class="carnum" id="carnum2">
-            </div>
-            <div class="PL_info" id="PL_info2">
-            </div>
-        </div>
-    </div>
-    <div class="PL_news">
-        <div class="PL_news_box">
-            <span id="PL_image3">
-                <img width='125' height='90' src="https://fakeimg.pl/125x90/">
-            </span>
-            <div class="carnum" id="carnum3">
-            </div>
-            <div class="PL_info" id="PL_info3">
-            </div>
-        </div>
-    </div>
-    <div class="PL_news">
-        <div class="PL_news_box">
-            <span id="PL_image4">
-                <img width='125' height='90' src="https://fakeimg.pl/125x90/">
-            </span>
-            <div class="carnum" id="carnum4">
-            </div>
-            <div class="PL_info" id="PL_info4">
+            <div class="modal-body">
+                <form id="updateform">
+                    <input type="hidden" name="parkno" id="parkno" value="" />
+                    <div class="form-group">
+                        <label class="control-label">車道編號：</label>
+                        <input type="text" class="form-control" id="Ecarparkname" name="Ecarparkname" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">車號：</label>
+                        <input type="text" class="form-control" id="Ecarnumber" name="Ecarnumber" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventno" class="control-label">票號：</label>
+                        <input type="text" class="form-control" id="eventno" name="eventno" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">入場時間:</label>
+                        <input type="text" class="form-control" id="approachtime" name="approachtime" disabled>
+                    </div>
+                    <div class="text-right">
+                        <span id="returnMessage" class="glyphicon"> </span>
+                        <button type="button" class="btn btn-default right" data-dismiss="modal">關閉</button>
+                        <button id="submitBtn" type="button" class="btn btn-primary" onclick="javascript: return EditJsonData();">修改</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<!-- End of Edit Modal -->
 
 
 <script>
@@ -101,7 +175,7 @@
             }
         }
         let page = 1;
-        let text,carnum,PL_info = "";
+        let text, carnum, PL_info = "";
         $.ajax({
             type: 'GET',
             url: "/api/Data_SQL/FtpFile",
@@ -131,7 +205,7 @@
                         }
 
                         if (response.data[i].tickno == "") {
-                            carnum = "<span>無辨識車牌號</span>";
+                            carnum = "<br><br><br><span class='nocarnum'>無辨識車牌號</span>";
                         }
                         else {
                             carnum = "<span>車牌號：" + response.data[i].platenum + "<br>票號：" + response.data[i].tickno + "</span>";
@@ -139,6 +213,7 @@
 
                         $("#PL_image" + i).html(text);
                         $("#carnum" + i).html(carnum);
+                        $("#nocarnum" + i).html(carnum);
                         $("#PL_info" + i).html(PL_info);
                     }
                 }

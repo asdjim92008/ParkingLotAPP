@@ -1,0 +1,157 @@
+﻿* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%;
+    max-width: 1140px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #315f94, #315f94,#141e30);
+}
+
+/*titlebox*/
+
+.titlebox {
+/*    position: fixed;
+    right: 0;*/
+width:500px;
+    height: 50px;
+    background: #416996;
+    color: #FFF;
+    padding: 5px;
+    font-size: 18px;
+
+}
+
+.titlename {
+    position: relative;
+    font-size: 35px;
+    color: #FFF;
+    width: 60%;
+    height: 30%;
+    left: 20%;
+    opacity: 0.8;
+    text-align: center;
+    line-height: 42px;
+    top: -65%;
+}
+
+.logbox {
+    position: fixed;
+    right: 0;
+    width: 100%;
+    height: 85%;
+    color: #FFF;
+    padding: 5px;
+    font-size: 16px;
+    margin: 0px auto;
+    margin-top: 110px;
+}
+
+.logbox_title {
+    position: relative;
+    background: #416996;
+    width: 100%;
+    height: 8%;
+    margin-top: 62px;
+}
+
+.logtitlebox {
+    position: fixed;
+    right: 0;
+    height: 50px;
+    /*    background: #416996;*/
+    color: #FFF;
+    padding: 5px;
+    font-size: 18px;
+}
+
+.rowbox {
+    position: relative;
+    background: #416996;
+    width: 100%;
+    height: 8%;
+    margin-top: 10px;
+}
+
+.maintable {
+    position: relative;
+    width: 100%;
+    height: 8%;
+    margin-top: 25px;
+    color: #FFF;
+/*    left: 2%;*/
+}
+
+.info_bar {
+    /*    margin: 0px auto;*/
+    width: 360px;
+    margin-top: 10px;
+}
+
+.add_img_box {
+    padding: 4px;
+    color: #FFF;
+}
+
+.Lbt {
+    display: inline-block;
+    margin-left: 95px;
+    font-size: 18px
+}
+
+.Nbt {
+    display: inline-block;
+    font-size: 18px
+}
+
+.toppage_bt {
+    display: inline-block;
+    position: relative;
+    margin-left: 50px;
+    background-color: transparent;
+    border-style: none;
+
+}
+
+.toppage_icon {
+    width: 30px;
+    height: 30px;
+}
+/*.parkname {
+    position: relative;
+    background-color: #707576;
+    color: #FFF;
+    width: 50%;
+    height: 30%;
+    left: 25%;
+    opacity: 0.8;
+    text-align: center;
+    line-height: 42px;
+    top:45px;
+}*/
+@media screen and (min-width:767px) and (max-width: 2000px) {
+}
+
+@media screen and (max-width:565px) {
+
+}
