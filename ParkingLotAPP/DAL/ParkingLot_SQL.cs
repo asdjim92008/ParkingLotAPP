@@ -23,7 +23,7 @@ namespace ParkingLotAPP.DAL
                     var dynamicParams = new DynamicParameters();//←動態參數
                     dynamicParams.Add("START", start);
                     dynamicParams.Add("YMDHM", searchTime+"%");
-                    dynamicParams.Add("PLATENUM", "%"+plateNum);
+                    dynamicParams.Add("PLATENUM", "%"+plateNum + "%");
                     string sql;
                     switch (Judge(searchTime, plateNum))
                     {
