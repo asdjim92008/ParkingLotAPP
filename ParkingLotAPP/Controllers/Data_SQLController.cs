@@ -198,19 +198,20 @@ namespace ParkingLotAPP.Controllers
          *  <參數>    
          *            參數1 停車場guid:  parkingGuid 
          *            參數2 車牌:  plateNum ,格式無'-'
+         *            參數3 車道編號: rid,格式ex:001
          *            參數3 進場時間: ymhdm  ,(格式 ex:2022年5月10號 10時11分12秒 => 20220510101112) 
          *  </參數>
          *  <路徑>    "/api/Data_SQL/InsertPlateNum"
          *  <回傳>    訊息   </回傳>*/
         [HttpPost("InsertPlateNum")]
-        public ActionResult InsertPlateNum(string parkingGuid, string plateNum, string ymhdm)
+        public ActionResult InsertPlateNum(string parkingGuid, string plateNum,string rid, string ymhdm)
         {
             Response response;
             var getParkingLotInfo = Verify(parkingGuid);
             if (getParkingLotInfo != null)
             {
                 ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
-                var x = parkingLot_SQL.InsertPlateNum(getParkingLotInfo.ParkingNo, plateNum, ymhdm);
+                var x = parkingLot_SQL.InsertPlateNum(getParkingLotInfo.ParkingNo, plateNum,rid, ymhdm);
                 if (x == "Exist, Insert fail")
                 {
                     response = new Response { Code = "404", ErrMsg = x };
