@@ -10,7 +10,7 @@
     <center>
         <div class="SearchCar row" id="search">
             <input id="SearchCar" name="SearchCar" placeholder="Search..." />
-            <input id="date" name="date" type="date" value="" placeholder="請輸入日期" style="width: 112px; height: 25px; background-color: black; border-radius: 5px; opacity: 0.6; ">
+            <input id="date" name="date" type="date" value="" placeholder="請輸入日期" style="width: 112px; height: 25px; background-color: black; border-radius: 5px;">
             <button onclick="SearchCar()">
                 <img class='search_icon' src='/images/search_icon.png' />
             </button>
@@ -164,6 +164,7 @@
                 let errmsg = JSON.stringify(response.errMsg)
                 if (code == '"402"') {
                     alert(errmsg);
+                    window.location = "/Login/Index";
                 }
                 else {
                     for (let i = 0; i < response.data.length; i++) {
@@ -231,6 +232,7 @@
                 let errmsg = JSON.stringify(response.errMsg)
                 if (code == '"402"') {
                     alert(errmsg);
+                    window.location = "/Login/Index";
                 }
                 else {
                     for (let i = 0; i < response.data.length; i++) {
@@ -293,14 +295,11 @@
     /*搜尋功能*/
     function SearchCar() {
         let parkingGuid = sessionStorage.getItem('parkingGuid'); //車廠GUID
-        let page = parseInt(sessionStorage.getItem('page'));
+        let page = 1;
         let SearchCar = document.getElementById("SearchCar").value;
         let date = document.getElementById("date").value;
 
         date = date.replace(/-/g, '');
-
-        alert(date);
-        alert(SearchCar);
 
         $.ajax({
             type: 'GET',
@@ -313,6 +312,7 @@
                 let errmsg = JSON.stringify(response.errMsg)
                 if (code == '"402"') {
                     alert(errmsg);
+                    window.location = "/Login/Index";
                 }
                 else {
                     for (let i = 0; i < response.data.length; i++) {
@@ -385,31 +385,39 @@
         let carnumber = document.getElementById("carnumber").value; //原車牌號
         let Ecarnumber = document.getElementById("Ecarnumber").value;  //修改之車牌號
 
-        $.ajax({
-            type: 'POST',
-            url: "/api/Data_SQL/ChangePlateNum",
-            data: { 'parkingGuid': parkingGuid, 'n_PlateNum': carnumber, 'c_PlateNum': Ecarnumber },
-            dataType: 'json',
-            async: true,
-            success: function (response) {
-                let code = JSON.stringify(response.code);
-                let errmsg = JSON.stringify(response.errMsg)
-                if (code == '"404"') {
-                    alert(errmsg);
-                }
-                else if (code == '"402"') {
-                    alert(errmsg);
-                }
-                else if (code == '"200"') {
-                    alert('修改車號成功!!');
-                    EJsonData();
-                    $('#myModal').modal('hide')
-                }
-            },
-            error: function () {
+        if (Ecarnumber == "" || Ecarnumber == null) {
+            alert("請輸入修改之車牌號");
+            return false;
+        }
+        else
+        {
+            $.ajax({
+                type: 'POST',
+                url: "/api/Data_SQL/ChangePlateNum",
+                data: { 'parkingGuid': parkingGuid, 'n_PlateNum': carnumber, 'c_PlateNum': Ecarnumber },
+                dataType: 'json',
+                async: true,
+                success: function (response) {
+                    let code = JSON.stringify(response.code);
+                    let errmsg = JSON.stringify(response.errMsg)
+                    if (code == '"404"') {
+                        alert(errmsg);
+                    }
+                    else if (code == '"402"') {
+                        alert(errmsg);
+                        window.location = "/Login/Index";
+                    }
+                    else if (code == '"200"') {
+                        alert('修改車號成功!!');
+                        EJsonData();
+                        $('#myModal').modal('hide')
+                    }
+                },
+                error: function () {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     /*修改後更新頁面資料*/
@@ -428,6 +436,7 @@
                 let errmsg = JSON.stringify(response.errMsg)
                 if (code == '"402"') {
                     alert(errmsg);
+                    window.location = "/Login/Index";
                 }
                 else {
                     for (let i = 0; i < response.data.length; i++) {
