@@ -9,7 +9,7 @@
 <div class="top_bar">
     <center>
         <div class="SearchCar row" id="search">
-            <input id="SearchCar" name="SearchCar" placeholder="Search..." />
+            <input id="SearchCar" name="SearchCar" placeholder="搜尋車號..." />
             <input id="date" name="date" type="date" value="" placeholder="請輸入日期" style="width: 112px; height: 25px; background-color: black; border-radius: 5px;">
             <button onclick="SearchCar()">
                 <img class='search_icon' src='/images/search_icon.png' />
@@ -84,8 +84,6 @@
 
 <div class="info_bar row" id="info_bar">
     <div class="add_img_box col" id="add_img_box">
-        @*<a><img class="add_img" src='/images/add_icon.png' /></a>*@
-        @*<button type="button" class="btn btn-link Fbt">最首頁</button>*@
         <div class="Lbt_div" id="Lbt">
             <button type="button" class="btn btn-link Lbt" value="-1" onclick='GetFile(this.value)'>上一頁</button>
         </div>
@@ -283,6 +281,14 @@
 
                             $("#PL_news" + row).html(PL_news);
                         }
+                    }
+
+                    if (page == 1) {
+                        let pagerow = "<a style='margin-left: 150px;'>" + page + "</a>";
+
+                        pagerow += "<div class='Nbt_div' id='Nbt' style='position: relative;display: inline-block;margin-left: 5px;'><button type='button' class='btn btn-link Nbt' value='1' onclick='GetFile(this.value)'>下一頁</button></div>";
+
+                        $("#add_img_box").html(pagerow);
                     }
                 }
             },

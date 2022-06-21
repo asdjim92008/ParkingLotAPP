@@ -23,10 +23,12 @@
                     </td>
                     <td>
                         <div class="card 2">
-                            <div class="card_image">
-                                <img class="bgimg" src="~/images/geometricicon.jpg" />
-                                <img class="bticon" src="~/images/recordicon.png" />
-                            </div>
+                            <a style='color: #fff;width: inherit;height: inherit;height: 100px;' href='javascript: void(0);' onclick='goChangelog()'>
+                                <div class="card_image">
+                                    <img class="bgimg" src="~/images/geometricicon.jpg" />
+                                    <img class="bticon" src="~/images/recordicon.png" />
+                                </div>
+                            </a>
                             <div class="card_title title-white">
                                 <p>操作紀錄</p>
                             </div>
@@ -127,6 +129,19 @@
             }
         }
         window.location = "/Manualadd/Index?parkingGuid=" + theRequest.parkingGuid;
+    }
+
+    function goChangelog() {
+        const url = location.search; //獲取url中"?"符號後的字串
+        let theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            let str = url.substr(1);
+            strs = str.split("&");
+            for (let i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        window.location = "/Changelog/Index?parkingGuid=" + theRequest.parkingGuid;
     }
 
     function backpage() {

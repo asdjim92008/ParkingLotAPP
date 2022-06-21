@@ -163,7 +163,7 @@ namespace ParkingLotAPP.DAL
                     var dynamicParams = new DynamicParameters();//←動態參數
                     dynamicParams.Add("START", start);
                     dynamicParams.Add("TIME", searchTime+"%");
-                    dynamicParams.Add("MANAGER", manager);
+                    dynamicParams.Add("MANAGER", "%" + manager + "%");
                     string sql;
                     switch (Judge(searchTime, manager))
                     {
@@ -177,11 +177,11 @@ namespace ParkingLotAPP.DAL
                             break;
                         case 2:     //無搜尋時間，有搜尋管理人
                             sql = $"select DISTINCT * from parkinglog inner join " +
-                            $"(select TIME from parkinglog where MANAGER = @MANAGER order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc";
+                            $"(select TIME from parkinglog where MANAGER like @MANAGER order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc";
                             break;
                         default:    //有搜尋時間，有搜尋管理人
                             sql = $"select DISTINCT * from parkinglog inner join " +
-                            $"(select TIME from parkinglog where MANAGER = @MANAGER and TIME like @TIME order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc";
+                            $"(select TIME from parkinglog where MANAGER like @MANAGER and TIME like @TIME order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc";
                             break;
                     }
                     

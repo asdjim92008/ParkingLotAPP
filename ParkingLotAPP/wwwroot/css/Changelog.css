@@ -33,7 +33,7 @@ body {
 .titlebox {
 /*    position: fixed;
     right: 0;*/
-width:500px;
+    width:100vw;
     height: 50px;
     background: #416996;
     color: #FFF;
@@ -48,11 +48,10 @@ width:500px;
     color: #FFF;
     width: 60%;
     height: 30%;
-    left: 20%;
+    left: 22%;
     opacity: 0.8;
     text-align: center;
     line-height: 42px;
-    top: -65%;
 }
 
 .logbox {
@@ -113,42 +112,105 @@ width:500px;
     color: #FFF;
 }
 
+.Nbt_div {
+    position: relative;
+    display: inline-block;
+}
+
+.Lbt_div {
+    position: relative;
+    display: inline-block;
+}
+
 .Lbt {
     display: inline-block;
     margin-left: 95px;
-    font-size: 18px
+    font-size: 18px;
 }
 
 .Nbt {
     display: inline-block;
-    font-size: 18px
+    font-size: 18px;
 }
 
-.toppage_bt {
-    display: inline-block;
-    position: relative;
-    margin-left: 50px;
-    background-color: transparent;
-    border-style: none;
-
+.top_bar {
+    width: 100%;
 }
 
-.toppage_icon {
+.SearchMng {
+    margin: 0px auto;
+}
+
+.search_icon {
     width: 30px;
     height: 30px;
 }
-/*.parkname {
-    position: relative;
-    background-color: #707576;
-    color: #FFF;
-    width: 50%;
-    height: 30%;
-    left: 25%;
-    opacity: 0.8;
-    text-align: center;
-    line-height: 42px;
-    top:45px;
-}*/
+
+#search {
+    align-items: center;
+    background: #416996;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em 0.5em 0.5em 1em;
+    transition: all 0.5s;
+    width: 340px;
+    opacity: 0.6;
+    margin-top:15px;
+}
+
+    #search:hover, #search:focus {
+        background: #15569e;
+    }
+
+    #search button, #search input {
+        appearance: none;
+        background: transparent;
+        border: 0;
+        color: inherit;
+        font: inherit;
+        outline: 0;
+    }
+
+    #search button {
+        cursor: pointer;
+        padding: 0 0.25em;
+    }
+
+    #search input {
+        color: #FFF;
+        flex: 1;
+    }
+
+        #search input::placeholder {
+            color: #fff;
+        }
+
+    #search .spinner {
+        animation: spinner 1s infinite linear;
+        display: none;
+        padding: 0 0.25em;
+    }
+
+    #search.loading button {
+        display: none;
+    }
+
+    #search.loading .spinner {
+        display: block;
+    }
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
 @media screen and (min-width:767px) and (max-width: 2000px) {
 }
 
