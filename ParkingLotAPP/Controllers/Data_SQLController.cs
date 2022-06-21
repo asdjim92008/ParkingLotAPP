@@ -181,7 +181,7 @@ namespace ParkingLotAPP.Controllers
                 else
                 {
                     var manager = HttpContext.Session.GetObjectFromJson<Manager>("sessionManger");
-                    parkingLot_SQL.InsertLog(manager.UserName, "修改車號" + n_PlateNum + " TO " + c_PlateNum);
+                    parkingLot_SQL.InsertLog(manager.Account, "修改車號" + n_PlateNum + " TO " + c_PlateNum);
                     response = new Response { Code = "200", ErrMsg = "", Data = x };
                 }
             }
@@ -199,19 +199,20 @@ namespace ParkingLotAPP.Controllers
          *            參數1 停車場guid:  parkingGuid 
          *            參數2 車牌:  plateNum ,格式無'-'
          *            參數3 車道編號: rid,格式ex:001
-         *            參數3 進場時間: ymhdm  ,(格式 ex:2022年5月10號 10時11分12秒 => 20220510101112) 
+         *            參數4 進場時間: ymhdm  ,(格式 ex:2022年5月10號 10時11分12秒 => 20220510101112) 
+         *            參數5 費率別: tickclass ,(1,2,3)
          *  </參數>
          *  <路徑>    "/api/Data_SQL/InsertPlateNum"
          *  <回傳>    訊息   </回傳>*/
         [HttpPost("InsertPlateNum")]
-        public ActionResult InsertPlateNum(string parkingGuid, string plateNum,string rid, string ymhdm)
+        public ActionResult InsertPlateNum(string parkingGuid, string plateNum,string rid, string ymhdm,string tickno,string tickclass)
         {
             Response response;
             var getParkingLotInfo = Verify(parkingGuid);
             if (getParkingLotInfo != null)
             {
                 ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
-                var x = parkingLot_SQL.InsertPlateNum(getParkingLotInfo.ParkingNo, plateNum,rid, ymhdm);
+                var x = parkingLot_SQL.InsertPlateNum(getParkingLotInfo.ParkingNo, plateNum,rid, ymhdm, tickno, tickclass);
                 if (x == "Exist, Insert fail")
                 {
                     response = new Response { Code = "404", ErrMsg = x };
@@ -219,7 +220,7 @@ namespace ParkingLotAPP.Controllers
                 else
                 {
                     var manager = HttpContext.Session.GetObjectFromJson<Manager>("sessionManger");
-                    parkingLot_SQL.InsertLog(manager.UserName, "新增車號" + plateNum);
+                    parkingLot_SQL.InsertLog(manager.Account, "新增車號" + plateNum);
                     response = new Response { Code = "200", ErrMsg = "", Data = x };
                 }
             }
@@ -229,6 +230,7 @@ namespace ParkingLotAPP.Controllers
             }
             return Json(response);
         }
+
 
         
         /*  <目的>    依照所選的頁面回傳10個操作紀錄   </目的>
@@ -250,6 +252,33 @@ namespace ParkingLotAPP.Controllers
                 int start = (int.Parse(page) - 1) * 5;
                 ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
                 var x = parkingLot_SQL.GetLogs(start, searchTime,manager);
+                response = new Response { Code = "200", ErrMsg = "", Data = x };
+            }
+            else
+            {
+                response = new Response { Code = "402", ErrMsg = "操作逾時，請重新登入" };
+            }
+            return Json(response);
+        }
+
+
+
+        /*  <目的>    取得新增車牌時預設的資料   </目的>
+         *  <參數>    
+         *            參數1 停車場guid:  parkingGuid 
+         *            
+         *  </參數>
+         *  <路徑>    "/api/Data_SQL/DefaultInfo"
+         *  <回傳>    parkno(停車場場號) tickno(最新票號+1) rid(車道編號)   </回傳>*/
+        [HttpGet("DefaultInfo")]
+        public ActionResult DefaultInfo(string parkingGuid)
+        {
+            Response response;
+            var getParkingLotInfo = Verify(parkingGuid);
+            if (getParkingLotInfo != null)
+            {
+                ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
+                var x = parkingLot_SQL.defaultInfo(getParkingLotInfo.ParkingNo);
                 response = new Response { Code = "200", ErrMsg = "", Data = x };
             }
             else

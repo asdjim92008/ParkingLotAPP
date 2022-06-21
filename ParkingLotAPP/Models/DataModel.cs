@@ -82,7 +82,13 @@ namespace ParkingLotAPP.Models
             public string TIME { get; set; }
 
         }
-        
+        public class DefaultInfo
+        {
+            public string PANKNO { get; set; }
+            public string TICKNO { get; set; }
+            public string RID { get; set; }
+            
+        }
 
     }
     

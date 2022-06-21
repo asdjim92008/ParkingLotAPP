@@ -60,14 +60,18 @@ namespace ParkingLotAPP.Controllers
             var getParkingLotInfo = Verify(parkingGuid);
             if (getParkingLotInfo != null)
             {
+                ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
+                var manager = HttpContext.Session.GetObjectFromJson<Manager>("sessionManger");
                 Thread_UDP thread_UDP = new Thread_UDP(getParkingLotInfo.LedPort);
                 var cnt_msg = thread_UDP.SetCarCount(carCount);
                 if (cnt_msg == "connect fail")
                 {
+                    parkingLot_SQL.InsertLog(manager.Account, "設定車位數" + carCount+"連接失敗");
                     return Json(new Response { Code = "404", ErrMsg = cnt_msg });
                 }
                 else
                 {
+                    parkingLot_SQL.InsertLog(manager.Account, "設定車位數" + carCount + "成功");
                     return Json(new Response { Code = "200", ErrMsg = "", Data = cnt_msg });
                 }
             }
@@ -93,20 +97,23 @@ namespace ParkingLotAPP.Controllers
             var getParkingLotInfo = Verify(parkingGuid);
             if (getParkingLotInfo != null)
             {
+                ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
+                var manager = HttpContext.Session.GetObjectFromJson<Manager>("sessionManger");
                 //晶片閘門
                 if (getParkingLotInfo.ParkingType == "CT")
                 {
                     var fence = (place == "entrace") ? getParkingLotInfo.EntracePort : getParkingLotInfo.ExitPort;
                     Thread_UDP thread_UDP = new Thread_UDP(fence);
                     var cnt_msg = thread_UDP.OpenFence();
+                    parkingLot_SQL.InsertLog(manager.Account, "開啟晶片場柵欄" + place);
                     var x = (cnt_msg == "connect fail") ? Json(new Response { Code = "404", ErrMsg = cnt_msg }) : Json(new Response { Code = "200", ErrMsg = "", Data = cnt_msg });
                     return x;
                 }
                 //車辨閘門
                 else if (getParkingLotInfo.ParkingType == "CD")
                 {
-                    ParkingLot_SQL open= new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
-                    var msg = open.OpenFence(place);
+                    var msg = parkingLot_SQL.OpenFence(place);
+                    parkingLot_SQL.InsertLog(manager.Account, "開啟車辨場柵欄" + place);
                     var x = (msg == "connect fail")? Json(new Response { Code = "404", ErrMsg = msg }): Json(new Response { Code = "200", ErrMsg = "", Data = msg });
                     return x;
                 }
@@ -114,8 +121,8 @@ namespace ParkingLotAPP.Controllers
                 else
                 {
                     //車擋板閘門尚未完成
-                    ParkingLot_SQL open = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
-                    var msg = open.OpenFence(place);
+                    var msg = parkingLot_SQL.OpenFence(place);
+                    parkingLot_SQL.InsertLog(manager.Account, "開啟車擋板場柵欄" + place);
                     var x = (msg == "connect fail") ? Json(new Response { Code = "404", ErrMsg = msg }) : Json(new Response { Code = "200", ErrMsg = "", Data = msg });
                     return x;
                 }

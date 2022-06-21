@@ -86,23 +86,21 @@ namespace ParkingLotAPP.DAL
                 throw ex;
             }
         }
-        public string InsertPlateNum(string Pankno,string PlateNum,string Rid,string YMHDM)
+        public string InsertPlateNum(string Pankno,string PlateNum,string Rid,string YMHDM,string TickNo,string TickClass)
         {
             try
             {
                 using(var cn=new MySqlConnection(base._cnStr))
                 {
-                    string sql = $"select TICKNO from parkingpay order by TICKNO desc limit 1";
-                    var temp = cn.Query<string>(sql).FirstOrDefault();
-                    temp = (temp == null) ? "000001" : (int.Parse(temp)+1).ToString().PadLeft(6, '0');
                     Rid = (Rid == null) ? "001" : Rid;
                     var dynamicParams = new DynamicParameters();//←動態參數
                     dynamicParams.Add("Pankno", Pankno);
                     dynamicParams.Add("PlateNum", PlateNum);
                     dynamicParams.Add("Rid", Rid);
                     dynamicParams.Add("YMHDM", YMHDM);
-                    dynamicParams.Add("TICKNO", temp);
-                    sql = $"insert ignore  into parkingpay( PANKNO, RID, PLATENUM, YMDHM, TICKNO) values (@Pankno,@Rid,@PlateNum,@YMHDM,@TICKNO)";
+                    dynamicParams.Add("TICKCLASS", TickClass);
+                    dynamicParams.Add("TICKNO", TickNo);
+                    string sql = $"insert ignore  into parkingpay( PANKNO, RID, PLATENUM, YMDHM, TICKNO,TICKCLASS) values (@Pankno,@Rid,@PlateNum,@YMHDM,@TICKNO,@TICKCLASS)";
                     var list = cn.Execute(sql,dynamicParams);
                     if (list == 0)
                     {
@@ -116,6 +114,25 @@ namespace ParkingLotAPP.DAL
                 throw ex;
             }
         }
+        public DataModel.DefaultInfo defaultInfo(string pankno)
+        {
+            try
+            {
+                using (var cn = new MySqlConnection(base._cnStr))
+                {
+                    string sql = $"select TICKNO from parkingpay where TICKNO like '17%' order by TICKNO desc limit 1";
+                    var tickno = cn.Query<string>(sql).FirstOrDefault();
+                    tickno = (tickno == null) ? "170001" : (int.Parse(tickno) + 1).ToString().PadLeft(6, '0');
+                    return new DataModel.DefaultInfo { PANKNO = pankno, RID = "001", TICKNO = tickno };
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+                    
+        }
+        
         public void InsertLog(string Manager,string Log)
         {
             try
