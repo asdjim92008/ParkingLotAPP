@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static ParkingLotAPP.Models.DataModel;
 
 namespace ParkingLotAPP.DAL
 {
@@ -14,7 +15,7 @@ namespace ParkingLotAPP.DAL
         {
             
         }
-        public List<DataModel.CarInfo> GetFivejpg(int start,string searchTime,string plateNum)
+        public List<CarInfo> GetFivejpg(int start,string searchTime,string plateNum)
         {
             try
             {
@@ -114,7 +115,7 @@ namespace ParkingLotAPP.DAL
                 throw ex;
             }
         }
-        public DataModel.DefaultInfo defaultInfo(string pankno)
+        public DefaultInfo DefaultInfo(string pankno)
         {
             try
             {
@@ -123,7 +124,7 @@ namespace ParkingLotAPP.DAL
                     string sql = $"select TICKNO from parkingpay where TICKNO like '17%' order by TICKNO desc limit 1";
                     var tickno = cn.Query<string>(sql).FirstOrDefault();
                     tickno = (tickno == null) ? "170001" : (int.Parse(tickno) + 1).ToString().PadLeft(6, '0');
-                    return new DataModel.DefaultInfo { PANKNO = pankno, RID = "001", TICKNO = tickno };
+                    return new DefaultInfo { PANKNO = pankno, RID = "001", TICKNO = tickno };
                 }
             }
             catch(Exception ex)
@@ -131,6 +132,22 @@ namespace ParkingLotAPP.DAL
                 throw ex;
             }
                     
+        }
+        public List<Fence> GetAllFence() 
+        {
+            try
+            {
+                using (var cn = new MySqlConnection(base._cnStr))
+                {
+                    string sql = $"select rid as fence_no,remark from doortab order by rid asc";
+                    List<Fence> fences = cn.Query<Fence>(sql).ToList();
+                    return fences;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         
         public void InsertLog(string Manager,string Log)
@@ -154,7 +171,7 @@ namespace ParkingLotAPP.DAL
                 throw ex;
             }
         }
-        public List<DataModel.DBlog> GetLogs(int start,string searchTime,string manager)
+        public List<DBlog> GetLogs(int start,string searchTime,string manager)
         {
             try
             {
@@ -164,27 +181,21 @@ namespace ParkingLotAPP.DAL
                     dynamicParams.Add("START", start);
                     dynamicParams.Add("TIME", searchTime+"%");
                     dynamicParams.Add("MANAGER", "%" + manager + "%");
-                    string sql;
-                    switch (Judge(searchTime, manager))
+                    string sql = Judge(searchTime, manager) switch
                     {
-                        case 0:     //無搜尋時間，無搜尋管理人
-                            sql = $"select DISTINCT * from parkinglog inner join " +
-                            $"(select TIME from parkinglog order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc";
-                            break;
-                        case 1:     //有搜尋時間，無搜尋管理人
-                            sql = $"select DISTINCT * from parkinglog inner join " +
-                            $"(select TIME from parkinglog where TIME like @TIME order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc";
-                            break;
-                        case 2:     //無搜尋時間，有搜尋管理人
-                            sql = $"select DISTINCT * from parkinglog inner join " +
-                            $"(select TIME from parkinglog where MANAGER like @MANAGER order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc";
-                            break;
-                        default:    //有搜尋時間，有搜尋管理人
-                            sql = $"select DISTINCT * from parkinglog inner join " +
-                            $"(select TIME from parkinglog where MANAGER like @MANAGER and TIME like @TIME order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc";
-                            break;
-                    }
-                    
+                        //無搜尋時間，無搜尋管理人
+                        0 => $"select DISTINCT * from parkinglog inner join " +
+                                                    $"(select TIME from parkinglog order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc",
+                        //有搜尋時間，無搜尋管理人
+                        1 => $"select DISTINCT * from parkinglog inner join " +
+                                                    $"(select TIME from parkinglog where TIME like @TIME order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc",
+                        //無搜尋時間，有搜尋管理人
+                        2 => $"select DISTINCT * from parkinglog inner join " +
+                                                    $"(select TIME from parkinglog where MANAGER like @MANAGER order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc",
+                        //有搜尋時間，有搜尋管理人
+                        _ => $"select DISTINCT * from parkinglog inner join " +
+                                                    $"(select TIME from parkinglog where MANAGER like @MANAGER and TIME like @TIME order by TIME desc limit @START,10)b using (TIME) ORDER BY TIME desc",
+                    };
                     var list = cn.Query<DataModel.DBlog>(sql, dynamicParams).ToList();
                     return list;
                 }

@@ -83,6 +83,10 @@ namespace ParkingLotAPP.Controllers
             if (session1 != null && parkingGuid != null)
             {
                 var authorizeData = manager_SQL.GetParkingLotInfo(parkingGuid);
+                //SQL IP為UDP IP
+                authorizeData.Led_info = manager_SQL.GetLedPort(authorizeData.SQLIP);
+                authorizeData.Fence_info = manager_SQL.GetFencePort(authorizeData.SQLIP);
+
                 HttpContext.Session.SetObjectAsJson("sessionParkInfo", authorizeData);
                 response = new Response { Code = "200", ErrMsg = "", Data = authorizeData };
                 return Json(response);
@@ -271,14 +275,14 @@ namespace ParkingLotAPP.Controllers
          *  <路徑>    "/api/Data_SQL/DefaultInfo"
          *  <回傳>    parkno(停車場場號) tickno(最新票號+1) rid(車道編號)   </回傳>*/
         [HttpGet("DefaultInfo")]
-        public ActionResult DefaultInfo(string parkingGuid)
+        public ActionResult GetDefaultInfo(string parkingGuid)
         {
             Response response;
             var getParkingLotInfo = Verify(parkingGuid);
             if (getParkingLotInfo != null)
             {
                 ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
-                var x = parkingLot_SQL.defaultInfo(getParkingLotInfo.ParkingNo);
+                var x = parkingLot_SQL.DefaultInfo(getParkingLotInfo.ParkingNo);
                 response = new Response { Code = "200", ErrMsg = "", Data = x };
             }
             else
@@ -287,6 +291,41 @@ namespace ParkingLotAPP.Controllers
             }
             return Json(response);
         }
+
+
+
+        /*  <目的>    取得所有柵欄資訊   </目的>
+         *  <參數>    
+         *            參數1 停車場guid:  parkingGuid 
+         *            
+         *  </參數>
+         *  <路徑>    "/api/Data_SQL/GetFence"
+         *  <回傳>    fence_no(柵欄編號) fence_port(無作用) remark(柵欄註記)   </回傳>*/
+        [HttpGet("GetFence")]
+        public ActionResult GetFence(string parkingGuid) 
+        {
+            Response response;
+            var getParkingLotInfo = Verify(parkingGuid);
+            if (getParkingLotInfo != null)
+            {
+                if (getParkingLotInfo.ParkingType == "CT")
+                {
+                    response = new Response { Code = "200", ErrMsg = "", Data = getParkingLotInfo.Fence_info.ToList() };
+                }
+                else
+                {
+                    ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
+                    response = new Response { Code = "200", ErrMsg = "", Data = parkingLot_SQL.GetAllFence() };
+                }
+            }
+            else
+            {
+                response = new Response { Code = "402", ErrMsg = "操作逾時，請重新登入" };
+            }
+            return Json(response);
+        }
+
+
 
 
 

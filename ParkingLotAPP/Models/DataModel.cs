@@ -50,13 +50,28 @@ namespace ParkingLotAPP.Models
             public string FTPIP { get; set; }
             public string FTPAccount { get; set; }
             public string FTPPassword { get; set; }
-            public string LedPort { get; set; }
-            public string LedPort1 { get; set; }
-            public string LedPort2 { get; set; }
-            public string LedPort3 { get; set; }
-            public string EntracePort { get; set; }
-            public string ExitPort { get; set; }
+            public List<Led> Led_info { get; set; }
+            public List<Fence> Fence_info { get; set; }
             public string Status { get; set; }
+        }
+        public class Led
+        {
+            public string Led_no { get; set; }
+            public string Led_port { get; set; }
+            public string Remark { get; set; }
+        }
+        public class Led_msg
+        {
+            public string Led_no { get; set; }
+            public string Led_CarCount { get; set; }
+            public string Led_Remark { get; set; }
+            public string State { get; set; }
+        }
+        public class Fence
+        {
+            public string Fence_no { get; set; }
+            public string Fence_port { get; set; }
+            public string Remark { get; set; }
         }
         public class ParkingLotList
         {

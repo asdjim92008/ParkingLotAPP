@@ -13,30 +13,30 @@ namespace ParkingLotAPP.DAL
     {
         UdpClient uc;
         IPEndPoint ipep;
-        public Thread_UDP(string port)
+        public Thread_UDP(string ip,string port)
         {
             
             uc = new UdpClient(int.Parse(port));
-            ipep = new IPEndPoint(IPAddress.Parse("192.168.1.30"), int.Parse(port));
+            ipep = new IPEndPoint(IPAddress.Parse(ip), int.Parse(port));
             uc.Client.ReceiveTimeout = 3000;
             uc.Client.SendTimeout = 3000;
         }
+        
         public string SetCarCount(string CarCount)
         {
             CarCount = CarCount.PadLeft(4, '0');
             var b = Encoding.UTF8.GetBytes("[007S1+" + CarCount + "DD]");
-            uc.Send(b, b.Length, ipep);
-            string response;
             try
             {
-                response = Encoding.UTF8.GetString(uc.Receive(ref ipep));
+                uc.Send(b, b.Length, ipep);
+                uc.Close();
+                return "設定車位數 " + CarCount + " 訊號已送出";
             }
-            catch(Exception)
+            catch (Exception)
             {
-                response = null;
+                uc.Close();
+                return "connect fail";
             }
-            uc.Close();
-            return (response == "(007S11B)") ? CarCount : "connect fail";
         }
         public string GetCarCount() 
         {
@@ -54,22 +54,30 @@ namespace ParkingLotAPP.DAL
             uc.Close();
             return (response != null) ? response.Substring(6, 4) : "connect fail";
         }
-        public string OpenFence() 
+        public string OpenFence(string num) 
         {
             //未完成的柵欄指令
-            var b = Encoding.UTF8.GetBytes("[1A1]");
-            uc.Send(b, b.Length, ipep);
-            string response;
+            /*
+            [0016312B]  入口開門
+            [0016322C]  入口關門
+            [0026312C]  出口開門
+            [0026322D]  出口關門
+            */
+            char x = (char)('A' + int.Parse(num));
+            string cmd = "[" + num + "6312" + x + "]";
+            var b = Encoding.UTF8.GetBytes(cmd);
             try
             {
-                response = Encoding.UTF8.GetString(uc.Receive(ref ipep));
+                uc.Send(b, b.Length, ipep);
+                uc.Close();
+                return "開啟訊號已送出";
             }
             catch (Exception)
             {
-                response = null;
+                uc.Close();
+                return "connect fail";
             }
-            uc.Close();
-            return (response != null) ? response : "connect fail";
+            
         }
     }
 }
