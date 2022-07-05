@@ -20,7 +20,7 @@ body {
 
 .cards-list {
     position: absolute;
-    top: 52%;
+    top: 48%;
     left: 50%;
     width: 360px;
     padding: 30px;
@@ -111,6 +111,21 @@ body {
     letter-spacing: 0.07em;
     position: relative;
 }
+
+
+@media screen and (max-height:700px) {
+    .cards-list {
+        top: 62%;
+    }
+}
+
+@media screen and (min-height:700px) and (max-height:800px) {
+    .cards-list {
+        top: 56%;
+    }
+}
+
+
 
 /*IndexBar*/
 a {

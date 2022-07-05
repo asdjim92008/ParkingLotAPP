@@ -27,9 +27,26 @@
                                                 function setClock() {
                                                     var date = new Date();
                                                     var today = date.getFullYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日";
-                                                    var timeNow = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                                                    let hh = date.getHours();
+                                                    let mm = date.getMinutes();
+                                                    let ss = date.getSeconds();
+                                                    if (hh < 10) {
+                                                        hh = '0' + date.getHours();
+                                                    }
+                                                    if (mm < 10) {
+                                                        mm = '0' + date.getMinutes();
+                                                    }
+                                                    if (ss < 10) {
+                                                        ss = '0' + date.getSeconds();
+                                                    }
+
+                                                    const dayName = ["日", "一", "二", "三", "四", "五", "六"]
+
+                                                    let day = `${dayName[date.getDay()]}`;
+
+                                                    let timeNow = hh + ":" + mm + ":" + ss;
                                                     document.getElementById("clock").innerText = today + "   " + "星期"
-                                                        + date.getDay() + "   " + timeNow;
+                                                        + day + "   " + timeNow;
                                                 }
                                             </script>
                                         </div>
@@ -40,7 +57,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <center><div class="textop">停車場列表</div></center>
+                            <div class="textop">停車場列表</div>
                         </td>
                     </tr>
                     <!-- PLlist -->
@@ -59,11 +76,11 @@
         var text = "`<tr>";
         for (var i = 0; i < retrievedObject.data.length; i++) {
             if ((i + 1) % 3 == 0) {
-                text += "<td><div class='card'><div class='card_image'><button value='" + retrievedObject.data[i].parkingGuid + "' style='width: 110px;height: 98px;background-color: transparent;opacity: 0;' onclick='gohome(this.value)'></button><input type='hidden' id='pkguid' name='pkguid' value='" + retrievedObject.data[i].parkingGuid +"'><img class='icicon' src='/images/caricon.png' /></div><div class='card_title title-white'><p class='card_p'>" + retrievedObject.data[i].parkingNo + "<br>" + retrievedObject.data[i].parkingName + "</p></div></div></td></tr>";
+                text += "<td><div style='height: 100px;'><div class='card'><div class='card_image'><button value='" + retrievedObject.data[i].parkingGuid + "' style='width: 110px;height: 98px;background-color: transparent;opacity: 0;' onclick='gohome(this.value)'></button><input type='hidden' id='pkguid' name='pkguid' value='" + retrievedObject.data[i].parkingGuid + "'><img class='icicon' src='/images/caricon.png' /></div><div class='card_title title-white'><p class='card_p'>" + retrievedObject.data[i].parkingNo + "<br>" + retrievedObject.data[i].parkingName + "</p></div></div></div></td></tr>";
                 text += "<tr>";
             }
             else {
-                text += "<td><div class='card'><div class='card_image'><button value='" + retrievedObject.data[i].parkingGuid + "' style='width: 110px;height: 98px;background-color: transparent;opacity: 0;' onclick='gohome(this.value)'></button><input type='hidden' id='pkguid' value='" + retrievedObject.data[i].parkingGuid +"'><img class='icicon' src='/images/caricon.png' /></div><div class='card_title title-white'><p class='card_p'>" + retrievedObject.data[i].parkingNo + "<br>" + retrievedObject.data[i].parkingName + "</p></div></div></td>";
+                text += "<td><div style='height: 100px;'><div class='card'><div class='card_image'><button value='" + retrievedObject.data[i].parkingGuid + "' style='width: 110px;height: 98px;background-color: transparent;opacity: 0;' onclick='gohome(this.value)'></button><input type='hidden' id='pkguid' value='" + retrievedObject.data[i].parkingGuid + "'><img class='icicon' src='/images/caricon.png' /></div><div class='card_title title-white'><p class='card_p'>" + retrievedObject.data[i].parkingNo + "<br>" + retrievedObject.data[i].parkingName + "</p></div></div></div></td>";
             }
 
             if (i == retrievedObject.data.length - 1) {
@@ -83,7 +100,7 @@
         $.ajax({
             type: 'GET',
             url: "/api/Data_SQL/AuthorizeData",
-            data: { 'parkingGuid': pkguid},
+            data: { 'parkingGuid': pkguid },
             dataType: 'json',
             async: true,
             success: function (response) {

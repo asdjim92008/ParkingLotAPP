@@ -35,7 +35,7 @@ body {
     justify-content: space-between;
     padding: 0.5em 0.5em 0.5em 1em;
     transition: all 0.5s;
-    width: 340px;
+    max-width: 1100px;
     opacity: 0.6;
 }
 
@@ -238,16 +238,10 @@ span {
         height: 167px;
 /*        margin-left: 50px;*/
     }
-
     .editbt {
 
         height: 167px;
     }
-
-    #search {
-        width: 550px;
-    }
-
     .PL_time {
         left: 71%;
         margin-top:-130px;

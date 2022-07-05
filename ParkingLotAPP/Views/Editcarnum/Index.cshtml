@@ -1,0 +1,141 @@
+﻿@{
+    Layout = "_WebLayout2";
+}
+@section styles {
+    <link rel="stylesheet" href="~/css/Editcarnum.css">
+}
+
+<form>
+    <div class="smimg" id="smimg">
+        <img src="https://media-cdn.tripadvisor.com/media/photo-s/01/3f/6c/af/caption.jpg" style="width:150px;height:80px">
+    </div>
+    <div class="numbox">
+        <input id="num" name="num" placeholder="請輸入車牌號碼" class="num" required />
+        <input name="submit" class="btn" type="button" value="Send" onclick="javascript: return SendJsonData();" />
+    </div>
+    <div id="mdimg">
+        <img src="https://1.bp.blogspot.com/-oqXtnHl2HVs/WzDKuqoIpcI/AAAAAAAACgc/2WogCwufdSQvL79_Q3woFmTtEVhH1FW2QCK4BGAYYCw/s1600/7.png" style="width:276px;height:150px;">
+    </div>
+    <div>
+        <span class="info_title">Infomation</span>
+    </div>
+    <div class="info">
+        <textarea rows="4" cols="50" id="info" name="info" placeholder="No Infomation" class="message" disabled></textarea>
+    </div>
+</form>
+
+<script>
+    const url = location.search; //獲取url中"?"符號後的字串
+    let theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        let str = url.substr(1);
+        strs = str.split("&");
+        for (let i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+        }
+    }
+    window.onload = function () {
+        //依plantnum(案場編號)獲取IP
+        //$.ajax({
+        //    type: 'GET',
+        //    url: "/api/Data_SQL/ParkingData",
+        //    /*data: { 'plantnum': theRequest.plantnum },*/
+        //    data: { 'plantnum': 'test001' },
+        //    dataType: 'json',
+        //    async: true,
+        //    success: function (response) {
+        //        let code = JSON.stringify(response.code);
+        //        let errmsg = JSON.stringify(response.errMsg)
+        //        if (code == '"200"') {
+        //            localStorage.setItem('Plantip', JSON.stringify(response.data.plantip));
+
+        document.getElementById("info").value = 'seqno:   99999 \n plate_1: xxx1234 \n plate_2: xxx123 \n plate_3: xxx234 \n plate_4: xxx134 \n plate_5: xxx124';
+        //    console.log(response);
+        //}
+        //else {
+        //    alert(errmsg);
+        //}
+        //else {
+        //    console.log(response.data);
+
+        //    $("#parkingName").html(response.data.parkingName);
+        //    $("#parkingNo").html(response.data.parkingNo);
+        //}
+        //},
+        //error: function () {
+
+        //}
+    }
+        //依GUID獲取停車場資料顯示於畫面
+        //let text,info = null;
+        //$.ajax({
+        //    type: 'GET',
+        //    url: "/api/XXX/XXX",
+        //    data: { 'guid': theRequest.guid },
+        //    dataType: 'json',
+        //    async: true,
+        //    success: function (response) {
+        //        let code = JSON.stringify(response.code);
+        //        let errmsg = JSON.stringify(response.errMsg)
+        //        if (code == '"200"') {
+        //            text = "<img src='data:image/jpg;base64," + response.data.in_fullpicture_path + "' style='width: 276px; height: 150px;'>";
+        //            $("#mdimg" + i).html(text);
+        //            text = "<img src='data:image/jpg;base64," + response.data.in_closeuppicture_path + "'>";
+        //            $("#smimg" + i).html(text);
+
+        //            info = "seqno: " + response.data.seqno + ' \n ';
+
+        //            localStorage.setItem('Seqno', JSON.stringify(response.data.seqno));
+
+        //            for (let i = 0; i < (response.data[0].plate.length); i++) {
+        //                info += response.plate[i] + ' \n ';
+        //                if (i = (response.plate.length) - 1) {
+        //                    info = info.slice(0, info.length - 3)
+        //                }
+        //            }
+        //            document.getElementById("info").innerText = info;
+        //            document.getElementById("info").value = info;
+        //        }
+        //        else {
+        //            alert(errmsg);
+        //        }
+        //    },
+        //    error: function () {
+
+        //    }
+        //})
+    //Send Editdata to API
+    //function SendJsonData() {
+    //    let num = document.getElementById("num").value; //修改車牌號
+    //    let retrievedObject = new Array()
+    //    retrievedObject = JSON.parse(localStorage.getItem('Seqno'));
+
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: "/api/XXX/XXXXX",
+    //        data: { 'guid': theRequest.guid, 'seqno': retrievedObject, 'plate': num },
+    //        dataType: 'json',
+    //        async: true,
+    //        success: function (response) {
+    //            let code = JSON.stringify(response.code);
+    //            let errmsg = JSON.stringify(response.errMsg)
+    //            if (code == '"404"') {
+    //                alert(errmsg);
+    //            }
+    //            else if (code == '"402"') {
+    //                alert(errmsg);
+    //                window.location = "/Login/Index";
+    //            }
+    //            else if (code == '"200"') {
+    //                alert('修改車號成功!!');
+    //                EJsonData();
+    //                $('#myModal').modal('hide')
+    //            }
+    //        },
+    //        error: function () {
+
+    //        }
+    //    });
+    //}
+
+</script>

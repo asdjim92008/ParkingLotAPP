@@ -1,0 +1,280 @@
+﻿* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%;
+    max-width: 1140px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #315f94, #315f94,#141e30);
+}
+
+/*titlebox*/
+
+.titlebox {
+    width: 100vw;
+    height: 50px;
+    background: #88c4ff70;
+    padding: 5px;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.titlename {
+    position: absolute;
+    font-size: 35px;
+    color: #FFF;
+    width: 60%;
+    height: 50px;
+    left: 22%;
+    line-height: 42px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.setday {
+    color: #FFF;
+    font-size: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 50px;
+    margin-top: 15px;
+}
+
+.pkdata {
+    font-size: 35px;
+    color: #FFF;
+    width: 100vw;
+    height: 40px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.SevenSegment {
+    font-size: 35px;
+    color: #FFF;
+    width: 100vw;
+    height: 120px;
+    left: 22%;
+    line-height: 42px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.listbox_ct {
+    width: 100vw;
+    background: rgb(0 0 0 / 47%);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgb(0 0 0 / 60%);
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 18px;
+    opacity: 0.8;
+    margin: 10px 0 box-shadow: -20px 10px 30px 7px rgb(8 7 7 / 25%), -5px -5px 30px 7px rgb(0 0 0 / 22%);
+}
+
+.carrow {
+    font-size: 35px;
+    color: #FFF;
+    width: 100vw;
+    height: 120px;
+    left: 22%;
+    line-height: 42px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 110px;
+}
+/*7段顯示器*/
+.seven-segment {
+    display: inline-block;
+    width: 70px;
+    height: 100px;
+    background-color: black;
+    overflow: hidden;
+    position: relative;
+}
+
+.seven-segment:before {
+    content: "";
+    width: 34px;
+    height: 10px;
+    display: block;
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    background-color: red;
+}
+
+.seven-segment:after {
+    content: "";
+    width: 10px;
+    height: 25px;
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: -20px;
+    background-color: red;
+}
+
+.seven-segment[data-number="0"]:before {
+    box-shadow: 0 25px 0 red, 0 105px 0 red;
+}
+
+.seven-segment[data-number="0"]:after {
+    box-shadow: 25px 0 red, 75px 0 0 red, 25px 35px red, 75px 35px 0 red;
+}
+
+.seven-segment[data-number="1"]:after {
+    box-shadow: 75px 0 red, 75px 35px red;
+}
+
+.seven-segment[data-number="2"]:before,
+.seven-segment[data-number="3"]:before,
+.seven-segment[data-number="5"]:before,
+.seven-segment[data-number="8"]:before,
+.seven-segment[data-number="9"]:before {
+    box-shadow: 0 25px 0 red, 0 65px 0 red, 0 105px 0 red;
+}
+
+.seven-segment[data-number="2"]:after {
+    box-shadow: 75px 0 0 red, 25px 35px red;
+}
+
+.seven-segment[data-number="3"]:after {
+    box-shadow: 75px 0 0 red, 75px 35px 0 red;
+}
+
+.seven-segment[data-number="4"]:before {
+    box-shadow: 0 65px 0 red;
+}
+
+.seven-segment[data-number="4"]:after {
+    box-shadow: 25px 0 red, 75px 0 0 red, 75px 35px 0 red;
+}
+
+.seven-segment[data-number="5"]:after {
+    box-shadow: 25px 0 red, 75px 35px 0 red;
+}
+
+.seven-segment[data-number="6"]:before {
+    box-shadow: 0 65px 0 red, 0 105px 0 red;
+}
+
+.seven-segment[data-number="6"]:after {
+    box-shadow: 25px 0 red, 25px 35px red, 75px 35px 0 red;
+}
+
+.seven-segment[data-number="7"]:before {
+    box-shadow: 0 25px 0 red;
+}
+
+.seven-segment[data-number="7"]:after {
+    box-shadow: 75px 0 red, 75px 35px red;
+}
+
+.seven-segment[data-number="8"]:after {
+    box-shadow: 25px 0 red, 75px 0 0 red, 25px 35px red, 75px 35px 0 red;
+}
+
+.seven-segment[data-number="9"]:after {
+    box-shadow: 25px 0 red, 75px 0 red, 75px 35px 0 red;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+.btn {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    opacity: 0.9;
+    margin-top: -60px;
+}
+
+
+.btn::before {
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: black;
+    opacity: 0;
+    content: '';
+    animation: pulse 1s infinite;
+}
+
+.btn:hover::before {
+    animation: none;
+    opacity: .4;
+    transform: scale(1.3);
+}
+
+.btn.is-clicked {
+    background: linear-gradient(to bottom, gray 0%, dimgray 100%);
+}
+
+.btn.is-clicked:before {
+    animation: blastOut 1s;
+}
+
+.bticon {
+    width: 100px;
+    opacity: 0.9;
+    margin-top: -5px;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+        opacity: .4;
+    }
+
+    to {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+}
+
+@keyframes blastOut {
+    from {
+        transform: scale(0.9);
+        opacity: .4;
+    }
+
+    to {
+        transform: scale(10);
+        opacity: 0;
+    }
+}
