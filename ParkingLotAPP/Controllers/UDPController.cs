@@ -20,7 +20,7 @@ namespace ParkingLotAPP.Controllers
          *            參數1 停車場guid:  parkingGuid 
          *  </參數>
          *  <路徑>    "/api/UDP/GetCarCount"
-         *  <回傳>    List.led_no(計數板編號)    List.led_CarCount(取得的車輛數)     List.led_Remark(名稱)   List.state(成功或失敗)   </回傳>*/
+         *  <回傳>    List.area(區域)   List.parkingName(停車場名稱)    List.led_no(計數板編號)    List.led_CarCount(取得的車輛數)     List.led_Remark(名稱)   List.state(成功或失敗)   </回傳>*/
         [HttpGet("GetCarCount")]
         public ActionResult GetCarCount(string parkingGuid)
         {
@@ -39,7 +39,7 @@ namespace ParkingLotAPP.Controllers
                     foreach (var item in target)
                     {
                         Thread_UDP thread_UDP = new Thread_UDP("192.168.1.30", item.Led_port);
-                        Led_msg led_Msg = new Led_msg();
+                        Led_msg led_Msg = new Led_msg { Area=item.Area,ParkingName = getParkingLotInfo.ParkingName,Led_no=item.Led_no,Led_Remark=item.Remark};
                         var cnt_msg = thread_UDP.GetCarCount();
                         if (cnt_msg == "connect fail")
                         {
@@ -50,8 +50,6 @@ namespace ParkingLotAPP.Controllers
                             led_Msg.Led_CarCount = cnt_msg;
                             led_Msg.State = "成功";
                         }
-                        led_Msg.Led_no = item.Led_no;
-                        led_Msg.Led_Remark = item.Remark;
                         led_Msgs.Add(led_Msg);
                     }
                     return Json(new Response { Code = "200", ErrMsg = "", Data = led_Msgs });
@@ -69,15 +67,13 @@ namespace ParkingLotAPP.Controllers
          *  <參數>    
          *            參數1 停車場guid:  parkingGuid 
          *            參數2 設定車輛數:  carCount 
-         *            參數2 位置:  place
          *            參數3 編號:  num  (001,002....)(板子編號為0 => 該地點所有板子 ，板子編號!=0 => 該版子)
          *  </參數>
          *  <路徑>    "/api/UDP/SetCarCount"
-         *  <回傳>    List.led_no(計數板編號)    List.led_CarCount(取得的車輛數)     List.led_Remark(名稱)   List.state(成功或失敗)   </回傳>
-         *            List.led.no格式:    ex:1001   =>[0]為區域    [1]~[3]為編號
+         *  <回傳>    List.area(區域)   List.parkingName(停車場名稱)    List.led_no(計數板編號)    List.led_CarCount(取得的車輛數)     List.led_Remark(備註)   List.state(成功或失敗)   </回傳>
          */
         [HttpGet("SetCarCount")]
-        public ActionResult SetCarCount(string parkingGuid,string carCount,string place,string num)
+        public ActionResult SetCarCount(string parkingGuid,string carCount,string num)
         {
             var getParkingLotInfo = Verify(parkingGuid);
             if (getParkingLotInfo != null)
@@ -85,35 +81,31 @@ namespace ParkingLotAPP.Controllers
                 ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
                 var manager = HttpContext.Session.GetObjectFromJson<Manager>("sessionManger");
                 
-                //板子編號為0 => 該地點所有板子 ，板子編號!=0 => 該版子
-                List<Led> target =(num==null)? getParkingLotInfo.Led_info.Where(x => x.Led_no.Substring(0, 1) == place).ToList() 
-                    : getParkingLotInfo.Led_info.Where(x => x.Led_no.Substring(0,1) == place &&x.Led_no.Substring(1,3)==num).ToList();
+                List<Led> target = getParkingLotInfo.Led_info.Where(x => x.Led_no==num).ToList();
                 List<Led_msg> led_Msgs = new List<Led_msg>();
                 if (target.Count()==0)
                 {
-                    parkingLot_SQL.InsertLog(manager.Account, "設定 " + getParkingLotInfo.ParkingName + " 場地 " + place+" 編號 "+num + " 車輛數失敗，無此編號");
-                    return Json(new Response { Code = "404", ErrMsg = "設定 " + getParkingLotInfo.ParkingName + " 場地 " + place + " 編號 " + num + " 車輛數失敗，無此編號" });
+                    parkingLot_SQL.InsertLog(manager.Account, "設定 " + getParkingLotInfo.ParkingName + " 編號 "+num + " 車輛數失敗，無此編號");
+                    return Json(new Response { Code = "404", ErrMsg = "設定 " + getParkingLotInfo.ParkingName + " 編號 " + num + " 車輛數失敗，無此編號" });
                 }
                 else
                 {
                     foreach (var item in target)
                     {
                         Thread_UDP thread_UDP = new Thread_UDP("192.168.1.30", item.Led_port);
-                        Led_msg led_Msg = new Led_msg();
+                        Led_msg led_Msg = new Led_msg { Area = item.Area, ParkingName = getParkingLotInfo.ParkingName, Led_no = item.Led_no, Led_CarCount=carCount, Led_Remark = item.Remark };
                         var cnt_msg = thread_UDP.SetCarCount(carCount);
                         if (cnt_msg == "connect fail")
                         {
-                            parkingLot_SQL.InsertLog(manager.Account, "設定 " + item.Remark + " 車位數" + carCount + "連接失敗");
+                            parkingLot_SQL.InsertLog(manager.Account, "設定 " + getParkingLotInfo.ParkingName + " 區域 " + item.Area + " 字幕機編號 " + item.Led_no + "連接失敗");
                             led_Msg.State = "失敗";
                         }
                         else
                         {
-                            parkingLot_SQL.InsertLog(manager.Account, "設定 " + item.Remark + " 車位數" + carCount + "成功");
+                            parkingLot_SQL.InsertLog(manager.Account, "設定 " + getParkingLotInfo.ParkingName + " 區域 " + item.Area + " 字幕機編號 " + item.Led_no + " 車位數" + carCount + "成功");
                             led_Msg.State = "成功";
                         }
-                        led_Msg.Led_no = item.Led_no;
-                        led_Msg.Led_CarCount = carCount;
-                        led_Msg.Led_Remark = item.Remark;
+                        
                         led_Msgs.Add(led_Msg);
                     }
                     return Json(new Response { Code = "200", ErrMsg = "", Data = led_Msgs });
@@ -131,13 +123,12 @@ namespace ParkingLotAPP.Controllers
         /*  <目的>    開啟柵欄   </目的>
          *  <參數>    
          *            參數1 停車場guid:  parkingGuid 
-         *            參數2 柵欄位置:  place 晶片場=>[1(入口) 或 2(出口)]    車辨場&車板場=>(不須輸入)
          *            參數3 柵欄編號:  num 皆為(001, 002, 003.....)
          *  </參數>
          *  <路徑>    "/api/UDP/OpenGate"
          *  <回傳>    訊息:是否成功   </回傳>*/
         [HttpGet("OpenGate")]
-        public ActionResult OpenFence(string parkingGuid,string place,string num)
+        public ActionResult OpenFence(string parkingGuid,string num)
         {
             var getParkingLotInfo = Verify(parkingGuid);
             if (getParkingLotInfo != null)
@@ -148,26 +139,26 @@ namespace ParkingLotAPP.Controllers
                 //晶片閘門
                 if (getParkingLotInfo.ParkingType == "CT")
                 {
-                    Fence target = getParkingLotInfo.Fence_info.Where(x => x.Fence_no.Substring(0, 1) == place && x.Fence_no.Substring(1, 3) == num).ToList().FirstOrDefault();
+                    Fence target = getParkingLotInfo.Fence_info.Where(x=>x.Fence_no == num).ToList().FirstOrDefault();
                     if (target == null)
                     {
-                        parkingLot_SQL.InsertLog(manager.Account, "開啟晶片場 " + getParkingLotInfo.ParkingName + " " + place + num + " 柵欄失敗");
-                        return Json(new Response { Code = "404", ErrMsg = "無柵欄編號 " + place + num + " 資料" });
+                        parkingLot_SQL.InsertLog(manager.Account, "無晶片場 " + getParkingLotInfo.ParkingName + " 柵欄編號 " + target.Fence_no + " 資料");
+                        return Json(new Response { Code = "404", ErrMsg = "無晶片場 " + getParkingLotInfo.ParkingName + " 柵欄編號 " + target.Fence_no+" 資料" });
                     }
                     else
                     {
                         Thread_UDP thread_UDP = new Thread_UDP("192.168.1.30", target.Fence_port);
-                        var cnt_msg = thread_UDP.OpenFence(num);
+                        var cnt_msg = thread_UDP.OpenFence(target.Fence_no);
                         
                         if(cnt_msg=="connect fail")
                         {
-                            response = new Response { Code = "404", ErrMsg = "連接晶片場 " + getParkingLotInfo.ParkingName + " 柵欄編號 " + place + num + " 失敗" };
-                            parkingLot_SQL.InsertLog(manager.Account, "連接晶片場 " + getParkingLotInfo.ParkingName + " 柵欄編號 " + place + num + " 失敗");
+                            response = new Response { Code = "404", ErrMsg = "連接晶片場 " + getParkingLotInfo.ParkingName +" 區域 "+ target.Area + " 柵欄編號 " + target.Fence_no + " 類型 " +target.Type+" 失敗" };
+                            parkingLot_SQL.InsertLog(manager.Account, "連接晶片場 " + getParkingLotInfo.ParkingName + " 區域 " + target.Area + " 柵欄編號 " + target.Fence_no + " 類型 " + target.Type + " 失敗");
                         }
                         else
                         {
-                            response = new Response { Code = "200", ErrMsg = "", Data = "開啟晶片場 " + getParkingLotInfo.ParkingName + " 柵欄 " + place + num + " 成功" };
-                            parkingLot_SQL.InsertLog(manager.Account, "開啟晶片場 " + getParkingLotInfo.ParkingName + " 柵欄 " + place + num + " 成功");
+                            response = new Response { Code = "200", ErrMsg = "", Data = "開啟晶片場 " + getParkingLotInfo.ParkingName + "區域 " + target.Area + " 柵欄編號 " + target.Fence_no + " 類型 " + target.Type + " 成功" };
+                            parkingLot_SQL.InsertLog(manager.Account, "開啟晶片場 " + getParkingLotInfo.ParkingName + " 區域 " + target.Area + " 柵欄編號 " + target.Fence_no + " 類型 " + target.Type + " 成功");
                         }                    
                     }
                     

@@ -297,10 +297,9 @@ namespace ParkingLotAPP.Controllers
         /*  <目的>    取得所有柵欄資訊   </目的>
          *  <參數>    
          *            參數1 停車場guid:  parkingGuid 
-         *            
          *  </參數>
          *  <路徑>    "/api/Data_SQL/GetFence"
-         *  <回傳>    fence_no(柵欄編號) fence_port(無作用) remark(柵欄註記)   </回傳>*/
+         *  <回傳>    List.area(區域)   List.parkingName(停車場名稱)    List.type(類型)    List.fence_no(柵欄編號)   List.remark(柵欄註記)   </回傳>*/
         [HttpGet("GetFence")]
         public ActionResult GetFence(string parkingGuid) 
         {
@@ -310,12 +309,21 @@ namespace ParkingLotAPP.Controllers
             {
                 if (getParkingLotInfo.ParkingType == "CT")
                 {
-                    response = new Response { Code = "200", ErrMsg = "", Data = getParkingLotInfo.Fence_info.ToList() };
+                    List<Fence_msg> fence_Msgs = new List<Fence_msg>();
+                    foreach (var item in getParkingLotInfo.Fence_info)
+                    {
+                        Fence_msg fence_Msg = new Fence_msg { Area=item.Area,ParkingName=getParkingLotInfo.ParkingName,Fence_no=item.Fence_no,Type=item.Type,Remark=item.Remark};
+                        fence_Msgs.Add(fence_Msg);
+                    }
+                    
+                    response = new Response { Code = "200", ErrMsg = "", Data = fence_Msgs };
                 }
                 else
                 {
                     ParkingLot_SQL parkingLot_SQL = new ParkingLot_SQL(getParkingLotInfo.SQLIP, getParkingLotInfo.SQLPort, getParkingLotInfo.SQLDBName, getParkingLotInfo.SQLAccount, getParkingLotInfo.SQLPassword);
-                    response = new Response { Code = "200", ErrMsg = "", Data = parkingLot_SQL.GetAllFence() };
+                    List<Fence_msg> fenceinfo = parkingLot_SQL.GetAllFence();
+                    fenceinfo.ForEach(x => x.ParkingName = getParkingLotInfo.ParkingName);
+                    response = new Response { Code = "200", ErrMsg = "", Data = fenceinfo };
                 }
             }
             else

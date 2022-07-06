@@ -128,14 +128,14 @@ namespace ParkingLotAPP.DAL
             }
                     
         }
-        public List<Fence> GetAllFence() 
+        public List<Fence_msg> GetAllFence() 
         {
             try
             {
                 using (var cn = new MySqlConnection(base._cnStr))
                 {
                     string sql = $"select rid as fence_no,remark from doortab order by rid asc";
-                    List<Fence> fences = cn.Query<Fence>(sql).ToList();
+                    List<Fence_msg> fences = cn.Query<Fence_msg>(sql).ToList();
                     return fences;
                 }
             }

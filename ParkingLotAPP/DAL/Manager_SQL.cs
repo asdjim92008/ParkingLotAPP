@@ -42,7 +42,7 @@ namespace ParkingLotAPP.DAL
                     var dynamicParams = new DynamicParameters();//←動態參數
                     dynamicParams.Add("ParkingGuid", ParkingGuid);
                     string sql = $"SELECT * FROM parking where ParkingGuid=@ParkingGuid";
-                    return cn.Query<DataModel.ParkingLotInfo>(sql, dynamicParams).FirstOrDefault();
+                    return cn.Query<ParkingLotInfo>(sql, dynamicParams).FirstOrDefault();
                 }
             }
             catch (Exception ex)
@@ -58,7 +58,8 @@ namespace ParkingLotAPP.DAL
                 {
                     var dynamicParams = new DynamicParameters();//←動態參數
                     dynamicParams.Add("UDP_ip", UDP_ip);
-                    string sql = $"SELECT * FROM ledport where UDP_ip=@UDP_ip order by Led_no";
+                    string sql = $"SELECT ledport.*,areainfo.Area FROM ledport LEFT JOIN areainfo ON ledport.Place=areainfo.Place" +
+                        $" and ledport.ParkingNo=areainfo.ParkingNo where ledport.UDP_ip=@UDP_ip order by ledport.Led_no;";
                     return cn.Query<Led>(sql, dynamicParams).ToList();
                 }
             }
@@ -75,7 +76,8 @@ namespace ParkingLotAPP.DAL
                 {
                     var dynamicParams = new DynamicParameters();//←動態參數
                     dynamicParams.Add("UDP_ip", UDP_ip);
-                    string sql = $"SELECT * FROM fenceport where UDP_ip=@UDP_ip order by Fence_no";
+                    string sql = $"SELECT fenceport.*,areainfo.Area FROM fenceport LEFT JOIN areainfo ON fenceport.Place=areainfo.Place" +
+                        $" and fenceport.ParkingNo=areainfo.ParkingNo where fenceport.UDP_ip=@UDP_ip order by fenceport.Fence_no;";
                     return cn.Query<Fence>(sql, dynamicParams).ToList();
                 }
             }

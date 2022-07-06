@@ -56,12 +56,15 @@ namespace ParkingLotAPP.Models
         }
         public class Led
         {
+            public string Area { get; set; }
             public string Led_no { get; set; }
             public string Led_port { get; set; }
             public string Remark { get; set; }
         }
         public class Led_msg
         {
+            public string Area { get; set; }
+            public string ParkingName { get; set; }
             public string Led_no { get; set; }
             public string Led_CarCount { get; set; }
             public string Led_Remark { get; set; }
@@ -69,8 +72,18 @@ namespace ParkingLotAPP.Models
         }
         public class Fence
         {
+            public string Area { get; set; }
+            public string Type { get; set; }
             public string Fence_no { get; set; }
             public string Fence_port { get; set; }
+            public string Remark { get; set; }
+        }
+        public class Fence_msg
+        {
+            public string Area { get; set; }
+            public string ParkingName { get; set; }
+            public string Type { get; set; }
+            public string Fence_no { get; set; }
             public string Remark { get; set; }
         }
         public class ParkingLotList
