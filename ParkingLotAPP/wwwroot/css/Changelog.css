@@ -154,9 +154,9 @@ body {
     justify-content: space-between;
     padding: 0.5em 0.5em 0.5em 1em;
     transition: all 0.5s;
-    width: 340px;
+    max-width: 400px;
     opacity: 0.6;
-    margin-top:15px;
+    margin-top: 15px;
 }
 
     #search:hover, #search:focus {

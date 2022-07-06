@@ -1,12 +1,21 @@
 ﻿html {
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
+    height: 100%;
     margin: 0;
     padding: 0;
     font-family: sans-serif;
     background: linear-gradient(#141e30, #315f94, #315f94,#141e30);
+}
+
+.container {
+    min-height: calc(100% - 50px); /*減去footer高度*/
+    height: 100%;
+    max-width: 1920px;
 }
 
 /*IndexBar*/
@@ -19,12 +28,12 @@ body {
 }
 
 .login-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 400px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 700px;
+    margin: 0 auto;
     padding: 40px;
-    transform: translate(-50%, -50%);
     background: rgba(0,0,0,.5);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
@@ -32,10 +41,14 @@ body {
 }
 
 .login-box h2 {
-    margin: 0 0 30px;
+    margin: 0 0 40px;
     padding: 0;
     color: #fff;
     text-align: center;
+}
+
+.user-box {
+    margin: 30px;
 }
 
 .login-box .user-box {
@@ -78,12 +91,11 @@ body {
     display: inline-block;
     padding: 10px 20px;
     color: #03e9f4;
-    font-size: 16px;
+    font-size: 20px;
     text-decoration: none;
     text-transform: uppercase;
     overflow: hidden;
     transition: .5s;
-    margin-top: 40px;
     letter-spacing: 4px
 }
 
@@ -310,30 +322,28 @@ a {
 }
 
 .logo {
-    position: absolute;
-    top: 22%;
-    left: 55%;
-    width: 400px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
     padding: 40px;
-    transform: translate(-50%, -50%);
 }
 
-@media screen and (min-width:767px) and (max-width: 2000px) {
-    .logo {
-        position: absolute;
-        top: 22%;
-        left: 52%;
-        width: 400px;
-        padding: 40px;
-        transform: translate(-50%, -50%);
-    }
+.logo img {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    max-width:300px;
 }
 
-@media screen and (max-width:565px) {
-    .logo {
-        top: 15%;
-    }
+@media screen and (min-width:525px) {
     .login-box {
-        top: 53%;
+        height: 600px;
+    }
+    .login-box h2 {
+        position: relative;
+        top: -10%;
+        font-size:40px;
     }
 }
