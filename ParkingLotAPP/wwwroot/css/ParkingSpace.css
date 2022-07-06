@@ -53,13 +53,15 @@ body {
 }
 
 .setday {
-    color: #FFF;
+    font-family: monospace;
     font-size: 16px;
+    opacity: 0.7;
+    color: #FFF;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     width: 100vw;
     height: 50px;
-    margin-top: 15px;
 }
 
 .pkdata {
@@ -70,6 +72,7 @@ body {
     align-items: center;
     display: flex;
     justify-content: center;
+    margin-top: 10px;
 }
 
 .SevenSegment {
@@ -93,7 +96,7 @@ body {
     padding: 5px;
     font-size: 18px;
     opacity: 0.8;
-    margin: 10px 0 box-shadow: -20px 10px 30px 7px rgb(8 7 7 / 25%), -5px -5px 30px 7px rgb(0 0 0 / 22%);
+    margin-bottom: 20px;
 }
 
 .carrow {
@@ -106,7 +109,7 @@ body {
     align-items: center;
     display: flex;
     justify-content: center;
-    margin-top: 110px;
+    margin-top: 30px;
 }
 /*7段顯示器*/
 .seven-segment {
@@ -132,7 +135,7 @@ body {
 .seven-segment:after {
     content: "";
     width: 10px;
-    height: 25px;
+    height: 30px;
     display: block;
     position: absolute;
     top: 20px;
@@ -145,7 +148,7 @@ body {
 }
 
 .seven-segment[data-number="0"]:after {
-    box-shadow: 25px 0 red, 75px 0 0 red, 25px 35px red, 75px 35px 0 red;
+    box-shadow: 28px 0 red, 75px 0 0 red, 28px 35px red, 75px 35px 0 red;
 }
 
 .seven-segment[data-number="1"]:after {
@@ -173,19 +176,19 @@ body {
 }
 
 .seven-segment[data-number="4"]:after {
-    box-shadow: 25px 0 red, 75px 0 0 red, 75px 35px 0 red;
+    box-shadow: 26px 0px red, 77px 0 0 red, 77px 37px 0 red;
 }
 
 .seven-segment[data-number="5"]:after {
-    box-shadow: 25px 0 red, 75px 35px 0 red;
+    box-shadow: 23px 0 red, 78px 36px 0 red;
 }
 
 .seven-segment[data-number="6"]:before {
-    box-shadow: 0 65px 0 red, 0 105px 0 red;
+    box-shadow: 0 65px 0 red, 0px 26px 0 red, 0px 105px 0 red;
 }
 
 .seven-segment[data-number="6"]:after {
-    box-shadow: 25px 0 red, 25px 35px red, 75px 35px 0 red;
+    box-shadow: 25px 0 red, 25px 36px red, 78px 37px 0 red;
 }
 
 .seven-segment[data-number="7"]:before {
@@ -251,8 +254,33 @@ a {
 
 .bticon {
     width: 100px;
-    opacity: 0.9;
+    opacity: 0.8;
     margin-top: -5px;
+}
+
+.sbbox {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submit {
+    font-size: 20px;
+    color: white;
+    background-color: #ab1d1d;
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 2px;
+}
+
+.ecarnum {
+    align-items: center;
+    background: #1f3b5c05;
+    border-radius: 10px;
+    padding: 0.1em 0.1em 0.1em 1em;
+    transition: all 0.5s;
+    width: 180px;
 }
 
 @keyframes pulse {
@@ -277,4 +305,54 @@ a {
         transform: scale(10);
         opacity: 0;
     }
+}
+
+/*按鈕*/
+.rounded-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 0 110px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 0, 0, 0.2) inset;
+    transition: all 0.5s;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 42px;
+    text-decoration: none;
+    color: white;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.7), 0 0 5px white;
+}
+
+    .rounded-link::after {
+        content: "";
+        display: block;
+        width: var(calc(var(300px) + var(20px)));
+        height: var(calc(var(300px) + var(20px)));
+        border-radius: 50%;
+        position: absolute;
+        top: var(calc(0px - var(20px) / 2);
+        left: var(calc(0px - var(20px) / 2);
+        box-shadow: -10px -10px 0 0 rgba(248, 12, 18, 0.3), -14.14px 0 0 0 rgba(254, 174, 45, 0.3), -10px 10px 0 0 rgba(208, 195, 16, 0.3), 0 14.14px 0 0 rgba(105, 208, 37, 0.3), 10px 10px 0 0 rgba(18, 189, 185, 0.3), 14.14px 0 0 0 rgba(68, 68, 221, 0.3), 10px -10px 0 0 rgba(59, 12, 189, 0.3), 0 -14.14px 0 0 rgba(189, 12, 27, 0.3);
+        animation: rotate 5s linear infinite;
+        transition: all 0.5s;
+        opacity: 0.5;
+    }
+
+    .rounded-link:hover {
+        font-size: 50px;
+    }
+
+        .rounded-link:hover::after {
+            opacity: 1;
+        }
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.circle {
+    width: var(300px);
+    height: var(300px);
+    border-radius: 50%;
 }

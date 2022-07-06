@@ -4,7 +4,9 @@
 @section styles {
     <link rel="stylesheet" href="~/css/ParkingSpace.css">
 }
-
+@section Scripts{
+    <script src="~/js/ParkingSpace.js" asp-append-version="true"></script>
+}
 <div class="row align-items-start" style="margin-top: 15px;">
     <div class="col titlebox">
     </div>
@@ -13,81 +15,28 @@
     </div>
 </div>
 <div id="setday" class="setday">
-    <script type="text/javascript">
-        function setday() {
-            var date = new Date();
-            const dayName = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-            let MM = (date.getMonth() + 1);
-            let day = `${dayName[MM]}`;
-            var today = day + " " + date.getDate() + "," + date.getFullYear();
-            document.getElementById("setday").innerText = today;
-        }
-    </script>
+
 </div>
-<div class="listbox">
-    <div class="row listbox_ct">
+<div class="listbox" id="listbox">
+    <div class="row listbox_ct" id="listbox_ct">
         <div class="pkdata" id="parkingName">
 
         </div>
-        <div class="pkdata" id="parkingNo">
-
-        </div>
-        <div class="SevenSegment">
-            <span class="seven-segment" data-number="0">
+        <div class="SevenSegment" id="SevenSegment">
+            <span class="seven-segment" id="num0" data-number="0">
             </span>
-            <span class="seven-segment" data-number="2">
+            <span class="seven-segment" id="num1" data-number="0">
             </span>
-            <span class="seven-segment" data-number="5">
+            <span class="seven-segment" id="num2" data-number="0">
             </span>
-            <span class="seven-segment" data-number="0">
+            <span class="seven-segment" id="num3" data-number="0">
             </span>
         </div>
     </div>
 </div>
 <div class="carrow">
-    <a class="btn" href="#">
+    @*<a class="btn" href="#">
             <img class="bticon" src="~/images/update_icon.png" />
-        </a>
+        </a>*@
+    <a href="javascript:void(0)" onclick="ResetData()" class="rounded-link circle">Reset</a>
 </div>
-
-<script>
-    window.onload = function () {
-        setday();
-        const url = location.search; //獲取url中"?"符號後的字串
-        let theRequest = new Object();
-        if (url.indexOf("?") != -1) {
-            let str = url.substr(1);
-            strs = str.split("&");
-            for (let i = 0; i < strs.length; i++) {
-                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-            }
-        }
-        $.ajax({
-            type: 'GET',
-            url: "/api/Data_SQL/AuthorizeData",
-            data: { 'parkingGuid': theRequest.parkingGuid },
-            dataType: 'json',
-            async: true,
-            success: function (response) {
-                let code = JSON.stringify(response.code);
-                let errmsg = JSON.stringify(response.errMsg)
-                if (code == '"402"') {
-                    alert(errmsg);
-                    window.location = "/Login/Index";
-                }
-                else if (code == '"404"') {
-                    alert(errmsg);
-                }
-                else {
-                    console.log(response.data);
-
-                    $("#parkingName").html(response.data.parkingName);
-                    $("#parkingNo").html(response.data.parkingNo);
-                }
-            },
-            error: function () {
-
-            }
-        })
-    };
-</script>

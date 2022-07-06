@@ -191,23 +191,7 @@ body {
 }
 /*@media screen and (min-width :759px) {*/
     /*煙火特效*/
-    @keyframes firework {
-        0% {
-            transform: translate(var(--x), var(--initialY));
-            width: var(--initialSize);
-            opacity: 1;
-        }
 
-        50% {
-            width: 0.8vmin;
-            opacity: 1;
-        }
-
-        100% {
-            width: var(--finalSize);
-            opacity: 0;
-        }
-    }
 
 
     /* @@keyframes fireworkPseudo {
@@ -229,7 +213,7 @@ body {
     --color5: gold;
     --color6: mediumseagreen;
     --y: -30vmin;
-    --x: 200%;
+    --x: 10%;  /*煙火偏位*/
     --initialY: 35vmin; /*放煙火的位置*/
     content: "";
     animation: firework 2s infinite;
@@ -257,6 +241,24 @@ radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 0% 100%,
     radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 22% 14%, radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 45% 20%, radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 33% 34%, radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 10% 29%, radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 31% 37%, radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 28% 7%, radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 13% 42%;
     background-size: var(--initialSize) var(--initialSize);
     background-repeat: no-repeat;
+}
+
+@keyframes firework {
+    0% {
+        transform: translate(var(--x), var(--initialY));
+        width: var(--initialSize);
+        opacity: 1;
+    }
+
+    50% {
+        width: 0.8vmin;
+        opacity: 1;
+    }
+
+    100% {
+        width: var(--finalSize);
+        opacity: 0;
+    }
 }
 
 .firework::before {
