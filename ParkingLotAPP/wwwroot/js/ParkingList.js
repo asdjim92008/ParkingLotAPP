@@ -32,12 +32,12 @@ function gohome(parkingGuid) {
         dataType: 'json',
         async: true,
         success: function (response) {
-
+            localStorage.setItem('ParkingType', JSON.stringify(response.data.parkingType));
+            window.location = "/Home/Index?parkingGuid=" + pkguid;
         },
         error: function () {
-
+            alert("error");
         }
     });
 
-    window.location = "/Home/Index?parkingGuid=" + pkguid;
 }

@@ -1,0 +1,227 @@
+﻿* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%;
+    max-width: 1140px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #315f94, #315f94,#141e30);
+}
+
+/*titlebox*/
+
+.titlebox {
+    width: 100vw;
+    height: 50px;
+    background: #88c4ff70;
+    padding: 5px;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.titlename {
+    position: absolute;
+    font-size: 35px;
+    color: #FFF;
+    width: 60%;
+    height: 50px;
+    left: 22%;
+    line-height: 42px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.setday {
+    font-family: monospace;
+    font-size: 16px;
+    opacity: 0.7;
+    color: #FFF;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100vw;
+    height: 50px;
+}
+
+.pkdata {
+    font-size: 35px;
+    color: #FFF;
+    width: 100vw;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.ParkingType {
+    font-size: 35px;
+    color: #FFF;
+    width: 100vw;
+    height: 50px;
+    left: 22%;
+    line-height: 42px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.listbox_ct {
+    width: 100vw;
+/*    background: rgb(0 0 0 / 47%);
+*/    background: rgb(0 0 0 / 22%);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgb(0 0 0 / 60%);
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 18px;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/*柵欄按鈕*/
+
+/* Soft fade-in for overlay */
+@-webkit-keyframes bg-fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bg-fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* position circle container */
+.loading-circles {
+    width: 100vw;
+    height: 50px;
+    margin-left: 50%;
+    margin-top: 30px;
+}
+
+/* grow and fade animation 
+for .circle rings */
+@-webkit-keyframes fade {
+    from {
+        opacity: 1;
+        -webkit-transform: scale(1,1)translate(-50%,-50%);
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: scale(2,2)translate(-50%,-50%);
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 1;
+        transform: scale(1,1)translate(-50%,-50%);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(2,2)translate(-50%,-50%);
+    }
+}
+
+/* style circle starting point */
+.loading-circles > .circle {
+    position: absolute;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0; /* radiate from center */
+    -webkit-transform: scale(1,1)translate(-50%,-50%);
+    transform: scale(1,1)translate(-50%,-50%);
+    -webkit-animation: fade 1s linear infinite;
+    animation: fade 1s linear infinite;
+/*    display: inline-block;*/
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    background: #FD4B46;
+    opacity: 1;
+}
+/* Turn off animation for .hold */
+.circle.hold {
+    -webkit-animation: none;
+}
+/* Iterate sequntially animation-delay */
+.circle.first + .circle {
+    -webkit-animation-delay: .33s;
+    animation-delay: .33s;
+}
+
+.circle.first + .circle + .circle {
+    -webkit-animation-delay: .66s;
+    animation-delay: .66s;
+}
+
+.control_bt {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.title_center {
+    justify-content: center;
+}
+
+.body_center {
+    display: flex;
+    justify-content: center;
+}
+
+.alert_icon {
+    width:60px;
+}
+
+.alert_body{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.alert_footer {
+    justify-content: center;
+}

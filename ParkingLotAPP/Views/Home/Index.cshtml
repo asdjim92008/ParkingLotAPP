@@ -51,7 +51,7 @@
                     </td>
                     <td>
                         <div class="card 4">
-                            <a style='color: #fff;width: inherit;height: inherit;height: 100px;' href='javascript: void(0);' onclick='goChangelog()'>
+                            <a style='color: #fff;width: inherit;height: inherit;height: 100px;' href='javascript: void(0);' onclick='goControlFence()'>
                                 <div class="card_image">
                                     <img class="bgimg" src="~/images/geometricicon.jpg" />
                                     <img class="bticon" src="~/images/GateControl_icon.png" />
@@ -158,9 +158,14 @@
         window.location = "/ParkingSpace/Index?parkingGuid=" + theRequest.parkingGuid;
     }
 
+    function goControlFence() {
+        window.location = "/ControlFence/Index?parkingGuid=" + theRequest.parkingGuid;
+    }
+
     function backpage() {
         window.location = "/ParkingList/Index";
     }
+    
 </script>
 
 

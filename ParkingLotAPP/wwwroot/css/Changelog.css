@@ -43,14 +43,14 @@ body {
 }
 
 .titlename {
-    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
     font-size: 35px;
     color: #FFF;
     width: 60%;
     height: 30%;
-    left: 22%;
     opacity: 0.8;
-    text-align: center;
     line-height: 42px;
 }
 

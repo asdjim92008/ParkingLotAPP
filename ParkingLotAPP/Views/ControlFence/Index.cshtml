@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "_WebLayout";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/ControlFence.css">
+}
+@section Scripts{
+    <script src="~/js/ControlFence.js" asp-append-version="true"></script>
+}
+<div class="row align-items-start" style="margin-top: 15px;">
+    <div class="col titlebox">
+    </div>
+    <div class="titlename">
+        系統機器控制
+    </div>
+</div>
+<div id="setday" class="setday">
+
+</div>
+<div class="listbox" id="listbox">
+    <div class="row listbox_ct" id="listbox_ct">
+        <div class="pkdata" id="parkingName">
+
+        </div>
+        <div class="ParkingType" id="ParkingType">
+        </div>
+    </div>
+</div>
+
+<!-- Alert Modal BS4-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header title_center">
+                <h5 class="modal-title" id="staticBackdropLabel">
+                    <img class="alert_icon" src="~/images/alert_title.png" />
+                </h5>
+            </div>
+            <div class="modal-body body_center alert_body">
+                請確認是否要開啟柵欄.
+            </div>
+            <div class="modal-footer alert_footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick='OpenData()'>確認開啟</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Alert of Edit Modal -->

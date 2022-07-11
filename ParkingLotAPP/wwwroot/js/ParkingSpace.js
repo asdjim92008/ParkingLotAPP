@@ -33,7 +33,6 @@ function ResetData() {
         dataType: 'json',
         async: true,
         success: function (Response) {
-            console.log(Response);
             let code = JSON.stringify(Response.code);
             let errmsg = JSON.stringify(Response.errMsg)
             let error = JSON.stringify(Response.data[0].state)
