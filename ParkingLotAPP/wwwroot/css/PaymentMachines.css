@@ -1,0 +1,358 @@
+﻿* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%;
+    max-width: 1140px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #315f94, #315f94,#141e30);
+}
+
+._chart {
+    margin-left: 52px;
+}
+
+/*繳費機狀態*/
+.email-signature {
+    background: rgb(0 0 0 / 22%);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgb(0 0 0 / 60%);
+    padding: 1px 0px 1px 170px;
+    border-radius: 100px;
+    position: relative;
+}
+
+.email-signature .signature-icon {
+    width: 194px;
+    height: 194px;
+    line-height: 186px;
+    border-radius: 50%;
+    position: absolute;
+    left: -15px;
+}
+
+.email-signature .signature-icon i {
+    text-shadow: 8px 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.email-signature .signature-icon::before {
+    content: "";
+    background-color: transparent;
+    border-radius: 50%;
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+}
+
+.email-signature .signature-content {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-size: 14px;
+    color: white;
+}
+
+.email-signature .signature-content {
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.email-signature .signature-content li {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.email-signature .signature-content i {
+    font-size: 28px;
+    width: 40px;
+    line-height: 40px;
+}
+
+.email-signature .signature-content span {
+    padding: 6px 14px;
+    margin-left: -4px;
+    border-radius: 6px;
+}
+
+    .email-signature .name {
+        margin-top: 10px;
+        display: block;
+        font-size: 20px;
+        font-weight: 600;
+        color: white;
+        text-transform: uppercase;
+        margin: 6px 0 7px 0;
+    }
+
+.email-signature .title {
+    display: block;
+    font-size: 17px;
+    font-weight: 600;
+    color: #555;
+    line-height: 1.1;
+    padding: 0;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.container {
+    flex: 1;
+    padding: 0 20px;
+}
+/**/
+
+/*titlebox*/
+
+.titlebox {
+    width: 100vw;
+    height: 50px;
+    background: #88c4ff70;
+    padding: 5px;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.titlename {
+    position: absolute;
+    font-size: 35px;
+    color: #FFF;
+    width: 60%;
+    height: 50px;
+    left: 22%;
+    line-height: 42px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+/*Titlerow*/
+p {
+    position: relative;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-size: 3em;
+    letter-spacing: 4px;
+    overflow: hidden;
+    background: linear-gradient(90deg, #315f94, #fff, #315f94);
+    background-repeat: no-repeat;
+    background-size: 80%;
+    animation: animate 2s linear infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0);
+    width: 100vw;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+@keyframes animate {
+    0% {
+        background-position: -500%;
+    }
+
+    100% {
+        background-position: 500%;
+    }
+}
+/**/
+.setday {
+    font-family: monospace;
+    font-size: 16px;
+    opacity: 0.7;
+    color: #FFF;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 600px;
+    width: 100vw;
+    height: 50px;
+}
+
+.pkdata {
+    font-size: 35px;
+    color: #FFF;
+    width: 100vw;
+    height: 40px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.SevenSegment {
+    font-size: 35px;
+    color: #FFF;
+    width: 100vw;
+    height: 120px;
+    left: 22%;
+    line-height: 42px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.listbox_ct {
+    max-width: 600px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 18px;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+.carrow {
+    font-size: 35px;
+    color: #FFF;
+    width: 100vw;
+    height: 120px;
+    left: 22%;
+    line-height: 42px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/**/
+.listbox {
+    max-width: 600px;
+}
+
+.box1 {
+    max-width: 600px;
+    margin-left: 220px;
+    margin-bottom: 25px;
+    margin-top: -20px;
+}
+
+.box2 {
+    width: 100vw;
+    max-width: 600px;
+}
+
+.title1 {
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    padding-bottom: 0.1em;
+    border-bottom: 5px double #64c7ce;
+}
+
+.num1 {
+    color: white;
+}
+
+.title2 {
+    margin-left: 220px;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    padding-bottom: 0.1em;
+    border-bottom: dashed 3px #64c7ce;
+}
+
+.num2 {
+    color: white;
+    margin-left: 220px;
+}
+
+@media screen and (max-width: 375px) {
+    ._chart {
+        margin-left: -69px;
+        position: absolute;
+    }
+    .box1 {
+        margin-top: -30px;
+    }
+    .title1 {
+        font-size: 22px;
+    }
+}
+
+@media screen and (min-width: 414px) {
+    ._chart {
+        margin-left: 65px;
+    }
+}
+
+@media screen and (max-width: 376px) and (max-width: 390px) and (max-height: 851px) {
+    .box1 {
+        margin-top: -40px;
+    }
+}
+
+@media screen and (max-width: 360px) and (max-height: 740px) { /*Galaxy S8+*/
+    ._chart {
+        margin-top: 40px;
+    }
+}
+
+@media screen and (max-width: 390px) and (max-height: 844x) {
+    ._chart {
+        margin-left: 65px;
+    }
+    svg {
+        margin-top: 25px;
+    }
+    .title1 {
+        font-size: 24px;
+    }
+    .title2 {
+        font-size: 21px;
+    }
+}
+
+@media screen and (max-width: 412px) and (min-height: 915px) { /*S20*/
+    ._chart {
+        margin-left: 65px;
+    }
+}
+
+@media screen and (max-width: 390px) and (min-height: 844px) { /*Ip12 pro*/
+    .signature-icon {
+        margin-left: 20px;
+    }
+    svg {
+        margin-top: 25px;
+    }
+}
+
+@media screen and (max-width: 393px) and (min-height: 851px) { /*Pixel5*/
+    svg {
+        margin-top: 30px;
+        margin-left: 40px;
+    }
+}
+
+@media screen and (max-width: 412px) and (min-height: 914px) { /*Pixel5*/
+    svg {
+        margin-left: 35px;
+    }
+}

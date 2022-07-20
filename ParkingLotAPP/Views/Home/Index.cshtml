@@ -66,13 +66,16 @@
                 <tr>
                     <td>
                         <div class="card 5">
-                            <div class="card_image">
-                                <img class="bgimg" src="~/images/geometricicon.jpg" />
-                                <img class="bticon" src="~/images/messageicon2.png" />
-                            </div>
-                            <div class="card_title title-white">
-                                <p>收費機訊息</p>
-                            </div>
+                            <a style='color: #fff;width: inherit;height: inherit;height: 100px;' href='javascript: void(0);' onclick='goPaymentMachines()'>
+
+                                <div class="card_image">
+                                    <img class="bgimg" src="~/images/geometricicon.jpg" />
+                                    <img class="bticon" src="~/images/messageicon2.png" />
+                                </div>
+                                <div class="card_title title-white">
+                                    <p>收費機訊息</p>
+                                </div>
+                            </a>
                         </div>
                     </td>
                     <td>
@@ -162,9 +165,14 @@
         window.location = "/ControlFence/Index?parkingGuid=" + theRequest.parkingGuid;
     }
 
+    function goPaymentMachines() {
+        window.location = "/PaymentMachines/Index";
+    }
+
     function backpage() {
         window.location = "/ParkingList/Index";
     }
+    
     
 </script>
 
