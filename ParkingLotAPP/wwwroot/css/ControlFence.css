@@ -29,11 +29,10 @@ body {
 }
 
 /*titlebox*/
-
 .titlebox {
     width: 100vw;
     height: 50px;
-    background: #88c4ff70;
+    background: #14151670;
     padding: 5px;
     font-size: 18px;
     opacity: 0.8;
@@ -45,12 +44,13 @@ body {
     color: #FFF;
     width: 60%;
     height: 50px;
-    left: 22%;
+    left: 20%;
     line-height: 42px;
     align-items: center;
     display: flex;
     justify-content: center;
 }
+
 .pkdata {
     font-size: 35px;
     color: #FFF;
@@ -213,35 +213,4 @@ for .circle rings */
 
 .alert_footer {
     justify-content: center;
-}
-
-
-/*Titlerow*/
-p {
-    position: relative;
-    font-family: sans-serif;
-    text-transform: uppercase;
-    font-size: 3em;
-    letter-spacing: 4px;
-    overflow: hidden;
-    background: linear-gradient(90deg, #315f94, #fff, #315f94);
-    background-repeat: no-repeat;
-    background-size: 80%;
-    animation: animate 2s linear infinite;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: rgba(255, 255, 255, 0);
-    width: 100vw;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-}
-
-@keyframes animate {
-    0% {
-        background-position: -500%;
-    }
-
-    100% {
-        background-position: 500%;
-    }
 }

@@ -18,13 +18,17 @@ body {
     color: #fff;
 }
 
+table {
+    display: flex;
+    justify-content: center;
+}
+
 .cards-list {
-    position: absolute;
-    top: 53%;
-    left: 50%;
     width: 360px;
-    padding: 30px;
-    transform: translate(-50%, -50%);
+}
+
+td {
+    padding: 0 40px;
 }
 
 .card {
@@ -82,7 +86,7 @@ body {
 
 .portfolio-experiment {
     background-color: rgba(0, 0, 0, .6);
-    margin-top: 10px;
+    margin: 0 auto;
 }
    
 /*BackButton*/
@@ -90,7 +94,6 @@ body {
     .portfolio-experiment {
         width: 200px;
         border-radius: 30px;
-        margin-left: 80px;
     }
 }
 
@@ -98,7 +101,6 @@ body {
     .portfolio-experiment {
         width: 230px;
         border-radius: 40px;
-        margin-left: 65px;
     }
 }
 

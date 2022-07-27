@@ -1,0 +1,432 @@
+﻿* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #315f94, #315f94,#141e30);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.5px;
+}
+.top_box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img_info {
+    width: 70%;
+    position: relative;
+}
+
+.text_info {
+    width: 80%;
+    color:#FFF;
+}
+
+/*流光box*/
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 90deg;
+    inherits: true;
+}
+
+@property --gradX {
+    syntax: '<percentage>';
+    initial-value: 50%;
+    inherits: true;
+}
+
+@property --gradY {
+    syntax: '<percentage>';
+    initial-value: 0%;
+    inherits: true;
+}
+
+p {
+    margin: 0;
+}
+
+:root {
+    --d: 2500ms;
+    --angle: 90deg;
+    --gradX: 100%;
+    --gradY: 50%;
+    --c1: rgba(168, 239, 255, 1);
+    --c2: rgba(168, 239, 255, 0.1);
+}
+
+.box {
+    font-size: 6.5vw;
+    margin: max(1rem, 3vw);
+    border: 0.35rem solid;
+    padding: 2vw;
+    margin-top: 50px;
+    border-image: conic-gradient(from var(--angle), var(--c2), var(--c1) 0.1turn, var(--c1) 0.15turn, var(--c2) 0.25turn) 30;
+    animation: borderRotate var(--d) linear infinite forwards;
+}
+
+    .box:nth-child(2) {
+        border-image: radial-gradient(ellipse at var(--gradX) var(--gradY), var(--c1), var(--c1) 10%, var(--c2) 40%) 30;
+        animation: borderRadial var(--d) linear infinite forwards;
+    }
+
+@keyframes borderRotate {
+    100% {
+        --angle: 420deg;
+    }
+}
+
+@keyframes borderRadial {
+    20% {
+        --gradX: 100%;
+        --gradY: 50%;
+    }
+
+    40% {
+        --gradX: 100%;
+        --gradY: 100%;
+    }
+
+    60% {
+        --gradX: 50%;
+        --gradY: 100%;
+    }
+
+    80% {
+        --gradX: 0%;
+        --gradY: 50%;
+    }
+
+    100% {
+        --gradX: 50%;
+        --gradY: 0%;
+    }
+}
+/**/
+
+/*btn*/
+@import url('https://fonts.googleapis.com/css?family=Poppins:900i');
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.cta {
+    display: flex;
+    padding: 10px 35px;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px;
+    color: white;
+    background: #4f61e1;
+    transition: 1s;
+    box-shadow: 6px 6px 0 black;
+    transform: skewX(-15deg);
+    opacity: 0.8;
+    margin-right: 30px;
+    margin: 20px;
+}
+
+    .cta:focus {
+        outline: none;
+    }
+
+    .cta:hover {
+        transition: 0.5s;
+        box-shadow: 10px 10px 0 #FBC638;
+    }
+
+    .cta span:nth-child(2) {
+        transition: 0.5s;
+        margin-right: 0px;
+    }
+
+    .cta:hover span:nth-child(2) {
+        transition: 0.5s;
+        margin-right: 45px;
+    }
+
+span {
+    transform: skewX(15deg)
+}
+
+    span:nth-child(2) {
+        width: 20px;
+        margin-left: 30px;
+        position: relative;
+        top: 12%;
+    }
+
+/**************SVG****************/
+
+path.one {
+    transition: 0.4s;
+    transform: translateX(-60%);
+}
+
+path.two {
+    transition: 0.5s;
+    transform: translateX(-30%);
+}
+
+.cta:hover path.three {
+    animation: color_anim 1s infinite 0.2s;
+}
+
+.cta:hover path.one {
+    transform: translateX(0%);
+    animation: color_anim 1s infinite 0.6s;
+}
+
+.cta:hover path.two {
+    transform: translateX(0%);
+    animation: color_anim 1s infinite 0.4s;
+}
+
+/* SVG animations */
+
+@keyframes color_anim {
+    0% {
+        fill: white;
+    }
+
+    50% {
+        fill: #FBC638;
+    }
+
+    100% {
+        fill: white;
+    }
+}
+
+/*car*/
+
+.car {
+    display: flex;
+    justify-content: center;
+}
+
+.car__inner {
+    width: 300px;
+    position: relative;
+    animation: move 0.8s infinite linear;
+}
+
+.car__headlights-wrap {
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    border-radius: 50%;
+    top: 148px;
+    transform: translate(var(--x), var(--y));
+    z-index: 1;
+}
+
+.car__headlights-wrap--left {
+    left: 21px;
+}
+
+.car__headlights-wrap--right {
+    right: 22px;
+}
+
+.car__headlights {
+    --size: 210px;
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    width: var(--size);
+    height: var(--size);
+    background: radial-gradient(circle closest-side, #fff, transparent);
+    transform: translate(-50%, -50%);
+    transition: all 0.2s ease-out, left 0s, top 0s;
+    z-index: 2;
+}
+
+.car__svg {
+    --opacity: 1;
+    opacity: var(--opacity);
+    transition: all 0.2s ease-out;
+}
+/**/
+
+.carnum {
+    width: 100%;
+    height: 5vh;
+    font-size: 6.9vw;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    position: absolute;
+    bottom: 40px;
+    top: 100%;
+}
+
+.modal-content {
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    background: white;
+}
+
+.modal-header {
+    padding: 0.3rem 0.3rem;
+}
+
+@keyframes move {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    20% {
+        transform: translate(0, 3px);
+    }
+
+    40% {
+        transform: translate(1px, 2px);
+    }
+
+    60% {
+        transform: translate(0, 1px);
+    }
+
+    80% {
+        transform: translate(1px, 0);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@-webkit-keyframes move {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    20% {
+        transform: translate(0, 3px);
+    }
+
+    40% {
+        transform: translate(1px, 2px);
+    }
+
+    60% {
+        transform: translate(0, 1px);
+    }
+
+    80% {
+        transform: translate(1px, 0);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+/**/
+
+/*small size*/
+@media screen and (max-width:560px) {
+    .cta {
+        margin-right: 0px;
+        padding: 10px 10px;
+        font-size: 15px;
+    }
+}
+
+@media screen and (min-width:561px) and (max-width:768px) {
+    .cta {
+        margin-right: 0px;
+        padding: 10px 25px;
+        font-size: 25px;
+    }
+}
+/*web*/
+@media screen and (min-width:995px) {
+    .cta {
+        margin-right: 50px;
+    }
+}
+
+@media screen and (min-width:900px) and (max-width:1200px) {
+    .cta {
+        padding: 10px 25px;
+    }
+}
+
+
+@media screen and (max-width:992px) {
+    .cta {
+        padding: 10px 10px;
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width:575px) and (max-width:775px) {
+    .carnum {
+        font-size: 5vw;
+    }
+    .box {
+        font-size: 5vw;
+    }
+}
+
+@media screen and (min-width:776px) and (max-width:1399px) {
+    .carnum {
+        font-size: 4vw;
+    }
+
+    .box {
+        font-size: 3vw;
+        margin-top: 70px;
+    }
+}
+
+@media screen and (min-width:1400px){
+    .carnum {
+        font-size: 3vw;
+    }
+
+    .box {
+        font-size: 2vw;
+        margin-top: 80px;
+    }
+
+    .foot {
+        margin-top: -40px;
+    }
+}

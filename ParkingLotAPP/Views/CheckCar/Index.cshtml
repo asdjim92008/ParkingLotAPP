@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "_WebLayout";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/CheckCar.css">
+}
+@section Scripts{
+    <script src="~/js/CheckCar.js" asp-append-version="true"></script>
+}
+<div class="content_box">
+    <div class="PL_news" id="PL_news4" onclick="javascript: return Editval(this.value);">
+        <div class="PL_news_box">
+            <div id="PL_image4" class="PL_image4">
+                <img class="bgimg" src="~/images/2022_07_01_10_22_54939_9050057be02b4374b85de3f4e2aa0b95_full.jpg" />
+            </div>
+            <div class="carnum" id="carnum4">
+                <span>車牌號：AV-1547<br>進場時間：2022/06/21 11:52:59</span>
+            </div>
+            <div class="PL_info" id="PL_info4">
+            </div>
+        </div>
+    </div>
+    <div class="PL_news" id="PL_news3" onclick="javascript: return Editval(this.value);">
+        <div class="PL_news_box">
+            <div id="PL_image3" class="PL_image3">
+                <img class="bgimg" src="~/images/2022_07_01_10_14_56884_bae7c3330cc64cf4bfef40a5824e43c2_full.jpg" />
+            </div>
+            <div class="carnum" id="carnum3">
+                <span>車牌號：AV-1547<br>進場時間：2022/06/21 11:52:59</span>
+            </div>
+            <div class="PL_info" id="PL_info3">
+            </div>
+        </div>
+    </div>
+    <div class="PL_news" id="PL_news2" onclick="javascript: return Editval(this.value);">
+        <div class="PL_news_box">
+            <div id="PL_image2" class="PL_image2">
+                <img class="bgimg" src="~/images/2022_07_01_09_37_23950_3afdb877f0d64e468bf809829db200d4_full.jpg" />
+            </div>
+            <div class="carnum" id="carnum2">
+                <span>車牌號：AV-1547<br>進場時間：2022/06/21 11:52:59</span>
+            </div>
+            <div class="PL_info" id="PL_info2">
+            </div>
+        </div>
+    </div>
+    <div class="PL_news" id="PL_news1" onclick="javascript: return Editval(this.value);">
+        <div class="PL_news_box">
+            <div id="PL_image1" class="PL_image1">
+                <img class="bgimg" src="~/images/2022_07_01_08_32_15328_20c0f891f84f48dbb58d6546ecaf3970_full.jpg" />
+            </div>
+            <div class="carnum" id="carnum1">
+                <span>車牌號：AV-1547<br>進場時間：2022/06/21 11:52:59</span>
+            </div>
+            <div class="PL_info" id="PL_info1">
+            </div>
+        </div>
+    </div>
+    <div class="PL_news" id="PL_news0" onclick="javascript: return Editval(this.value);">
+        <div class="PL_news_box">
+            <div id="PL_image0" class="PL_image0">
+                <img class="bgimg" src="~/images/2022_07_01_08_28_26434_9170fdd96eb04ce98ae3bc1d6a96a58c_full.jpg"/>
+            </div>
+            <div class="carnum" id="carnum0">
+                <span>車牌號：AV-1547<br>進場時間：2022/06/21 11:52:59</span>
+            </div>
+            <div class="PL_info" id="PL_info0">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="info_bar row" id="info_bar">
+    <div class="add_img_box col" id="add_img_box">
+        <div class="Lbt_div" id="Lbt">
+            <button type="button" class="btn btn-outline-primary Lbt" value="1" onclick='GetFile(this.value)'>上一頁</button>
+        </div>
+        <div class="page"><a style="color: #007bff; font-size: 25px; font-weight: bold; cursor: default; ">1</a></div>
+        <div class="Nbt_div" id="Nbt">
+            <button type="button" class="btn btn-outline-primary Nbt" value="1" onclick='GetFile(this.value)'>下一頁</button>
+        </div>
+    </div>
+    <div class="backbt">
+        <button type="button" class="btn btn-outline-primary Nbt" onclick='javascript:window.history.go(-1);'>返回</button>
+    </div>
+</div>

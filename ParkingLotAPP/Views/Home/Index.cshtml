@@ -119,20 +119,38 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <section class="portfolio-experiment" style="">
-                            <a href='javascript: void(0);' onclick="backpage()">
-                                <center>
-                                    <span class="text">返回停車場列表</span>
-                                </center>
+                    <td>
+                        <div class="card 9">
+                            <a style='color: #fff;width: inherit;height: inherit;height: 100px;' href='javascript: void(0);' onclick='goSearchCar()'>
+                                <div class="card_image">
+                                    <img class="bgimg" src="~/images/geometricicon.jpg" />
+                                    <img class="bticon" src="~/images/discount.png" />
+                                </div>
                             </a>
-                        </section>
+                            <div class="card_title title-white">
+                                <p>停車折抵</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="2">
+                    </td>
+                </tr>
+
             </table>
         </td>
     </tr>
 </table>
+<section class="portfolio-experiment" style="">
+    <a href='javascript: void(0);' onclick="backpage()">
+        <center>
+            <span class="text">返回停車場列表</span>
+        </center>
+    </a>
+</section>
 
 <script>
     const url = location.search; //獲取url中"?"符號後的字串
@@ -166,14 +184,18 @@
     }
 
     function goPaymentMachines() {
-        window.location = "/PaymentMachines/Index";
+        window.location = "/PaymentMachines/Index?parkingGuid=" + theRequest.parkingGuid;
+    }
+
+    function goSearchCar() {
+        window.location = "/SearchCar/Index?parkingGuid=" + theRequest.parkingGuid;
     }
 
     function backpage() {
         window.location = "/ParkingList/Index";
     }
-    
-    
+
+
 </script>
 
 

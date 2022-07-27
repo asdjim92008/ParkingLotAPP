@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "_WebLayout";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/SearchCar.css">
+}
+@section Scripts{
+    <script src="~/js/SearchCar.js" asp-append-version="true"></script>
+}
+<div class="top_bar">
+    <div class="title-container">
+        <p class="title" >搜尋車牌號..前往折抵</p>
+    </div>
+    <div class="SearchCar_box row" id="search">
+        <input id="SearchCar" name="SearchCar" placeholder="搜尋車號..." onfocus="afterClick()" onblur="beforeClick()"/>
+        <button onclick="SearchCar()">
+            <img class='search_icon' src='/images/search_icon.png' />
+        </button>
+        <div class="spinner"></div>
+    </div>
+</div>
