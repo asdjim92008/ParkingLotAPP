@@ -3,10 +3,24 @@
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/CheckCar.css">
+    <link rel="stylesheet" href="~/css/SearchCar.css">
 }
 @section Scripts{
     <script src="~/js/CheckCar.js" asp-append-version="true"></script>
+    <script src="~/js/SearchCar.js" asp-append-version="true"></script>
 }
+<div class="top_bar">
+    <div class="title-container">
+        <p class="title">搜尋車牌號..前往折抵</p>
+    </div>
+    <div class="SearchCar_box row" id="search">
+        <input id="SearchCar" name="SearchCar" placeholder="搜尋車號..." onfocus="afterClick()" onblur="beforeClick()" />
+        <button onclick="SearchCar()">
+            <img class='search_icon' src='/images/search_icon.png' />
+        </button>
+        <div class="spinner"></div>
+    </div>
+</div>
 <div class="content_box">
     <div class="PL_news" id="PL_news4" onclick="javascript: return Editval(this.value);">
         <div class="PL_news_box">
@@ -59,7 +73,7 @@
     <div class="PL_news" id="PL_news0" onclick="javascript: return Editval(this.value);">
         <div class="PL_news_box">
             <div id="PL_image0" class="PL_image0">
-                <img class="bgimg" src="~/images/2022_07_01_08_28_26434_9170fdd96eb04ce98ae3bc1d6a96a58c_full.jpg"/>
+                <img class="bgimg" src="~/images/2022_07_01_08_28_26434_9170fdd96eb04ce98ae3bc1d6a96a58c_full.jpg" />
             </div>
             <div class="carnum" id="carnum0">
                 <span>車牌號：AV-1547<br>進場時間：2022/06/21 11:52:59</span>

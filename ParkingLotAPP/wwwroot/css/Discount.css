@@ -19,7 +19,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: linear-gradient(#141e30, #315f94, #315f94,#141e30);
+    background: -webkit-linear-gradient(left,#122c5c, #315f94, #315f94,#122c5c);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
@@ -142,37 +142,50 @@ p {
 .cta {
     display: flex;
     padding: 10px 35px;
-    text-decoration: none;
     font-family: 'Poppins', sans-serif;
     font-size: 30px;
-    color: white;
-    background: #4f61e1;
+    background: #000dff;
     transition: 1s;
     box-shadow: 6px 6px 0 black;
     transform: skewX(-15deg);
     opacity: 0.8;
     margin-right: 30px;
     margin: 20px;
+    color: #FFF;
+}
+a, a:link, a:visited {
+    color: #FFF;
+    text-decoration: none
 }
 
-    .cta:focus {
-        outline: none;
-    }
+a:hover {
+    color: #FFF;
+    text-decoration: none;
+}
 
-    .cta:hover {
-        transition: 0.5s;
-        box-shadow: 10px 10px 0 #FBC638;
-    }
+.cta :hover{
+    text-decoration: none;
+    color: #FFF;
+}
 
-    .cta span:nth-child(2) {
-        transition: 0.5s;
-        margin-right: 0px;
-    }
+.cta:focus {
+    outline: none;
+}
 
-    .cta:hover span:nth-child(2) {
-        transition: 0.5s;
-        margin-right: 45px;
-    }
+.cta:hover {
+    transition: 0.5s;
+    box-shadow: 10px 10px 0 #FBC638;
+}
+
+.cta span:nth-child(2) {
+    transition: 0.5s;
+    margin-right: 0px;
+}
+
+.cta:hover span:nth-child(2) {
+    transition: 0.5s;
+    margin-right: 45px;
+}
 
 span {
     transform: skewX(15deg)
@@ -227,57 +240,11 @@ path.two {
     }
 }
 
-/*car*/
-
-.car {
-    display: flex;
-    justify-content: center;
+.car_img {
+    width: 100%;
+    height: 100%;
+    padding: 15px;
 }
-
-.car__inner {
-    width: 300px;
-    position: relative;
-    animation: move 0.8s infinite linear;
-}
-
-.car__headlights-wrap {
-    width: 42px;
-    height: 42px;
-    position: absolute;
-    border-radius: 50%;
-    top: 148px;
-    transform: translate(var(--x), var(--y));
-    z-index: 1;
-}
-
-.car__headlights-wrap--left {
-    left: 21px;
-}
-
-.car__headlights-wrap--right {
-    right: 22px;
-}
-
-.car__headlights {
-    --size: 210px;
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 10%;
-    width: var(--size);
-    height: var(--size);
-    background: radial-gradient(circle closest-side, #fff, transparent);
-    transform: translate(-50%, -50%);
-    transition: all 0.2s ease-out, left 0s, top 0s;
-    z-index: 2;
-}
-
-.car__svg {
-    --opacity: 1;
-    opacity: var(--opacity);
-    transition: all 0.2s ease-out;
-}
-/**/
 
 .carnum {
     width: 100%;
@@ -292,6 +259,12 @@ path.two {
     top: 100%;
 }
 
+.checkbtn {
+    background-color: #000dff;
+    border-color: #221a95;
+    margin-top: 8px;
+}
+
 .modal-content {
     width: 400px;
     position: absolute;
@@ -304,6 +277,11 @@ path.two {
 
 .modal-header {
     padding: 0.3rem 0.3rem;
+}
+
+.moneyimg {
+    width: 40px;
+    margin-right: 20px;
 }
 
 @keyframes move {
@@ -376,11 +354,6 @@ path.two {
     }
 }
 /*web*/
-@media screen and (min-width:995px) {
-    .cta {
-        margin-right: 50px;
-    }
-}
 
 @media screen and (min-width:900px) and (max-width:1200px) {
     .cta {

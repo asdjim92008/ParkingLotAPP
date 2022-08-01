@@ -16,6 +16,11 @@ namespace NetCoreBS.Controllers
         {
             return View();
         }
+
+        public IActionResult CheckCar()
+        {
+            return View();
+        }
         #endregion
     }
 }
