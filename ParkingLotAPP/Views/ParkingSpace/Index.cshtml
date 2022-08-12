@@ -8,16 +8,43 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/ParkingSpace.js" asp-append-version="true"></script>
 }
-<div class="row align-items-start" style="margin-top: 15px;">
-    <div class="col titlebox">
-    </div>
-    <div class="titlename">
-            系統車位修改
-    </div>
+<div class="top_bar">
+    <center>
+        <form class="d-md-inline-block form-inline ms-auto me-0 me-md-3" method="post" style=" justify-content: center;">
+            <div class="input-group">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <div class="searchbox">
+                    <input id="SearchCarnum" name="SearchCarnum" type="text" class="form-control search-input" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch">
+                    <img class='search_icon' src='/images/search_icon2.png' onclick="javascript: return SearchCar();" />
+                </div>
+            </div>
+            <div class="search-form">
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" id="inlineCheckbox1" class="form-check-input" value="option1">
+                    <label class="form-check-label" for="inlineCheckbox1">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" id="inlineCheckbox2" class="form-check-input" value="option2">
+                    <label class="form-check-label" for="inlineCheckbox2">2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="inlineRadio1" name="inlineRadioOptions" class="form-check-input" value="option1">
+                    <label class="form-check-label" for="inlineRadio1">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="inlineRadio2" name="inlineRadioOptions" class="form-check-input" value="option2">
+                    <label class="form-check-label" for="inlineRadio2">2</label>
+                </div>
+            </div>
+        </form>
+    </center>
 </div>
-<div id="setday" class="setday">
 
-</div>
 <div class="listbox" id="listbox">
     <div class="row listbox_ct" id="listbox_ct">
         <div class="pkdata" id="parkingName">
@@ -36,8 +63,5 @@
     </div>
 </div>
 <div class="carrow">
-    @*<a class="btn" href="#">
-            <img class="bticon" src="~/images/update_icon.png" />
-        </a>*@
     <a href="javascript:void(0)" onclick="ResetData()" class="rounded-link circle">Reset</a>
 </div>

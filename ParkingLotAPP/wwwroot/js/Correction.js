@@ -1,23 +1,36 @@
-﻿window.onload = function () {
-    const url = location.search; //獲取url中"?"符號後的字串
-    let theRequest = new Object();
-    if (url.indexOf("?") != -1) {
-        let str = url.substr(1);
-        strs = str.split("&");
-        for (let i = 0; i < strs.length; i++) {
-            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-        }
-    }
-    //頁數存取
-    sessionStorage.setItem('page', 1);
-    let page = sessionStorage.getItem('page');
-    sessionStorage.setItem('parkingGuid', theRequest.parkingGuid);
+﻿$(document).ready(function () {
+    $('.input-group.date').datetimepicker({
+        format: "YYYY-MM-DD",
+        defaultDate: new Date(),
+        locale: "zh-tw"
+    });
+});
 
-    let text, carnum, PL_info = "";
-    $.ajax({
+
+//Get URL parameter
+const url = location.search;
+let theRequest = new Object();
+if (url.indexOf("?") != -1) {
+    let str = url.substr(1);
+    strs = str.split("&");
+    for (let i = 0; i < strs.length; i++) {
+        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+    }
+}
+
+//Pagestorage
+sessionStorage.setItem('page', 1);
+let page = sessionStorage.getItem('page');
+sessionStorage.setItem('parkingGuid', theRequest.parkingGuid);
+
+window.onload = function () {
+    $.ajax({ 
         type: 'GET',
         url: "/api/Data_SQL/FtpFile",
-        data: { 'parkingGuid': theRequest.parkingGuid, 'page': page },
+        data: {
+            'parkingGuid': theRequest.parkingGuid,
+            'page': page
+        },
         dataType: 'json',
         async: true,
         success: function (response) {
@@ -26,66 +39,49 @@
             if (code == '"402"') {
                 alert(errmsg);
                 window.location = "/Login/Index";
-            }
-            else {
-                for (let i = 0; i < response.data.length; i++) {
+            } else {
+                let retext = "";
 
-                    let pattern = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/;
-                    let dateString = response.data[i].ymdhm;
-                    let formatedDate = dateString.replace(pattern, '$1/$2/$3 $4:$5:$6');
+                //Alternate text
+                for (let i = 0; i < response.data.length; i++) { 
+                    if (response.data.length >= (i)) {
+                        let pattern = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/;
+                        let dateString = response.data[i].ymdhm;
+                        let formatedDate = dateString.replace(pattern, '$1/$2/$3 $4:$5:$6');
 
-                    if (response.data[i].jpg == "no such file") {
-                        text = "<img src='https://fakeimg.pl/125x90/' width='125' height='90'>";
-                        PL_info = "<time class='PL_time'>" + formatedDate + "</time>";
-                    }
-                    else {
-                        text = "<img src='data:image/jpg;base64," + response.data[i].jpg + "'>";
-                        PL_info = "<time class='PL_time'>" + formatedDate + "</time>";
-                    }
+                        retext += "<div id='PL_news' class='PL_news'>";
+                        retext += "<div class='PL_news_box'><button type='button' value='" + response.data[i].platenum + "' class='btn btn-lg editbt' data-toggle='modal' data-target='#myModal' onclick='javascript: return Editval(this.value," + i + ");'></button><div id='PL_image' class='PL_image'>";
 
-                    if (response.data[i].tickno == "") {
-                        carnum = "<br><br><br><span class='nocarnum'>無辨識車牌號</span>";
-                    }
-                    else {
-                        carnum = "<span>車牌號：" + response.data[i].platenum + "<br>票號：" + response.data[i].tickno + "<br>車道編號：" + response.data[i].rid + "</span>";
-                        $("#editbt" + i).val(response.data[i].platenum);
-                    }
+                        if (response.data[i].jpg == "no such file") {
+                            retext += "<img id='carimg" + i +"' src='https://fakeimg.pl/125x90/' width='125' height='90'></div>";
+                        } else {
+                            retext += "<img id='carimg" + i +"' src='data:image/jpg;base64," + response.data[i].jpg + "'></div>";
+                        }
 
-                    $("#PL_image" + i).html(text);
-                    $("#carnum" + i).html(carnum);
-                    $("#nocarnum" + i).html(carnum);
-                    $("#PL_info" + i).html(PL_info);
+                        retext += "<div id='platenum" + i + "'  class='platenum'><span>車牌號：" + response.data[i].platenum + "<br>進場時間：";
+                        retext += formatedDate + "</span></div><div id='PL_info' class='PL_info'>";
+                        retext += "</div></div></div>";
+                    } else {
+
+                    }
                 }
-
-                let pagerow = "<a style='margin-left: 150px;'>" + page + "</a>";
-
-                pagerow += "<div class='Nbt_div' id='Nbt' style='position: relative;display: inline-block;margin-left: 5px;'><button type='button' class='btn btn-link Nbt' value='1' onclick='GetFile(this.value)'>下一頁</button></div>";
-
-                $("#add_img_box").html(pagerow);
+                $("#content_box").html(retext);
             }
         },
-        error: function () {
-        }
+        error: function () { }
     });
 };
 
-/*更新數據*/
-function GetFile(num) {
-    //更新頁數
-    let page = parseInt(sessionStorage.getItem('page'));
-    sessionStorage.removeItem('page');
-    sessionStorage.setItem('page', (page + parseInt(num)));
 
-    page = parseInt(sessionStorage.getItem('page'));
-    let parkingGuid = sessionStorage.getItem('parkingGuid');
-
-    let SearchCar = document.getElementById("SearchCar").value;
-    let date = document.getElementById("date").value;
-
+//Page refresh
+function Randompage(page) {
     $.ajax({
         type: 'GET',
         url: "/api/Data_SQL/FtpFile",
-        data: { 'parkingGuid': parkingGuid, 'page': page, 'plateNum': SearchCar, 'searchTime': date },
+        data: {
+            'parkingGuid': theRequest.parkingGuid,
+            'page': page
+        },
         dataType: 'json',
         async: true,
         success: function (response) {
@@ -94,86 +90,63 @@ function GetFile(num) {
             if (code == '"402"') {
                 alert(errmsg);
                 window.location = "/Login/Index";
-            }
-            else {
-                for (let i = 0; i < response.data.length; i++) {
+            } else {
+                let retext = "";
 
-                    let pattern = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/;
-                    let dateString = response.data[i].ymdhm;
-                    let formatedDate = dateString.replace(pattern, '$1/$2/$3 $4:$5:$6');
+                //Alternate text
+                for (let i = 0; i < response.data.length; i++) { 
+                    if (response.data.length >= (i)) {
+                        let pattern = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/;
+                        let dateString = response.data[i].ymdhm;
+                        let formatedDate = dateString.replace(pattern, '$1/$2/$3 $4:$5:$6');
 
-                    if (response.data[i].jpg == "no such file") {
-                        text = "<img src='https://fakeimg.pl/125x90/' width='125' height='90'>";
-                        PL_info = "<time class='PL_time'>" + formatedDate + "</time>";
-                    }
-                    else {
-                        text = "<img src='data:image/jpg;base64," + response.data[i].jpg + "'>";
-                        PL_info = "<time class='PL_time'>" + formatedDate + "</time>";
-                    }
+                        retext += "<div id='PL_news' class='PL_news'>";
+                        retext += "<div class='PL_news_box'><button type='button' class='btn btn-lg editbt' value='" + response.data[i].platenum + "' data-toggle='modal' data-target='#myModal' onclick='javascript: return Editval(this.value," + i + ");'></button><div id='PL_image' class='PL_image'>";
 
-                    if (response.data[i].tickno == "") {
-                        carnum = "<br><br><br><span class='nocarnum'>無辨識車牌號</span>";
-                    }
-                    else {
-                        carnum = "<span>車牌號：" + response.data[i].platenum + "<br>票號：" + response.data[i].tickno + "<br>車道編號：" + response.data[i].rid + "</span>";
-                    }
+                        if (response.data[i].jpg == "no such file") {
+                            retext += "<img id='carimg" + i +"' src='https://fakeimg.pl/125x90/' width='125' height='90'></div>";
+                        } else {
+                            retext += "<img id='carimg" + i +"' src='data:image/jpg;base64," + response.data[i].jpg + "'></div>";
+                        }
 
-                    $("#PL_image" + i).html(text);
-                    $("#carnum" + i).html(carnum);
-                    $("#nocarnum" + i).html(carnum);
-                    $("#PL_info" + i).html(PL_info);
+                        retext += "<div id='platenum" + i + "'  class='platenum'><span>車牌號：" + response.data[i].platenum + "<br>進場時間：";
+                        retext += formatedDate + "</span></div><div id='PL_info' class='PL_info'>";
+                        retext += "</div></div></div>";
+                    } else {
 
-                    let LNbt = "<div class='Lbt_div' id='Lbt'><button type = 'button' class='btn btn-link Lbt' value = '-1' onclick = 'GetFile(this.value)'> 上一頁</button></div><a>" + page + "</a>";
-                    LNbt += "<div class='Nbt_div' id = 'Nbt'><button type='button' class='btn btn-link Nbt' value='1' onclick='GetFile(this.value)'>下一頁</button></div>";
-
-                    $("#add_img_box").html(LNbt);
-                }
-
-                if (response.data.length < 5) {
-                    let pagerow = "<div class='Lbt_div' id='Lbt'><button type = 'button' class='btn btn-link Lbt' style='margin-left: 125px;' value = '-1' onclick = 'GetFile(this.value)' > 上一頁</button></div><a>" + page + "</a>";
-                    $("#add_img_box").html(pagerow);
-
-                    for (let i = 0; (response.data.length) + (i + 1) < 6; i++) {
-                        let row = (response.data.length - 1) + (i + 1);
-
-                        $("#PL_image" + row).html(null);
-                        $("#carnum" + row).html(null);
-                        $("#PL_info" + row).html(null);
-
-                        let PL_news = "<div><span id = 'PL_image" + row + "' class='PL_image" + row + "'></span ><div class='carnum' id='carnum" + row + "'></div><div class='PL_info' id='PL_info" + row + "'></div></div>";
-
-                        $("#PL_news" + row).html(PL_news);
                     }
                 }
-
-                if (page == 1) {
-                    let pagerow = "<a style='margin-left: 150px;'>" + page + "</a>";
-
-                    pagerow += "<div class='Nbt_div' id='Nbt' style='position: relative;display: inline-block;margin-left: 5px;'><button type='button' class='btn btn-link Nbt' value='1' onclick='GetFile(this.value)'>下一頁</button></div>";
-
-                    $("#add_img_box").html(pagerow);
-                }
+                $("#content_box").html(retext);
+                var offpage = document.getElementById('offpage');
+                offpage.style.top = '0px';
+                offpage.style.position = 'relative';
             }
         },
-        error: function () {
-
-        }
+        error: function () { }
     });
+
+
 }
 
-/*搜尋功能*/
+
+
+//Search
 function SearchCar() {
     let parkingGuid = sessionStorage.getItem('parkingGuid'); //車廠GUID
     let page = 1;
-    let SearchCar = document.getElementById("SearchCar").value;
-    let date = document.getElementById("date").value;
-
-    date = date.replace(/-/g, '');
+    let SearchCarnum = document.getElementById("SearchCarnum").value;
+/*    let date = document.getElementById("date").value;*/
+/*    date = date.replace(/-/g, '');*/
 
     $.ajax({
         type: 'GET',
         url: "/api/Data_SQL/FtpFile",
-        data: { 'parkingGuid': parkingGuid, 'page': page, 'plateNum': SearchCar, 'searchTime': date },
+        data: {
+            'parkingGuid': parkingGuid,
+            'page': page,
+            'plateNum': SearchCarnum,
+/*           'searchTime': date*/
+        },
         dataType: 'json',
         async: true,
         success: function (response) {
@@ -182,87 +155,60 @@ function SearchCar() {
             if (code == '"402"') {
                 alert(errmsg);
                 window.location = "/Login/Index";
-            }
-            else {
+            } else {
+                let retext = "";
                 for (let i = 0; i < response.data.length; i++) {
 
                     let pattern = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/;
                     let dateString = response.data[i].ymdhm;
                     let formatedDate = dateString.replace(pattern, '$1/$2/$3 $4:$5:$6');
 
+                    retext += "<div id='PL_news' class='PL_news'>";
+                    retext += "<div class='PL_news_box'><button type='button' value='" + response.data[i].platenum + "' class='btn btn-lg editbt' data-toggle='modal' data-target='#myModal' onclick='javascript: return Editval(this.value," + i + ");'></button><div id='PL_image' class='PL_image'>";
+
                     if (response.data[i].jpg == "no such file") {
-                        text = "<img src='https://fakeimg.pl/125x90/' width='125' height='90'>";
-                        PL_info = "<time class='PL_time'>" + formatedDate + "</time>";
-                    }
-                    else {
-                        text = "<img src='data:image/jpg;base64," + response.data[i].jpg + "'>";
-                        PL_info = "<time class='PL_time'>" + formatedDate + "</time>";
+                        retext += "<img id='carimg" + i + "' src='https://fakeimg.pl/125x90/' width='125' height='90'></div>";
+                    } else {
+                        retext += "<img id='carimg" + i + "' src='data:image/jpg;base64," + response.data[i].jpg + "'></div>";
                     }
 
-                    if (response.data[i].tickno == "") {
-                        carnum = "<br><br><br><span class='nocarnum'>無辨識車牌號</span>";
-                    }
-                    else {
-                        carnum = "<span>車牌號：" + response.data[i].platenum + "<br>票號：" + response.data[i].tickno + "<br>車道編號：" + response.data[i].rid + "</span>";
-                    }
-
-                    $("#PL_image" + i).html(text);
-                    $("#carnum" + i).html(carnum);
-                    $("#nocarnum" + i).html(carnum);
-                    $("#PL_info" + i).html(PL_info);
-
-                    let pagerow = "<div style='display: inline-block;margin-left: 170px;'>" + page + "</div>";
-
-                    pagerow += "<div class='Nbt_div' id='Nbt' style='position: relative;display: inline-block;margin-left: 5px;'><button type='button' class='btn btn-link Nbt' value='1' onclick='GetFile(this.value)'>下一頁</button></div>";
-
-                    $("#add_img_box").html(pagerow);
+                    retext += "<div id='platenum" + i + "'  class='platenum'><span>車牌號：" + response.data[i].platenum + "<br>進場時間：";
+                    retext += formatedDate + "</span></div><div id='PL_info' class='PL_info'>";
+                    retext += "</div></div></div>";
                 }
-
-                if (response.data.length < 5) {
-                    let pagerow = "<div style='display: inline-block;margin-left: 170px;'>" + page + "</div>";
-
-
-                    $("#add_img_box").html(pagerow);
-
-                    for (let i = 0; (response.data.length) + (i + 1) < 6; i++) {
-                        let row = (response.data.length - 1) + (i + 1);
-
-                        $("#PL_image" + row).html(null);
-                        $("#carnum" + row).html(null);
-                        $("#PL_info" + row).html(null);
-
-                        let PL_news = "<div><span id = 'PL_image" + row + "' class='PL_image" + row + "'></span ><div class='carnum' id='carnum" + row + "'></div><div class='PL_info' id='PL_info" + row + "'></div></div>";
-
-                        $("#PL_news" + row).html(PL_news);
-                    }
-                }
-
+                $("#content_box").html(retext);
             }
         },
-        error: function () {
-        }
+        error: function () { }
     });
 }
 
-function Editval(val) {
-    $("#carnumber").val(val);
+//Modal
+function Editval(val,row) {
+    $("#platenumber").val(val);
+    var obj = document.getElementById("infobox-img");
+    var src = document.getElementById("carimg" + row + "").src;
+    obj.src = src;
 }
 
-/*修改車牌號*/
+//Edit platenumber
 function EditJsonData() {
     let parkingGuid = sessionStorage.getItem('parkingGuid'); //車廠GUID
-    let carnumber = document.getElementById("carnumber").value; //原車牌號
-    let Ecarnumber = document.getElementById("Ecarnumber").value;  //修改之車牌號
+    let platenumber = document.getElementById("platenumber").value; //原車牌號
+    let Eplatenumber = document.getElementById("Eplatenumber").value; //修改之車牌號
 
-    if (Ecarnumber == "" || Ecarnumber == null) {
+    if (Eplatenumber == "" || Eplatenumber == null) {
         alert("請輸入修改之車牌號");
         return false;
-    }
-    else {
+    } else {
         $.ajax({
             type: 'POST',
             url: "/api/Data_SQL/ChangePlateNum",
-            data: { 'parkingGuid': parkingGuid, 'n_PlateNum': carnumber, 'c_PlateNum': Ecarnumber },
+            data: {
+                'parkingGuid': parkingGuid,
+                'n_PlateNum': platenumber,
+                'c_PlateNum': Eplatenumber
+            },
             dataType: 'json',
             async: true,
             success: function (response) {
@@ -270,12 +216,10 @@ function EditJsonData() {
                 let errmsg = JSON.stringify(response.errMsg)
                 if (code == '"404"') {
                     alert(errmsg);
-                }
-                else if (code == '"402"') {
+                } else if (code == '"402"') {
                     alert(errmsg);
                     window.location = "/Login/Index";
-                }
-                else if (code == '"200"') {
+                } else if (code == '"200"') {
                     alert('修改車號成功!!');
                     EJsonData();
                     $('#myModal').modal('hide')
@@ -288,7 +232,7 @@ function EditJsonData() {
     }
 }
 
-/*修改後更新頁面資料*/
+//Page refresh(After Editing)
 function EJsonData() {
     let page = sessionStorage.getItem('page');
     let parkingGuid = sessionStorage.getItem('parkingGuid');
@@ -296,7 +240,10 @@ function EJsonData() {
     $.ajax({
         type: 'GET',
         url: "/api/Data_SQL/FtpFile",
-        data: { 'parkingGuid': parkingGuid, 'page': page },
+        data: {
+            'parkingGuid': parkingGuid,
+            'page': page
+        },
         dataType: 'json',
         async: true,
         success: function (response) {
@@ -305,45 +252,245 @@ function EJsonData() {
             if (code == '"402"') {
                 alert(errmsg);
                 window.location = "/Login/Index";
-            }
-            else {
-                for (let i = 0; i < response.data.length; i++) {
+            } else {
 
-                    let pattern = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/;
-                    let dateString = response.data[i].ymdhm;
-                    let formatedDate = dateString.replace(pattern, '$1/$2/$3 $4:$5:$6');
+                let retext = "";
+                for (let i = 0; i < response.data.length; i++) { //組畫面html字串做替代
+                    if (response.data.length >= (i)) {
+                        let pattern = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/;
+                        let dateString = response.data[i].ymdhm;
+                        let formatedDate = dateString.replace(pattern, '$1/$2/$3 $4:$5:$6');
 
-                    if (response.data[i].jpg == "no such file") {
-                        text = "<img src='https://fakeimg.pl/125x90/' width='125' height='90'>";
-                        PL_info = "<time class='PL_time'>" + formatedDate + "</time>";
-                    }
-                    else {
-                        text = "<img src='data:image/jpg;base64," + response.data[i].jpg + "'>";
-                        PL_info = "<time class='PL_time'>" + formatedDate + "</time>";
-                    }
+                        retext += "<div id='PL_news' class='PL_news'>";
+                        retext += "<div class='PL_news_box'><button type='button' class='btn btn-lg editbt' value='" + response.data[i].platenum + "' data-toggle='modal' data-target='#myModal' onclick='javascript: return Editval(this.value," + i + ");'></button><div id='PL_image' class='PL_image'>";
 
-                    if (response.data[i].tickno == "") {
-                        carnum = "<br><br><br><span class='nocarnum'>無辨識車牌號</span>";
-                    }
-                    else {
-                        carnum = "<span>車牌號：" + response.data[i].platenum + "<br>票號：" + response.data[i].tickno + "<br>車道編號：" + response.data[i].rid + "</span>";
-                        $("#editbt" + i).val(response.data[i].platenum);
-                    }
+                        if (response.data[i].jpg == "no such file") {
+                            retext += "<img id='carimg" + i + "' src='https://fakeimg.pl/125x90/' width='125' height='90'></div>";
+                        } else {
+                            retext += "<img id='carimg" + i + "' src='data:image/jpg;base64," + response.data[i].jpg + "'></div>";
+                        }
 
-                    $("#PL_image" + i).html(text);
-                    $("#carnum" + i).html(carnum);
-                    $("#nocarnum" + i).html(carnum);
-                    $("#PL_info" + i).html(PL_info);
+                        retext += "<div id='platenum" + i + "'  class='platenum'><span>車牌號：" + response.data[i].platenum + "<br>進場時間：";
+                        retext += formatedDate + "</span></div><div id='PL_info' class='PL_info'>";
+                        retext += "</div></div></div>";
+                    } else {
+
+                    }
                 }
-
-                let pagerow = "<a style='margin-left: 150px;'>" + page + "</a>";
-
-                pagerow += "<div class='Nbt_div' id='Nbt' style='position: relative;display: inline-block;margin-left: 5px;'><button type='button' class='btn btn-link Nbt' value='1' onclick='GetFile(this.value)'>下一頁</button></div>";
-
-                $("#add_img_box").html(pagerow);
+                $("#content_box").html(retext);
             }
         },
-        error: function () {
-        }
+        error: function () { }
     });
 }
+
+
+const Pagination = {
+    nowPage: 1,
+    totalPage: 2 //api接值後取總頁數計算給totalPage
+};
+
+const pagination = document.getElementsByClassName("pagination__group")[0];
+
+function init() {
+    Pagination.nowPage = 1;
+    if (Pagination.totalPage > 5) {
+        over5PageRender();
+        over5PageListener();
+    } else {
+        less5PageRender();
+        pageListener();
+    }
+}
+
+function less5PageRender() {
+    let totalPage = Pagination.totalPage;
+    let nowPage = Pagination.nowPage;
+    let ary = [];
+    let num = 1;
+    while (num < totalPage + 1) {
+        let classList = nowPage === num ? "active" : "";
+        ary.push({
+            val: num,
+            class: classList
+        });
+        num++;
+    }
+    listRender(ary);
+}
+
+function pageListener() {
+    document.querySelectorAll(".pagination__item").forEach(el => {
+        el.addEventListener("click", function () {
+            if (el.dataset.val > 0) {
+                Pagination.nowPage = parseInt(el.dataset.val);
+                less5PageRender();
+                pageListener();
+
+                //Get content
+                Randompage(el.dataset.val);
+            }
+        });
+    });
+}
+
+function over5PageListener() {
+    nextBtnSet();
+    preBtnSet();
+    document.querySelectorAll(".pagination__item").forEach(el => {
+        el.addEventListener("click", function () {
+            if (el.dataset.val > 0) {
+                over5PageChange(el.dataset.val);
+
+                //Get content
+                Randompage(el.dataset.val);
+            }
+        });
+    });
+}
+
+function over5PageChange(num) {
+    Pagination.nowPage = parseInt(num);
+    over5PageRender();
+    over5PageListener();
+}
+
+function over5PageRender() {
+    let nowPage = Pagination.nowPage;
+    let totalPage = Pagination.totalPage;
+    let pageStatus = over5PageJudgePageStatus(nowPage, totalPage);
+    let ary = over5PageGenerateData(pageStatus, nowPage, totalPage);
+    listRender(ary);
+}
+
+function preBtnSet() {
+    document
+        .getElementsByClassName("pre")[0]
+        .addEventListener("click", function () {
+            if (this.classList.value.indexOf("unclick") === -1) {
+                over5PageChange(Pagination.nowPage - 1);
+            }
+        });
+}
+
+function nextBtnSet() {
+    document
+        .getElementsByClassName("next")[0]
+        .addEventListener("click", function () {
+            if (this.classList.value.indexOf("unclick") === -1) {
+                over5PageChange(Pagination.nowPage + 1);
+            }
+        });
+}
+
+function over5PageJudgePageStatus(nowPage, totalPage) {
+    return nowPage === 1 ? "first" : nowPage <= totalPage / 2 ? "front" : nowPage !== totalPage ? "back" : "last";
+}
+
+function over5PageGenerateData(pageStatus, nowPage, totalPage) {
+    const map = {
+        first: [{
+            val: -2,
+            class: "pre unclick"
+        }, {
+            val: nowPage,
+            class: "active"
+        }, {
+            val: nowPage + 1,
+            class: ""
+        }, {
+            val: nowPage + 2,
+            class: ""
+        }, {
+            val: -1,
+            class: "unclick"
+        }, {
+            val: totalPage,
+            class: ""
+        }, {
+            val: -2,
+            class: "next"
+        }],
+        front: [{
+            val: -2,
+            class: "pre"
+        }, {
+            val: nowPage - 1,
+            class: ""
+        }, {
+            val: nowPage,
+            class: "active"
+        }, {
+            val: nowPage + 1,
+            class: ""
+        }, {
+            val: -1,
+            class: "unclick"
+        }, {
+            val: totalPage,
+            class: ""
+        }, {
+            val: -2,
+            class: "next"
+        }],
+        back: [{
+            val: -2,
+            class: "pre"
+        }, {
+            val: 1,
+            class: ""
+        }, {
+            val: -1,
+            class: "unclick"
+        }, {
+            val: nowPage - 1,
+            class: ""
+        }, {
+            val: nowPage,
+            class: "active"
+        }, {
+            val: nowPage + 1,
+            class: ""
+        }, {
+            val: -2,
+            class: "next"
+        }],
+        last: [{
+            val: -2,
+            class: "pre"
+        }, {
+            val: 1,
+            class: ""
+        }, {
+            val: -1,
+            class: "unclick"
+        }, {
+            val: nowPage - 2,
+            class: ""
+        }, {
+            val: nowPage - 1,
+            class: ""
+        }, {
+            val: nowPage,
+            class: "active"
+        }, {
+            val: -2,
+            class: "next unclick"
+        }]
+    };
+    return map[pageStatus];
+}
+
+function listRender(ary) {
+    pagination.innerHTML = "";
+    ary.forEach(element => {
+        let li = document.createElement("li");
+        li.setAttribute("data-val", element.val);
+        li.setAttribute("class", "pagination__item " + element.class);
+        li.innerText =
+            element.val >= 0 ? element.val : element.val === -1 ? "..." : "";
+        pagination.appendChild(li);
+    });
+}
+
+init();

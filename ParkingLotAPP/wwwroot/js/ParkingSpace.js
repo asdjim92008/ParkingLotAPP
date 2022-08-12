@@ -8,18 +8,8 @@ if (url.indexOf("?") != -1) {
     }
 }
 window.onload = function () {
-    setday();
     ResetData();
 };
-
-function setday() {
-    let date = new Date();
-    const dayName = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    let MM = (date.getMonth() + 1);
-    let day = `${dayName[MM]}`;
-    let today = day + " " + date.getDate() + "," + date.getFullYear();
-    document.getElementById("setday").innerText = today;
-}
 
 function ResetData() {
     let num, getnum = "";
@@ -41,7 +31,7 @@ function ResetData() {
                 window.location = "/Login/Index";
             }
             else if (code == '"404"') {
-                text = "<div class='row listbox_ct' id='listbox_ct'><div class='pkdata' id='parkingName' ></div>";
+                text = "<div class='row listbox_ct' id='listbox_ct'><div class='pkdata' id='parkingName' >連接失敗未取得資料</div>";
                 text += "<div class='SevenSegment' id='SevenSegment'>";
                 text += "<span class='seven-segment' id='num0' data-number='0'></span>";
                 text += "<span class='seven-segment' id='num1' data-number='0'></span>";
@@ -51,7 +41,7 @@ function ResetData() {
                 alert(errmsg);
             }
             else if (error == '"失敗"') {
-                text = "<div class='row listbox_ct' id='listbox_ct'><div class='pkdata' id='parkingName' ></div>";
+                text = "<div class='row listbox_ct' id='listbox_ct'><div class='pkdata' id='parkingName' >連接失敗未取得資料</div>";
                 text += "<div class='SevenSegment' id='SevenSegment'>";
                 text += "<span class='seven-segment' id='num0' data-number='0'></span>";
                 text += "<span class='seven-segment' id='num1' data-number='0'></span>";
@@ -100,7 +90,11 @@ function ResetData() {
                         getnum = newnum.shift();
                         text += "<span class='seven-segment' data-number='" + getnum + "'></span>";
                     }
-                    text += "</div><div class='sbbox'><input type='text' name='" + Response.data[i].led_no + "' class='ecarnum' placeholder='修改車位數'><button id='" + Response.data[i].led_no + "' type='button' class='submit' onclick='javascript: return Edata(this);'>Submit</button></div></div>";
+                    text += "</div><div class='sbbox'><ul class='btn-numbox'><li><ul class='count'>";
+                    text += "<li><span id='num-jian' class='num-jian' onclick='num_jian()'>-</span></li>";
+                    text += "<li><input type='text' name='" + Response.data[i].led_no + "' class='input-num' id='input-num' value='0'/></li>";
+                    text += "<li><span id='num-jia' class='num-jia' onclick='num_jia()'>+</span></li></ul></li></ul>";
+                    text += "<button id='" + Response.data[i].led_no + "' type='button' class='submit' onclick='javascript: return Edata(this);'>Submit</button></div></div>";
                 }
                 $("#listbox").html(text);
             }
@@ -157,4 +151,19 @@ function Edata(myObj) {
 
         }
     })
+}
+
+/** 數值加減btn**/
+function num_jia() {
+    var input_num = document.getElementById("input-num");
+    input_num.value = parseInt(input_num.value) + 1;
+}
+
+function num_jian() {
+    var input_num = document.getElementById("input-num");
+    if (input_num.value <= 0) {
+        input_num.value = 0;
+    } else {
+        input_num.value = parseInt(input_num.value) - 1;
+    }
 }

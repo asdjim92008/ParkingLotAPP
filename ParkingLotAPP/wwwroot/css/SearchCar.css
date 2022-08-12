@@ -67,32 +67,6 @@ input {
     flex-direction: column;
 }
 
-.add_img_box {
-    display: flex;
-    justify-content: space-evenly;
-    padding: 4px;
-    color: #FFF;
-}
-
-.add_img {
-    height: 35px;
-    width: 35px;
-}
-
-.Lbt {
-    display: inline-block;
-    font-size: 25px;
-    font-weight: bold;
-    background: #1e279517;
-}
-
-.Nbt {
-    display: inline-block;
-    font-size: 25px;
-    font-weight: bold;
-    background: #1e279517;
-}
-
 .carnum {
     padding: 10px;
     display: flex;
@@ -125,25 +99,8 @@ span {
     height: 100%;
 }
 
-.nocarnum {
-    position: absolute;
-    margin-top: -25px;
-    width: 250px;
-    font-size: 24px;
-}
-
 .modal-content {
     margin-top: 50%;
-}
-
-.Lbt_div {
-    position: relative;
-    display: inline-block;
-}
-
-.Nbt_div {
-    position: relative;
-    display: inline-block;
 }
 
 .backbt {
@@ -157,11 +114,6 @@ span {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.bgimg {
-    max-width: 90%;
-    max-height: 400px;
 }
 
 .carnum span {
@@ -207,7 +159,6 @@ span {
     padding: 0.3em 0.3em 0.3em 1em;
     transition: all 0.5s;
     width: 750px;
-    opacity: 0.6;
     box-shadow: 0px 8px 15px rgb(75 72 72 / 10%);
     margin-top: 10px;
 }
@@ -291,124 +242,6 @@ input {
     align-items: center;
     height: 80vh;
 }
-
-/*car*/
-.car {
-    display: flex;
-    justify-content: center;
-}
-
-.car__inner {
-    width: 300px;
-    position: relative;
-    animation: move 0.8s infinite linear;
-}
-
-.car__headlights-wrap {
-    width: 42px;
-    height: 42px;
-    position: absolute;
-    border-radius: 50%;
-    top: 148px;
-    transform: translate(var(--x), var(--y));
-    z-index: 1;
-}
-
-.car__headlights-wrap--left {
-    left: 21px;
-}
-
-.car__headlights-wrap--right {
-    right: 22px;
-}
-
-.car__headlights {
-    --size: 210px;
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 10%;
-    width: var(--size);
-    height: var(--size);
-    background: radial-gradient(circle closest-side, #fff, transparent);
-    transform: translate(-50%, -50%);
-    transition: all 0.2s ease-out, left 0s, top 0s;
-    z-index: 2;
-}
-
-.car__svg {
-    --opacity: 1;
-    opacity: var(--opacity);
-    transition: all 0.2s ease-out;
-}
-/**/
-
-.modal-content {
-    width: 400px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 2em;
-    background: white;
-}
-
-.modal-header {
-    padding: 0.3rem 0.3rem;
-}
-
-@keyframes move {
-    0% {
-        transform: translate(0, 0);
-    }
-
-    20% {
-        transform: translate(0, 3px);
-    }
-
-    40% {
-        transform: translate(1px, 2px);
-    }
-
-    60% {
-        transform: translate(0, 1px);
-    }
-
-    80% {
-        transform: translate(1px, 0);
-    }
-
-    100% {
-        transform: translate(0, 0);
-    }
-}
-
-@-webkit-keyframes move {
-    0% {
-        transform: translate(0, 0);
-    }
-
-    20% {
-        transform: translate(0, 3px);
-    }
-
-    40% {
-        transform: translate(1px, 2px);
-    }
-
-    60% {
-        transform: translate(0, 1px);
-    }
-
-    80% {
-        transform: translate(1px, 0);
-    }
-
-    100% {
-        transform: translate(0, 0);
-    }
-}
-/**/
 
 .img_info {
     width: 70%;
@@ -577,7 +410,7 @@ x-sign:nth-of-type(1) {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 11vw;
+    width: 5vw;
     height: 5vh;
     border: 1px solid #ddd;
     border-width: 1px 1px 1px 0;

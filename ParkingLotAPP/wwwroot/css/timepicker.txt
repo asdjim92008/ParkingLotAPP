@@ -1,0 +1,17 @@
+<div class="time-picker">
+                <div class='input-group date datepicker' name="datepicker">
+                    <input type='text' class="form-control placementT" id="fecha">
+                    <span class="input-group-addon">
+                        <img class="glyphicon glyphicon-calendar" style=" width: 15px; height: 15px;" src="~/images/date.png" />
+                    </span>
+                </div>
+                <div>
+                    <span class="timerange">～</span>
+                </div>
+                <div class='input-group date datepicker' name="datepicker">
+                    <input type='text' class="form-control placementT" id="fecha">
+                    <span class="input-group-addon">
+                        <img class="glyphicon glyphicon-calendar" style=" width: 15px; height: 15px;" src="~/images/date.png" />
+                    </span>
+                </div>
+            </div>

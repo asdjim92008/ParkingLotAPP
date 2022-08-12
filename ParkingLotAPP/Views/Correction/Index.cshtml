@@ -1,122 +1,125 @@
 ﻿@{
     Layout = "_WebLayout";
 }
-@section Styles {
-    <link rel="stylesheet" href="~/css/Correction.css">
-}
 @section Scripts{
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/moment.js"></script>
+    <script src="~/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/js/moment-locale-zh-cn.js"></script>
     <script src="~/js/Correction.js" asp-append-version="true"></script>
 }
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/bootstrap-3-3-5-min.css" />
+    <link rel="stylesheet" href="~/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="~/css/Correction.css">
+}
+
+
+
+
+
 <div class="top_bar">
     <center>
-        <div class="SearchCar row" id="search">
-            <input id="SearchCar" name="SearchCar" placeholder="搜尋車號..." />
-            <input id="date" name="date" type="date" value="" placeholder="請輸入日期" style="width: 112px; height: 25px; background-color: black; border-radius: 5px;">
-            <button onclick="SearchCar()">
-                <img class='search_icon' src='/images/search_icon.png' />
-            </button>
-            <div class="spinner"></div>
-        </div>
+        <form class="search-box" method="post" style=" justify-content: center;">
+            <div class="input-group">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <div class="searchbox">
+                    <input id="SearchCarnum" name="SearchCarnum" type="text" class="form-control search-input" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch">
+                    <img class='search_icon' src='/images/search_icon2.png' onclick="javascript: return SearchCar();" />
+                </div>
+            </div>
+            <div class="search-form">
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" id="inlineCheckbox1" class="form-check-input" value="option1">
+                    <label class="form-check-label" for="inlineCheckbox1">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" id="inlineCheckbox2" class="form-check-input" value="option2">
+                    <label class="form-check-label" for="inlineCheckbox2">2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="inlineRadio1" name="inlineRadioOptions" class="form-check-input" value="option1">
+                    <label class="form-check-label" for="inlineRadio1">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="inlineRadio2" name="inlineRadioOptions" class="form-check-input" value="option2">
+                    <label class="form-check-label" for="inlineRadio2">2</label>
+                </div>
+            </div>
+            
+            <div class="time-picker">
+                <div class='input-group date datepicker' name="datepicker">
+                    <input type='text' class="form-control placementT" id="fecha">
+                    <span class="input-group-addon">
+                        <img class="glyphicon glyphicon-calendar" style=" width: 15px; height: 15px;" src="~/images/date.png" />
+                    </span>
+                    @*<input id="date" name="date" type="date" value="" placeholder="請輸入日期" class="placementT form-control" style="border-radius: 5px;">*@
+                </div>
+                <div>
+                    <span class="timerange">～</span>
+                </div>
+                <div class='input-group date datepicker' name="datepicker">
+                    <input type='text' class="form-control placementT" id="fecha">
+                    <span class="input-group-addon">
+                        <img class="glyphicon glyphicon-calendar" style=" width: 15px; height: 15px;" src="~/images/date.png" />
+                    </span>
+                    @*<input id="date" name="date" type="date" value="" placeholder="請輸入日期" class="placementT form-control" style="border-radius: 5px;">*@
+
+                </div>
+            </div>
+        </form>
     </center>
 </div>
 
-<div class="content_box">
-    <div class="PL_news" id="PL_news4">
-        <button type="button" id="editbt4" class="btn btn-lg editbt" style="position: absolute;" data-toggle="modal" data-target="#myModal" onclick="javascript: return Editval(this.value);">
-        </button>
-        <div class="PL_news_box">
-            <span id="PL_image4" class="PL_image4">
-            </span>
-            <div class="carnum" id="carnum4">
-            </div>
-            <div class="PL_info" id="PL_info4">
-            </div>
-        </div>
-    </div>
-    <div class="PL_news" id="PL_news3">
-        <button type="button" id="editbt3" class="btn btn-lg editbt" style="position: absolute;" data-toggle="modal" data-target="#myModal" onclick="javascript: return Editval(this.value);">
-        </button>
-        <div class="PL_news_box">
-            <span id="PL_image3" class="PL_image3">
-            </span>
-            <div class="carnum" id="carnum3">
-            </div>
-            <div class="PL_info" id="PL_info3">
-            </div>
-        </div>
-    </div>
-    <div class="PL_news" id="PL_news2">
-        <button type="button" id="editbt2" class="btn btn-lg editbt" style="position: absolute;" data-toggle="modal" data-target="#myModal" onclick="javascript: return Editval(this.value);">
-        </button>
-        <div class="PL_news_box">
-            <span id="PL_image2" class="PL_image2">
-            </span>
-            <div class="carnum" id="carnum2">
-            </div>
-            <div class="PL_info" id="PL_info2">
-            </div>
-        </div>
-    </div>
-    <div class="PL_news" id="PL_news1">
-        <button type="button" id="editbt1" class="btn btn-lg editbt" style="position: absolute;" data-toggle="modal" data-target="#myModal" onclick="javascript: return Editval(this.value);">
-        </button>
-        <div class="PL_news_box">
-            <span id="PL_image1" class="PL_image1">
-            </span>
-            <div class="carnum" id="carnum1">
-            </div>
-            <div class="PL_info" id="PL_info1">
-            </div>
-        </div>
-    </div>
-    <div class="PL_news" id="PL_news0">
-        <button type="button" id="editbt0" class="btn btn-lg editbt" style="position: absolute;" data-toggle="modal" data-target="#myModal" onclick="javascript: return Editval(this.value);">
-        </button>
-        <div class="PL_news_box">
-            <span id="PL_image0" class="PL_image0">
-            </span>
-            <div class="carnum" id="carnum0">
-            </div>
-            <div class="PL_info" id="PL_info0">
-            </div>
-        </div>
-    </div>
+@*List*@
+<div id="content_box" class="content_box">
+
 </div>
 
-<div class="info_bar row" id="info_bar">
-    <div class="add_img_box col" id="add_img_box">
-        <div class="Lbt_div" id="Lbt">
-            <button type="button" class="btn btn-link Lbt" value="-1" onclick='GetFile(this.value)'>上一頁</button>
-        </div>
-        <a href="#">1</a>
-        <div class="Nbt_div" id="Nbt">
-            <button type="button" class="btn btn-link Nbt" value="1" onclick='GetFile(this.value)'>下一頁</button>
-        </div>
-    </div>
+
+<div id="offpage" class="Pagination offpage">
+    <ul class="pagination__group">
+        <li class="pagination__item pre unclick"></li>
+        <li class="pagination__item active">1</li>
+        <li class="pagination__item">2</li>
+        <li class="pagination__item">3</li>
+        <li class="pagination__item unclick">...</li>
+        <li class="pagination__item">15</li>
+        <li class="pagination__item next none"></li>
+    </ul>
 </div>
 
 <!-- Edit Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">✕</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color: #000;">✕</span></button>
             </div>
             <div class="modal-body">
+                <div class="imgbox">
+                    <img id="infobox-img" name="infobox-img" class="imfo_img" src='/images/2022_07_01_08_32_15328_20c0f891f84f48dbb58d6546ecaf3970_full.jpg'>
+                </div>
+                <hr>
                 <form id="updateform">
                     <div class="form-group">
                         <label class="control-label">原車牌號碼：</label>
-                        <input type="text" class="form-control" id="carnumber" name="carnumber" value="" disabled>
+                        <input type="text" id="platenumber" name="platenumber" class="form-control" value="" disabled>
                     </div>
                     <div class="form-group">
                         <label class="control-label">修改車牌號碼：</label>
-                        <input type="text" class="form-control" id="Ecarnumber" value="" name="Ecarnumber">
+                        <input type="text" id="Eplatenumber" name="Eplatenumber" class="form-control" value="">
                     </div>
                     <div class="text-right">
                         <span id="returnMessage" class="glyphicon"> </span>
                         <button type="button" class="btn btn-default right" data-dismiss="modal">關閉</button>
-                        <button id="submitBtn" type="button" class="btn btn-primary" onclick="javascript: return EditJsonData();">修改</button>
+                        <button type="button" id="submitBtn" class="btn btn-primary" onclick="javascript: return EditJsonData();">修改</button>
                     </div>
                 </form>
             </div>
@@ -124,3 +127,12 @@
     </div>
 </div>
 <!-- End of Edit Modal -->
+
+<script>
+    //const searchButton = document.getElementById('search-button');
+    //const searchInput = document.getElementById('search-input');
+    //searchButton.addEventListener('click', () => {
+    //    const inputValue = searchInput.value;
+    //    alert(inputValue);
+    //});
+</script>
